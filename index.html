@@ -7,32 +7,27 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <style>
     :root {
       --primary-navy: #0e2a47;
-      --accent-gold: #d97706;
-      --gold-hover: #b45309;
-      --bg-main: #f8fafc;
-      --card-bg: #ffffff;
-      --text-dark: #0f172a;
-      --text-muted: #64748b;
+      --accent-gold:  #d97706;
+      --gold-hover:   #b45309;
+      --bg-main:      #f8fafc;
+      --card-bg:      #ffffff;
+      --text-dark:    #0f172a;
+      --text-muted:   #64748b;
       --border-color: #e2e8f0;
-      --danger: #ef4444;
-      --danger-bg: #fef2f2;
-      --success: #10b981;
-      --radius-lg: 16px;
-      --radius-md: 10px;
-      --shadow-card: 0 10px 25px -5px rgba(14,42,71,0.08),
-                     0 8px 10px -6px rgba(14,42,71,0.03);
+      --danger:       #ef4444;
+      --danger-bg:    #fef2f2;
+      --success:      #10b981;
+      --radius-lg:    16px;
+      --radius-md:    10px;
+      --shadow-card:  0 10px 25px -5px rgba(14,42,71,0.08),
+                      0 8px 10px -6px rgba(14,42,71,0.03);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0;
+        font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
 
     body {
       background-color: var(--bg-main);
@@ -52,7 +47,7 @@
       gap: 20px;
     }
 
-    /* ============ HEADER ============ */
+    /* ===== HEADER ===== */
     .app-header {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -64,448 +59,229 @@
       box-shadow: var(--shadow-card);
       gap: 16px;
     }
+    .brand-group { display: flex; align-items: center; gap: 16px; }
 
-    .brand-group {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    /* ============ LOGO FIX ============ */
     .brand-logo-wrapper {
-      width: 90px;
-      height: 90px;
-      min-width: 90px;
+      width: 90px; height: 90px; min-width: 90px;
       border-radius: 50%;
-      background: #ffffff;
+      background: #fff;
       border: 3px solid #d97706;
       outline: 2px solid rgba(251,191,36,0.35);
       outline-offset: 2px;
-      box-shadow:
-        0 0 0 5px rgba(251,191,36,0.12),
-        0 8px 24px rgba(217,119,6,0.22);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
-      padding: 2px;
+      box-shadow: 0 0 0 5px rgba(251,191,36,0.12), 0 8px 24px rgba(217,119,6,0.22);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0; padding: 2px;
     }
-
     .brand-logo {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: contain;
-      object-position: center center;
-      display: block;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
-      -ms-interpolation-mode: bicubic;
+      width: 100%; height: 100%; border-radius: 50%;
+      object-fit: contain; object-position: center; display: block;
     }
 
-    /* ============ BRAND TEXT ============ */
     .brand-info h1 {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--primary-navy);
-      letter-spacing: -0.01em;
-      line-height: 1.25;
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--primary-navy); letter-spacing: -0.01em; line-height: 1.25;
     }
-
     .brand-info .tagline {
-      font-size: 0.82rem;
-      color: var(--accent-gold);
-      font-weight: 700;
-      margin-top: 4px;
-      letter-spacing: 0.4px;
+      font-size: 0.82rem; color: var(--accent-gold);
+      font-weight: 700; margin-top: 4px;
     }
 
-    /* ============ SYNC BADGE ============ */
     .sync-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: #ecfdf5;
-      color: #047857;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      border: 1px solid #a7f3d0;
-      white-space: nowrap;
-      flex-shrink: 0;
+      display: flex; align-items: center; gap: 6px;
+      background: #ecfdf5; color: #047857;
+      padding: 6px 12px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 700;
+      border: 1px solid #a7f3d0; white-space: nowrap; flex-shrink: 0;
     }
-
     .sync-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       background-color: var(--success);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
+      border-radius: 50%; animation: pulse 2s infinite;
     }
-
     @keyframes pulse {
-      0%   { opacity: 1; transform: scale(1); }
-      50%  { opacity: 0.5; transform: scale(1.2); }
-      100% { opacity: 1; transform: scale(1); }
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.5; transform:scale(1.2); }
     }
 
-    /* ============ MOBILE ============ */
     @media (max-width: 500px) {
-      .app-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 16px;
-        gap: 12px;
-      }
-      .brand-group {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-      }
-      .brand-logo-wrapper {
-        width: 100px;
-        height: 100px;
-        min-width: 100px;
-      }
-      .brand-info h1 { font-size: 1.15rem; }
+      .app-header { flex-direction:column; align-items:center; text-align:center; padding:16px; gap:12px; }
+      .brand-group { flex-direction:column; align-items:center; gap:10px; }
+      .brand-logo-wrapper { width:100px; height:100px; min-width:100px; }
+      .brand-info h1 { font-size:1.15rem; }
     }
 
-    /* ============ TOTAL HERO CARD ============ */
+    /* ===== TOTAL CARD ===== */
     .total-card {
-      background: linear-gradient(135deg, #0e2a47 0%, #173d66 100%);
-      color: #ffffff;
-      padding: 24px 28px;
-      border-radius: var(--radius-lg);
-      box-shadow: 0 16px 25px -10px rgba(14,42,71,0.3);
-      border: 1px solid rgba(251,191,36,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+      background: linear-gradient(135deg,#0e2a47 0%,#173d66 100%);
+      color:#fff; padding:24px 28px; border-radius:var(--radius-lg);
+      box-shadow:0 16px 25px -10px rgba(14,42,71,0.3);
+      border:1px solid rgba(251,191,36,0.3);
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
     }
-
     .total-card .tc-left .label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1.4px;
-      color: #fbbf24;
-      font-weight: 700;
-      margin-bottom: 6px;
+      font-size:.75rem; text-transform:uppercase; letter-spacing:1.4px;
+      color:#fbbf24; font-weight:700; margin-bottom:6px;
     }
-
     .total-card .tc-left .amount {
-      font-size: 2.4rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: #ffffff;
+      font-size:2.4rem; font-weight:800; letter-spacing:-0.02em; color:#fff;
     }
-
     .total-card .tc-right {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.6);
-      font-weight: 600;
-      text-align: right;
+      font-size:.78rem; color:rgba(255,255,255,0.6); font-weight:600; text-align:right;
     }
-
     .total-card .tc-right span {
-      display: block;
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: #fbbf24;
-      margin-top: 2px;
+      display:block; font-size:1.3rem; font-weight:800; color:#fbbf24; margin-top:2px;
     }
 
-    /* ============ CARDS ============ */
+    /* ===== CARDS ===== */
     .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-color);
-      padding: 20px;
-      box-shadow: var(--shadow-card);
+      background:var(--card-bg); border-radius:var(--radius-lg);
+      border:1px solid var(--border-color); padding:20px; box-shadow:var(--shadow-card);
     }
-
     .card-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--primary-navy);
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      font-size:1.05rem; font-weight:700; color:var(--primary-navy);
+      margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;
     }
 
-    /* ============ FORM ============ */
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
+    /* ===== FORM ===== */
+    .form-grid { display:grid; grid-template-columns:1fr; gap:14px; }
+    @media (min-width:600px) {
+      .form-grid { grid-template-columns:1fr 1fr; }
+      .full-width { grid-column:span 2; }
     }
-
-    @media (min-width: 600px) {
-      .form-grid { grid-template-columns: 1fr 1fr; }
-      .full-width { grid-column: span 2; }
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
+    .form-group { display:flex; flex-direction:column; gap:6px; }
     .form-group label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-size:.75rem; font-weight:700; color:var(--text-dark);
+      text-transform:uppercase; letter-spacing:.5px;
     }
-
     .form-group input {
-      padding: 11px 14px;
-      border: 1.5px solid var(--border-color);
-      border-radius: var(--radius-md);
-      font-size: 0.95rem;
-      color: var(--text-dark);
-      outline: none;
-      transition: all 0.2s;
+      padding:11px 14px; border:1.5px solid var(--border-color);
+      border-radius:var(--radius-md); font-size:.95rem; color:var(--text-dark);
+      outline:none; transition:border-color .15s, box-shadow .15s;
     }
-
     .form-group input:focus {
-      border-color: var(--accent-gold);
-      box-shadow: 0 0 0 3px rgba(217,119,6,0.15);
+      border-color:var(--accent-gold);
+      box-shadow:0 0 0 3px rgba(217,119,6,0.15);
     }
-
-    .button-group {
-      display: flex;
-      gap: 10px;
-    }
+    .button-group { display:flex; gap:10px; }
 
     .btn {
-      padding: 12px 18px;
-      border: none;
-      border-radius: var(--radius-md);
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s ease;
+      padding:12px 18px; border:none; border-radius:var(--radius-md);
+      font-size:.95rem; font-weight:700; cursor:pointer;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px; transition:transform .15s, box-shadow .15s;
     }
-
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent-gold), var(--gold-hover));
-      color: white;
-      flex: 1;
-      box-shadow: 0 4px 12px rgba(217,119,6,0.25);
+      background:linear-gradient(135deg,var(--accent-gold),var(--gold-hover));
+      color:#fff; flex:1; box-shadow:0 4px 12px rgba(217,119,6,0.25);
     }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(217,119,6,0.35);
-    }
-
-    .btn-cancel {
-      background: #e2e8f0;
-      color: var(--text-dark);
-      display: none;
-    }
+    .btn-primary:hover { transform:translateY(-1px); box-shadow:0 6px 16px rgba(217,119,6,0.35); }
+    .btn-cancel { background:#e2e8f0; color:var(--text-dark); display:none; }
 
     .btn-action {
-      padding: 6px 11px;
-      font-size: 0.78rem;
-      border-radius: 6px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      transition: all 0.18s;
+      padding:6px 11px; font-size:.78rem; border-radius:6px;
+      font-weight:700; border:none; cursor:pointer; transition:all .15s;
     }
+    .btn-edit   { background:#eff6ff; color:#2563eb; margin-right:4px; }
+    .btn-edit:hover   { background:#2563eb; color:#fff; }
+    .btn-delete { background:var(--danger-bg); color:var(--danger); }
+    .btn-delete:hover { background:var(--danger); color:#fff; }
 
-    .btn-edit  { background: #eff6ff; color: #2563eb; margin-right: 4px; }
-    .btn-edit:hover  { background: #2563eb; color: white; }
-    .btn-delete { background: var(--danger-bg); color: var(--danger); }
-    .btn-delete:hover { background: var(--danger); color: white; }
-
-    /* ============ SEARCH ============ */
-    .search-wrapper { position: relative; margin-bottom: 16px; }
-
+    /* ===== SEARCH ===== */
+    .search-wrapper { position:relative; margin-bottom:16px; }
     .search-wrapper input {
-      width: 100%;
-      padding: 11px 14px 11px 42px;
-      border: 1.5px solid var(--border-color);
-      border-radius: var(--radius-md);
-      font-size: 0.95rem;
-      outline: none;
-      background: #f8fafc;
-      transition: all 0.2s;
+      width:100%; padding:11px 14px 11px 42px;
+      border:1.5px solid var(--border-color); border-radius:var(--radius-md);
+      font-size:.95rem; outline:none; background:#f8fafc; transition:all .15s;
     }
-
     .search-wrapper input:focus {
-      background: #ffffff;
-      border-color: var(--accent-gold);
-      box-shadow: 0 0 0 3px rgba(217,119,6,0.12);
+      background:#fff; border-color:var(--accent-gold);
+      box-shadow:0 0 0 3px rgba(217,119,6,0.12);
     }
-
     .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #94a3b8;
-      pointer-events: none;
+      position:absolute; left:14px; top:50%;
+      transform:translateY(-50%); color:#94a3b8; pointer-events:none;
     }
 
-    /* ============ TABLE ============ */
+    /* ===== TABLE ===== */
     .table-responsive {
-      width: 100%;
-      overflow-x: auto;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-color);
+      width:100%; overflow-x:auto;
+      border-radius:var(--radius-md); border:1px solid var(--border-color);
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.88rem;
-      background: #ffffff;
-    }
-
+    table { width:100%; border-collapse:collapse; text-align:left; font-size:.88rem; background:#fff; }
     th {
-      background: #f8fafc;
-      color: var(--text-muted);
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.72rem;
-      letter-spacing: 0.5px;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border-color);
+      background:#f8fafc; color:var(--text-muted); font-weight:700;
+      text-transform:uppercase; font-size:.72rem; letter-spacing:.5px;
+      padding:12px 14px; border-bottom:1px solid var(--border-color);
     }
-
-    td {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border-color);
-      vertical-align: middle;
-    }
-
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: #f8fafc; }
-
-    .amount-cell { font-weight: 800; color: #059669; }
-
+    td { padding:12px 14px; border-bottom:1px solid var(--border-color); vertical-align:middle; }
+    tr:last-child td { border-bottom:none; }
+    tr:hover td { background:#f8fafc; }
+    .amount-cell { font-weight:800; color:#059669; }
     .badge-area {
-      display: inline-block;
-      padding: 3px 9px;
-      background: #f1f5f9;
-      color: #334155;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 0.78rem;
+      display:inline-block; padding:3px 9px; background:#f1f5f9;
+      color:#334155; border-radius:6px; font-weight:600; font-size:.78rem;
     }
-
-    /* ============ SERIAL NUMBER ============ */
     .sr-num {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary-navy), #1e4a7a);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 800;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      width:32px; height:32px; border-radius:50%;
+      background:linear-gradient(135deg,var(--primary-navy),#1e4a7a);
+      color:#fff; font-size:.72rem; font-weight:800;
+      display:inline-flex; align-items:center; justify-content:center;
     }
 
-    /* ============ NOTIFICATION ============ */
+    /* ===== OPTIMISTIC ROW (saving state) ===== */
+    tr.saving td { opacity: .55; }
+    tr.saving td:first-child::after {
+      content: ' ⏳';
+      font-size: .7rem;
+    }
+
+    /* ===== NOTIFICATION ===== */
     .notification {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      padding: 12px 24px;
-      border-radius: 30px;
-      background: #0f172a;
-      color: #fff;
-      font-size: 0.88rem;
-      font-weight: 600;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      z-index: 1000;
-      opacity: 0;
-      transition: all 0.3s ease;
-      white-space: nowrap;
+      position:fixed; bottom:24px; left:50%;
+      transform:translateX(-50%) translateY(100px);
+      padding:12px 24px; border-radius:30px; background:#0f172a;
+      color:#fff; font-size:.88rem; font-weight:600;
+      box-shadow:0 10px 25px rgba(0,0,0,0.2); z-index:1000;
+      opacity:0; transition:all .25s ease; white-space:nowrap;
     }
+    .notification.show { transform:translateX(-50%) translateY(0); opacity:1; }
+    .notification.success { background:#059669; }
+    .notification.error   { background:var(--danger); }
 
-    .notification.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-
-    .notification.success { background: #059669; }
-    .notification.error   { background: var(--danger); }
-
-    /* ============ SPINNER ============ */
+    /* ===== SPINNER ===== */
     .spinner {
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top: 2px solid #ffffff;
-      border-radius: 50%;
-      width: 16px;
-      height: 16px;
-      animation: spin 0.8s linear infinite;
-      flex-shrink: 0;
+      border:2px solid rgba(255,255,255,0.3); border-top:2px solid #fff;
+      border-radius:50%; width:16px; height:16px;
+      animation:spin .7s linear infinite; flex-shrink:0;
     }
+    @keyframes spin { to { transform:rotate(360deg); } }
 
-    @keyframes spin {
-      0%   { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .text-center { text-align: center; }
-
-    .empty-msg {
-      padding: 32px;
-      color: var(--text-muted);
-      text-align: center;
-      font-size: 0.9rem;
-    }
+    .text-center { text-align:center; }
+    .empty-msg { padding:32px; color:var(--text-muted); text-align:center; font-size:.9rem; }
   </style>
 </head>
 <body>
-
 <div class="container">
 
-  <!-- ======== HEADER ======== -->
+  <!-- HEADER -->
   <div class="app-header">
     <div class="brand-group">
-
-      <!-- Logo -->
       <div class="brand-logo-wrapper">
-        <img
-          src="logo.png"
-          alt="Radha Krishna Mitra Mandal Logo"
-          class="brand-logo"
-          id="mandalLogo"
-          onerror="this.style.display='none'"
-        >
+        <img src="logo.png" alt="Logo" class="brand-logo"
+             onerror="this.style.display='none'">
       </div>
-
       <div class="brand-info">
         <h1>Radha Krishna Mitra Mandal</h1>
-        <p>सेवा • सहयोग • सद्भाव</p>
+        <p class="tagline">सेवा &nbsp;•&nbsp; सहयोग &nbsp;•&nbsp; सद्भाव</p>
       </div>
     </div>
-
     <div class="sync-badge">
       <div class="sync-dot"></div>
-      <span>Live Sync</span>
+      <span id="syncLabel">Live Sync</span>
     </div>
   </div>
 
-  <!-- ======== TOTAL CARD ======== -->
+  <!-- TOTAL -->
   <div class="total-card">
     <div class="tc-left">
       <div class="label">Total Donation Collected</div>
@@ -517,13 +293,12 @@
     </div>
   </div>
 
-  <!-- ======== FORM CARD ======== -->
+  <!-- FORM -->
   <div class="card">
     <div class="card-title">
       <span id="formTitle">➕ Add New Donation Entry</span>
     </div>
-
-    <form id="chandaForm">
+    <formid="chandaForm">
       <input type="hidden" id="editRecordId" value="">
       <div class="form-grid">
 
@@ -533,7 +308,8 @@
         </div>
 
         <div class="form-group">
-          <label for="amount">Amount (₹) *</label><input type="number" id="amount" required min="1" placeholder="Enter donation amount">
+          <label for="amount">Amount (₹) *</label>
+          <input type="number" id="amount" required min="1" placeholder="Enter donation amount">
         </div>
 
         <div class="form-group">
@@ -546,7 +322,7 @@
           <input type="text" id="remark" placeholder="e.g. Cash / Online / UPI">
         </div>
 
-        <div class="full-width button-group" style="margin-top: 4px;">
+        <div class="full-width button-group" style="margin-top:4px;">
           <button type="button" class="btn btn-cancel" id="cancelBtn" onclick="resetFormState()">
             ✕ Cancel
           </button>
@@ -559,11 +335,9 @@
     </form>
   </div>
 
-  <!-- ======== REGISTER LIST CARD ======== -->
+  <!-- REGISTER LIST -->
   <div class="card">
-    <div class="card-title">
-      📋 Donation Register List
-    </div>
+    <div class="card-title">📋 Donation Register List</div>
 
     <div class="search-wrapper">
       <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24"
@@ -571,11 +345,8 @@
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search by name, amount, area, remark..."
-      >
+      <input type="text" id="searchInput"
+             placeholder="Search by name, amount, area, remark...">
     </div>
 
     <div class="table-responsive">
@@ -593,7 +364,7 @@
         <tbody id="recordsTableBody">
           <tr>
             <td colspan="6" class="text-center">
-              Loading records from Google Sheet...
+              Loading records...
             </td>
           </tr>
         </tbody>
@@ -606,110 +377,201 @@
 <div id="notification" class="notification"></div>
 
 <script>
-  // ✅ Paste your Google Apps Script Web App URL here
+  // =============================================
+  // ✅ APNA URL YAHAN DAALO
+  // =============================================
   const API_URL = "https://script.google.com/macros/s/AKfycbzwYqpSCPwVk-s2CeT9LjY7-_2nmCta92u5iZZ7l1bWYJnnzgv3XZ_TiezXf0S6j7IkzA/exec";
 
-  let allRecords = [];
+  // =============================================
+  // STATE
+  // =============================================
+  let allRecords   = [];   // master list
+  let isSyncing    = false; // background sync chal raha hai?
 
-  // ===== DOM References =====
-  const chandaForm         = document.getElementById('chandaForm');
-  const submitBtn          = document.getElementById('submitBtn');
-  const cancelBtn          = document.getElementById('cancelBtn');
-  const formTitle          = document.getElementById('formTitle');
-  const editRecordId       = document.getElementById('editRecordId');
-  const searchInput        = document.getElementById('searchInput');
-  const recordsTableBody   = document.getElementById('recordsTableBody');
-  const totalAmountDisplay = document.getElementById('totalAmountDisplay');
-  const totalRecordsDisplay= document.getElementById('totalRecordsDisplay');
-  const notification       = document.getElementById('notification');
+  // =============================================
+  // DOM REFS
+  // =============================================
+  const chandaForm          = document.getElementById('chandaForm');
+  const submitBtn           = document.getElementById('submitBtn');
+  const cancelBtn           = document.getElementById('cancelBtn');
+  const formTitle           = document.getElementById('formTitle');
+  const editRecordId        = document.getElementById('editRecordId');
+  const searchInput         = document.getElementById('searchInput');
+  const recordsTableBody    = document.getElementById('recordsTableBody');
+  const totalAmountDisplay  = document.getElementById('totalAmountDisplay');
+  const totalRecordsDisplay = document.getElementById('totalRecordsDisplay');
+  const notification        = document.getElementById('notification');
+  const syncLabel           = document.getElementById('syncLabel');
 
-  // ===== Init =====
+  // =============================================
+  // INIT
+  // =============================================
   document.addEventListener('DOMContentLoaded', fetchRecords);
   chandaForm.addEventListener('submit', handleFormSubmit);
   searchInput.addEventListener('input', handleSearch);
 
-  // ================================================
-  // FETCH ALL RECORDS  (GET)
-  // ================================================
-  async function fetchRecords() {
+  // =============================================
+  // FETCH — initial load
+  // =============================================
+  async function fetchRecords(showLoader = true) {
     try {
-      renderTableLoading();
-      const res    = await fetch(API_URL);
-      const result = await res.json();
+      if (showLoader) renderTableLoading();
+
+      const res    = await fetch(API_URL, { redirect: 'follow' });
+      const text   = await res.text();
+      const result = JSON.parse(text);
 
       if (result.status === 'success') {
         allRecords = result.data || [];
         renderData(allRecords);
       } else {
-        showNotification(result.message || 'Error fetching records.', 'error');
-        showEmptyTable('Could not load data. Please try again.');
+        showEmptyTable('❌ Data load nahi hua.');
+        showNotification(result.message || 'Fetch error.', 'error');
       }
     } catch (err) {
-      showNotification('Connection error. Please check the API URL.', 'error');
-      showEmptyTable('⚠️ Failed to load data. Check your internet connection.');
+      console.error('fetchRecords:', err);
+      showEmptyTable('⚠️ Connection failed. Refresh karo.');
+      showNotification('Network error. Refresh karo.', 'error');
     }
   }
 
-  // ================================================
-  // HANDLE FORM SUBMIT  (ADD or EDIT)
-  // ================================================
+  // =============================================
+  // FORM SUBMIT — OPTIMISTIC ADD / EDIT
+  // =============================================
   async function handleFormSubmit(e) {
     e.preventDefault();
 
-    const id     = editRecordId.value;
+    const id     = editRecordId.value.trim();
     const name   = document.getElementById('name').value.trim();
     const amount = parseFloat(document.getElementById('amount').value);
     const area   = document.getElementById('area').value.trim();
     const remark = document.getElementById('remark').value.trim();
 
-    // Client-side validation
     if (!name || isNaN(amount) || amount <= 0 || !area) {
-      showNotification('Please fill in all required fields correctly.', 'error');
+      showNotification('Sahi se fields bharo!', 'error');
       return;
     }
 
-    setSubmittingState(true);
+    const isEdit = Boolean(id);
 
-    const isEdit  = Boolean(id);
-    const payload = {
-      action : isEdit ? 'edit' : 'add',
-      id     : id || undefined,
-      name,
-      amount,
-      area,
-      remark
-    };
+    // ── OPTIMISTIC UPDATE ──────────────────────
+    if (isEdit) {
+      // locally update karo turant
+      const idx = allRecords.findIndex(r => String(r.id) === id);
+      if (idx !== -1) {
+        allRecords[idx] = { ...allRecords[idx], name, amount, area, remark };
+      }
+      showNotification('✅ Entry update ho gayi!', 'success');
+    } else {
+      // temp ID se turant row add karo
+      const tempId = 'TEMP_' + Date.now();
+      allRecords.push({ id: tempId, name, amount, area, remark, timestamp: 'Saving...' });
+      showNotification('✅ Entry add ho gayi!', 'success');
+    }
+
+    // UI turant update
+    renderData(allRecords);
+    resetFormState();
+    // ──────────────────────────────────────────
+
+    // Background mein API call
+    const payload = { action: isEdit ? 'edit' : 'add', name, amount, area, remark };
+    if (isEdit) payload.id = id;
+
+    setSyncBadge(true);
 
     try {
       const res    = await fetch(API_URL, {
-        method : 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body   : JSON.stringify(payload)
+        method  : 'POST',
+        redirect: 'follow',
+        body    : JSON.stringify(payload)
       });
-      const result = await res.json();
+      const text   = await res.text();
+      const result = JSON.parse(text);
 
       if (result.status === 'success') {
-        showNotification(
-          isEdit
-            ? '✅ Entry updated successfully!'
-            : '✅ New donation entry added!',
-          'success'
-        );
-        resetFormState();
-        fetchRecords();
+        // Temp ID ko real ID se replace karo (add case)
+        if (!isEdit && result.id) {
+          const tempIdx = allRecords.findIndex(r => String(r.id).startsWith('TEMP_'));
+          if (tempIdx !== -1) {
+            allRecords[tempIdx].id        = result.id;
+            allRecords[tempIdx].timestamp = new Date().toLocaleString('en-IN');
+          }
+        }
+        // Silent background re-fetch (sync karo)
+        silentRefresh();
       } else {
-        showNotification(result.message || 'Error saving entry.', 'error');
+        showNotification('⚠️ Save failed: ' + (result.message || 'Error'), 'error');
+        // Rollback: server se fresh data lo
+        fetchRecords(false);
       }
     } catch (err) {
-      showNotification('Network error. Please try again.', 'error');
+      console.error('Submit error:', err);
+      showNotification('⚠️ Server se sync nahi hua. Refresh karo.', 'error');
+      fetchRecords(false);
     } finally {
-      setSubmittingState(false);
+      setSyncBadge(false);
     }
   }
 
-  // ================================================
-  // START EDIT MODE
-  // ================================================
+  // =============================================
+  // DELETE — OPTIMISTIC
+  // =============================================
+  async function deleteRecord(id) {
+    if (!confirm('Sure ho? Permanently delete ho jayega!')) return;
+
+    // Turant local se remove karo
+    allRecords = allRecords.filter(r => String(r.id) !== String(id));
+    renderData(allRecords);
+    showNotification('✅ Entry delete ho gayi!', 'success');
+    if (editRecordId.value === String(id)) resetFormState();
+
+    setSyncBadge(true);
+
+    try {
+      const res    = await fetch(API_URL, {
+        method  : 'POST',
+        redirect: 'follow',
+        body    : JSON.stringify({ action: 'delete', id })
+      });
+      const text   = await res.text();
+      const result = JSON.parse(text);
+
+      if (result.status !== 'success') {
+        showNotification('⚠️ Delete sync failed. Refresh karo.', 'error');
+        fetchRecords(false); // rollback
+      } else {
+        silentRefresh();
+      }
+    } catch (err) {
+      console.error('Delete error:', err);
+      showNotification('⚠️ Network error. Refresh karo.', 'error');
+      fetchRecords(false);
+    } finally {
+      setSyncBadge(false);
+    }
+  }
+
+  // =============================================
+  // SILENT REFRESH — No loader, background sync
+  // =============================================
+  async function silentRefresh() {
+    try {
+      const res    = await fetch(API_URL, { redirect: 'follow' });
+      const text   = await res.text();
+      const result = JSON.parse(text);
+      if (result.status === 'success') {
+        allRecords = result.data || [];
+        renderData(allRecords);
+      }
+    } catch (err) {
+      console.warn('silentRefresh failed:', err);
+    }
+  }
+
+  // =============================================
+  // EDIT MODE
+  // =============================================
   function startEditRecord(id) {
     const record = allRecords.find(r => String(r.id) === String(id));
     if (!record) return;
@@ -720,185 +582,120 @@
     document.getElementById('area').value   = record.area;
     document.getElementById('remark').value = record.remark || '';
 
-    formTitle.textContent = '✏️ Edit / Update Donation Entry';
+    formTitle.textContent = '✏️ Edit / Update Entry';
     document.getElementById('submitBtnText').textContent = 'Update Entry';
     cancelBtn.style.display = 'inline-flex';
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // ================================================
-  // RESET FORM → ADD MODE
-  // ================================================
+  // =============================================
+  // RESET FORM
+  // =============================================
   function resetFormState() {
     chandaForm.reset();
     editRecordId.value    = '';
     formTitle.textContent = '➕ Add New Donation Entry';
     document.getElementById('submitBtnText').textContent = 'Add Donation';
     cancelBtn.style.display = 'none';
+    submitBtn.disabled      = false;
+    submitBtn.innerHTML     = '<span id="submitBtnText">Add Donation</span>';
   }
 
-  // ================================================
-  // DELETE RECORD
-  // ================================================
-  async function deleteRecord(id) {
-    if (!confirm('Are you sure you want to permanently delete this entry?')) return;
-
-    showNotification('Deleting entry...', 'success');
-
-    try {
-      const res    = await fetch(API_URL, {
-        method : 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body   : JSON.stringify({ action: 'delete', id })
-      });
-      const result = await res.json();
-
-      if (result.status === 'success') {
-        showNotification('✅ Entry deleted successfully!', 'success');
-        if (editRecordId.value === String(id)) resetFormState();
-        fetchRecords();
-      } else {
-        showNotification(result.message || 'Error deleting entry.', 'error');
-      }
-    } catch (err) {
-      showNotification('Network error while deleting. Please try again.', 'error');
-    }
-  }
-
-  // ================================================
-  // RENDER DATA → TABLE
-  // ================================================
+  // =============================================
+  // RENDER TABLE
+  // =============================================
   function renderData(records) {
-    // Update totals
-    const total = records.reduce((sum, r) => sum + (Number(r.amount) || 0), 0);
+    const q        = searchInput.value.toLowerCase().trim();
+    const filtered = q ? records.filter(r =>
+      r.name.toLowerCase().includes(q)              ||
+      String(r.amount).includes(q)                  ||
+      r.area.toLowerCase().includes(q)              ||
+      (r.remark && r.remark.toLowerCase().includes(q))
+    ) : records;
+
+    // Totals
+    const total = records.reduce((s, r) => s + (Number(r.amount) || 0), 0);
     totalAmountDisplay.textContent  = `₹ ${total.toLocaleString('en-IN')}`;
     totalRecordsDisplay.textContent = records.length;
 
-    recordsTableBody.innerHTML = '';
-
-    if (records.length === 0) {
-      showEmptyTable('No records found.');
+    if (filtered.length === 0) {
+      showEmptyTable(q ? 'Koi result nahi mila.' : 'Koi record nahi hai. Pehli entry add karo!');
       return;
     }
 
-    // Show latest first
-    const reversed = records.slice().reverse();
+    // DocumentFragment — fast DOM insert
+    const frag     = document.createDocumentFragment();
+    const reversed = filtered.slice().reverse();
 
     reversed.forEach((record, index) => {
-      const tr     = document.createElement('tr');
+      const tr        = document.createElement('tr');
+      const isSaving  = String(record.id).startsWith('TEMP_');
+      if (isSaving) tr.classList.add('saving');
+
       tr.innerHTML = `
-        <td>
-          <div class="sr-num">${reversed.length - index}</div>
-        </td>
-        <td>
-          <strong style="color: var(--primary-navy);">
-            ${escapeHtml(record.name)}
-          </strong>
-        </td>
-        <td class="amount-cell">
-          ₹ ${Number(record.amount).toLocaleString('en-IN')}
-        </td>
-        <td>
-          <span class="badge-area">${escapeHtml(record.area)}</span>
-        </td>
-        <td style="color: var(--text-muted);">
-          ${escapeHtml(record.remark || '—')}
-        </td>
+        <td><div class="sr-num">${reversed.length - index}</div></td>
+        <td><strong style="color:var(--primary-navy);">${escapeHtml(record.name)}</strong></td>
+        <td class="amount-cell">₹ ${Number(record.amount).toLocaleString('en-IN')}</td>
+        <td><span class="badge-area">${escapeHtml(record.area)}</span></td>
+        <td style="color:var(--text-muted);">${escapeHtml(record.remark || '—')}</td>
         <td style="text-align:right; white-space:nowrap;">
-          <button
-            class="btn-action btn-edit"
-            onclick="startEditRecord('${record.id}')">
-            ✏️ Edit
-          </button>
-          <button
-            class="btn-action btn-delete"
-            onclick="deleteRecord('${record.id}')">
-            🗑️ Delete
-          </button>
-        </td>
-      `;
-      recordsTableBody.appendChild(tr);
+          ${isSaving ? '<span style="font-size:.75rem;color:var(--text-muted);">⏳ Saving…</span>' : `
+          <button class="btn-action btn-edit"   onclick="startEditRecord('${record.id}')">✏️ Edit</button>
+          <button class="btn-action btn-delete" onclick="deleteRecord('${record.id}')">🗑️ Delete</button>`}
+        </td>`;
+      frag.appendChild(tr);
     });
+
+    recordsTableBody.innerHTML = '';
+    recordsTableBody.appendChild(frag);
   }
 
-  // ================================================
-  // LIVE SEARCH
-  // ================================================
-  function handleSearch() {
-    const q = searchInput.value.toLowerCase().trim();
+  // =============================================
+  // SEARCH
+  // =============================================
+  function handleSearch() { renderData(allRecords); }
 
-    if (!q) {
-      renderData(allRecords);
-      return;
-    }
-
-    const filtered = allRecords.filter(r =>
-      r.name.toLowerCase().includes(q)                    ||
-      String(r.amount).includes(q)                        ||
-      r.area.toLowerCase().includes(q)                    ||
-      (r.remark && r.remark.toLowerCase().includes(q))
-    );
-
-    renderData(filtered);
+  // =============================================
+  // SYNC BADGE
+  // =============================================
+  function setSyncBadge(syncing) {
+    isSyncing        = syncing;
+    syncLabel.textContent = syncing ? 'Syncing…' : 'Live Sync';
   }
 
-  // ================================================
+  // =============================================
   // UI HELPERS
-  // ================================================
-  function setSubmittingState(on) {
-    if (on) {
-      submitBtn.disabled  = true;
-      submitBtn.innerHTML = `<div class="spinner"></div><span>Saving...</span>`;
-    } else {
-      submitBtn.disabled  = false;
-      submitBtn.innerHTML = `
-        <span id="submitBtnText">
-          ${editRecordId.value ? 'Update Entry' : 'Add Donation'}
-        </span>`;
-    }
-  }
-
+  // =============================================
   function renderTableLoading() {
     recordsTableBody.innerHTML = `
       <tr>
         <td colspan="6" class="text-center" style="padding:36px;">
-          <div class="spinner" style="
-            width            : 30px;
-            height           : 30px;
-            border-color     : #e2e8f0;
-            border-top-color : var(--accent-gold);
-            margin           : 0 auto 12px;
-          "></div>
-          <div style="color:var(--text-muted);font-size:0.85rem;">
-            Loading records...
-          </div>
+          <div class="spinner" style="width:30px;height:30px;border-color:#e2e8f0;
+               border-top-color:var(--accent-gold);margin:0 auto 12px;"></div>
+          <div style="color:var(--text-muted);font-size:.85rem;">Loading records…</div>
         </td>
       </tr>`;
   }
 
   function showEmptyTable(msg = 'No records found.') {
-    recordsTableBody.innerHTML = `
-      <tr>
-        <td colspan="6" class="empty-msg">${msg}</td>
-      </tr>`;
+    recordsTableBody.innerHTML =
+      `<tr><td colspan="6" class="empty-msg">${msg}</td></tr>`;
   }
 
+  let _notifTimer;
   function showNotification(msg, type = 'success') {
+    clearTimeout(_notifTimer);
     notification.textContent = msg;
     notification.className   = `notification show ${type}`;
-    setTimeout(() => {
+    _notifTimer = setTimeout(() => {
       notification.className = 'notification';
     }, 3000);
   }
 
   function escapeHtml(str) {
-    return String(str).replace(/[&<>"']/g, m => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;',
-      '"': '&quot;', "'": '&#39;'
-    })[m]);
+    return String(str).replace(/[&<>"']/g, m =>
+      ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[m]);
   }
-
 </script>
 </body>
 </html>
