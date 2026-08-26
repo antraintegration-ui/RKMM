@@ -1,1075 +1,904 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Radha Krishna Mitra Mandal – Chanda Collection</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radha Krishna Mitra Mandal - Donation Register</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --purple-deep:  #3b1f6e;
-      --purple:       #5b2d8e;
-      --purple-mid:   #7c45b8;
-      --purple-lt:    #f0e8fb;
-      --purple-xlt:   #f8f4fe;
-      --saffron-deep: #c45208;
-      --saffron:      #e8660a;
-      --saffron-lt:   #fff0e6;
-      --gold-deep:    #a87415;
-      --gold:         #c8951a;
-      --gold-mid:     #e0aa22;
-      --gold-lt:      #fff8e6;
-      --green:        #1a7a4a;
-      --green-lt:     #e8f7ef;
-      --danger:       #c0392b;
-      --danger-lt:    #fdf0ee;
-      --bg:           #f5f3fa;
-      --card:         #ffffff;
-      --border:       #e2d9f3;
-      --text:         #1a0f2e;
-      --text-2:       #4a3f6b;
-      --text-3:       #8b7faa;
-      --text-inv:     #ffffff;
-      --shadow-md:    0 6px 24px rgba(59,31,110,.12);
-      --shadow-lg:    0 12px 40px rgba(59,31,110,.16);
-      --shadow-xl:    0 20px 60px rgba(59,31,110,.20);
-      --r-sm:  8px;
-      --r-md:  14px;
-      --r-lg:  20px;
-      --r-xl:  28px;
-      --r-full:9999px;
-      --t-fast:.15s ease;
-      --t-mid: .25s ease;
-      --t-slow:.4s cubic-bezier(.34,1.56,.64,1);
+      --primary-navy: #0e2a47;
+      --accent-gold: #d97706;
+      --gold-hover: #b45309;
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --danger: #ef4444;
+      --danger-bg: #fef2f2;
+      --success: #10b981;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-card: 0 10px 25px -5px rgba(14,42,71,0.08),
+                     0 8px 10px -6px rgba(14,42,71,0.03);
     }
 
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+
     body {
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      padding: 16px;
+      display: flex;
+      justify-content: center;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── HEADER ── */
-    header {
-      position: relative;
-      background: linear-gradient(145deg, var(--purple-deep) 0%, var(--purple) 45%, var(--purple-mid) 75%, #9b59d0 100%);
+    .container {
+      width: 100%;
+      max-width: 850px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ============ HEADER ============ */
+    .app-header {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-card);
+      gap: 16px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* ============ LOGO FIX ============ */
+    .brand-logo-wrapper {
+      width: 90px;
+      height: 90px;
+      min-width: 90px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3px solid #d97706;
+      outline: 2px solid rgba(251,191,36,0.35);
+      outline-offset: 2px;
+      box-shadow:
+        0 0 0 5px rgba(251,191,36,0.12),
+        0 8px 24px rgba(217,119,6,0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
+      flex-shrink: 0;
+      padding: 2px;
     }
-    header::before {
-      content: '';
+
+    .brand-logo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: contain;
+      object-position: center center;
       display: block;
-      height: 4px;
-      background: linear-gradient(90deg, var(--saffron), var(--gold-mid), var(--saffron-deep), var(--gold-mid), var(--saffron));
-      background-size: 200% 100%;
-      animation: shimmer 3s linear infinite;
-    }
-    @keyframes shimmer {
-      0%   { background-position: 200% center; }
-      100% { background-position: -200% center; }
-    }
-    header::after {
-      content: '';
-      position: absolute;
-      top: -60px; left: 50%;
-      transform: translateX(-50%);
-      width: 500px; height: 300px;
-      background: radial-gradient(ellipse, rgba(200,149,26,.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .header-pattern {
-      position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
-    .header-inner {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 44px 24px 40px; gap: 0;
-    }
-    .header-emblem {
-      width: 72px; height: 72px;
-      background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05));
-      border: 1.5px solid rgba(255,255,255,.2);
-      border-radius: var(--r-full);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; margin-bottom: 16px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 20px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.25);
-      animation: floatIn .6s var(--t-slow) both;
-    }
-    @keyframes floatIn {
-      from { opacity: 0; transform: translateY(-16px) scale(.85); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .header-tag {
-      font-size: .65rem; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--gold-mid);
-      background: rgba(200,149,26,.15); border: 1px solid rgba(200,149,26,.3);
-      border-radius: var(--r-full); padding: 4px 14px; margin-bottom: 10px;
-      animation: floatIn .5s .1s var(--t-slow) both;
-    }
-    header h1 {
-      font-size: clamp(1.5rem, 4.5vw, 2.2rem); font-weight: 900;
-      color: var(--text-inv); letter-spacing: -.3px; text-align: center;
-      line-height: 1.2; text-shadow: 0 2px 12px rgba(0,0,0,.3);
-      animation: floatIn .5s .2s var(--t-slow) both;
-    }
-    .header-divider {
-      width: 48px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold-mid), transparent);
-      border-radius: var(--r-full); margin: 12px auto 10px;
-      animation: floatIn .5s .3s var(--t-slow) both;
-    }
-    header p.subtitle {
-      font-size: .75rem; font-weight: 500; letter-spacing: 2.5px;
-      text-transform: uppercase; color: rgba(255,255,255,.65);
-      animation: floatIn .5s .35s var(--t-slow) both;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      -ms-interpolation-mode: bicubic;
     }
 
-    /* ── CONTAINER ── */
-    .container { max-width: 900px; margin: 0 auto; padding: 32px 18px 72px; }
+    /* ============ BRAND TEXT ============ */
+    .brand-info h1 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary-navy);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
 
-    /* ── SYNC STATUS BAR ── */
-    .sync-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--r-md); padding: 10px 18px;
-      margin-bottom: 20px; gap: 12px; flex-wrap: wrap;
-      box-shadow: 0 2px 8px rgba(59,31,110,.06);
+    .brand-info .tagline {
+      font-size: 0.82rem;
+      color: var(--accent-gold);
+      font-weight: 700;
+      margin-top: 4px;
+      letter-spacing: 0.4px;
     }
-    .sync-status {
-      display: flex; align-items: center; gap: 8px;
-      font-size: .78rem; font-weight: 600; color: var(--text-2);
+
+    /* ============ SYNC BADGE ============ */
+    .sync-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: #047857;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid #a7f3d0;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
+
     .sync-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--text-3); flex-shrink: 0;
-      transition: background .3s;
+      width: 8px;
+      height: 8px;
+      background-color: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
     }
-    .sync-dot.online  { background: var(--green); box-shadow: 0 0 6px rgba(26,122,74,.4); }
-    .sync-dot.syncing { background: var(--gold); animation: pulse 1s infinite; }
-    .sync-dot.error   { background: var(--danger); }
+
     @keyframes pulse {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: .5; transform: scale(.8); }
-    }    .btn-refresh {
-      display: flex; align-items: center; gap: 6px;
-      background: var(--purple-lt); border: 1.5px solid var(--border);
-      border-radius: var(--r-full); padding: 6px 14px;
-      font-size: .75rem; font-weight: 700; color: var(--purple);
-      cursor: pointer; transition: all var(--t-fast);
-      font-family: inherit;
+      0%   { opacity: 1; transform: scale(1); }
+      50%  { opacity: 0.5; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
     }
-    .btn-refresh:hover { background: var(--purple); color: #fff; border-color: var(--purple); }
-    .btn-refresh:disabled { opacity: .5; cursor: not-allowed; }
 
-    /* ── TOTAL CARD ── */
+    /* ============ MOBILE ============ */
+    @media (max-width: 500px) {
+      .app-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 16px;
+        gap: 12px;
+      }
+      .brand-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      .brand-logo-wrapper {
+        width: 100px;
+        height: 100px;
+        min-width: 100px;
+      }
+      .brand-info h1 { font-size: 1.15rem; }
+    }
+
+    /* ============ TOTAL HERO CARD ============ */
     .total-card {
-      position: relative;
-      background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold) 50%, var(--gold-mid) 100%);
-      border-radius: var(--r-xl); padding: 28px 32px;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      box-shadow: 0 8px 32px rgba(200,149,26,.40), 0 2px 8px rgba(200,149,26,.2);
-      margin-bottom: 28px; overflow: hidden;
-      animation: slideUp .5s .1s var(--t-slow) both;
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .total-card::before {
-      content: ''; position: absolute; top: -40px; right: -40px;
-      width: 200px; height: 200px;
-      background: radial-gradient(circle, rgba(255,255,255,.12) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .total-left { position: relative; z-index: 1; }
-    .total-card .label {
-      font-size: .7rem; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: rgba(255,255,255,.8); margin-bottom: 6px;
-    }
-    .total-card .amount {
-      font-size: clamp(2rem, 5.5vw, 2.8rem); font-weight: 900;
-      color: #fff; line-height: 1; letter-spacing: -1px;
-      text-shadow: 0 2px 8px rgba(0,0,0,.15);
-    }
-    .total-card .count-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: rgba(255,255,255,.2); backdrop-filter: blur(4px);
-      border: 1px solid rgba(255,255,255,.25); border-radius: var(--r-full);
-      font-size: .72rem; font-weight: 600; color: rgba(255,255,255,.9);
-      padding: 4px 14px; margin-top: 10px; letter-spacing: .5px;
-    }
-    .total-right { position: relative; z-index: 1; }
-    .total-icon-wrap {
-      width: 64px; height: 64px;
-      background: rgba(255,255,255,.18); border: 1.5px solid rgba(255,255,255,.25);
-      border-radius: var(--r-lg);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.8rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.3);
+      background: linear-gradient(135deg, #0e2a47 0%, #173d66 100%);
+      color: #ffffff;
+      padding: 24px 28px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 16px 25px -10px rgba(14,42,71,0.3);
+      border: 1px solid rgba(251,191,36,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
 
-    /* ── CARD ── */
+    .total-card .tc-left .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: #fbbf24;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .total-card .tc-left .amount {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+
+    .total-card .tc-right {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .total-card .tc-right span {
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fbbf24;
+      margin-top: 2px;
+    }
+
+    /* ============ CARDS ============ */
     .card {
-      background: var(--card); border-radius: var(--r-xl);
-      box-shadow: var(--shadow-md); padding: 28px 30px;
-      margin-bottom: 24px; border: 1px solid var(--border);
-      animation: slideUp .5s .2s var(--t-slow) both;
-      transition: box-shadow var(--t-mid);
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
     }
-    .card:hover { box-shadow: var(--shadow-lg); }
-    .card-header {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 24px; padding-bottom: 18px;
-      border-bottom: 1.5px solid var(--purple-xlt);
-    }
-    .card-icon {
-      width: 38px; height: 38px; background: var(--purple-lt);
-      border-radius: var(--r-sm);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.05rem; flex-shrink: 0;
-    }
-    .card-title-text {
-      font-size: .72rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 1.8px; color: var(--purple);
-    }
-    .card-subtitle { font-size: .75rem; color: var(--text-3); margin-top: 1px; }
 
-    /* ── FORM ── */
-    .form-row {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px; margin-bottom: 16px;
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-navy);
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; gap: 12px; } }
-    .form-group { display: flex; flex-direction: column; gap: 7px; }
+
+    /* ============ FORM ============ */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 600px) {
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .full-width { grid-column: span 2; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
     .form-group label {
-      font-size: .72rem; font-weight: 700; color: var(--text-2);
-      letter-spacing: .6px; text-transform: uppercase;
-      display: flex; align-items: center; gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .label-dot {
-      width: 5px; height: 5px; background: var(--purple-mid);
-      border-radius: 50%; display: inline-block;
-    }
+
     .form-group input {
-      width: 100%; border: 1.5px solid var(--border);
-      border-radius: var(--r-md); padding: 12px 16px;
-      font-size: .92rem; font-family: inherit; color: var(--text);
-      background: var(--bg); outline: none;
-      transition: border-color var(--t-mid), box-shadow var(--t-mid), background var(--t-mid);
-      -webkit-appearance: none;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: all 0.2s;
     }
-    .form-group input::placeholder { color: var(--text-3); font-size: .88rem; }
-    .form-group input:hover:not(:focus) { border-color: #c4b4e0; background: var(--purple-xlt); }
+
     .form-group input:focus {
-      border-color: var(--purple-mid);
-      box-shadow: 0 0 0 4px rgba(124,69,184,.12); background: #fff;
-    }
-    .form-group input.error {
-      border-color: var(--danger);
-      box-shadow: 0 0 0 4px rgba(192,57,43,.10); background: var(--danger-lt);
-    }
-    .form-group input:disabled { opacity: .6; cursor: not-allowed; }
-    .error-msg {
-      font-size: .7rem; color: var(--danger); font-weight: 600;
-      min-height: 16px; display: flex; align-items: center; gap: 4px;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(217,119,6,0.15);
     }
 
-    /* ── SUBMIT BUTTON ── */
-    .btn-add {
-      width: 100%; padding: 14px 20px;
-      background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple) 50%, var(--purple-mid) 100%);
-      color: #fff; border: none; border-radius: var(--r-md);
-      font-size: .93rem; font-weight: 700; font-family: inherit;
-      letter-spacing: .4px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 9px;
-      transition: transform var(--t-fast), box-shadow var(--t-mid), filter var(--t-fast);
-      box-shadow: 0 4px 18px rgba(91,45,142,.35), 0 1px 4px rgba(91,45,142,.2);
-      position: relative; overflow: hidden; margin-top: 4px;
-    }
-    .btn-add:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(91,45,142,.45);
-    }
-    .btn-add:active:not(:disabled) { transform: translateY(0); }
-    .btn-add:disabled { opacity: .65; cursor: not-allowed; transform: none; }
-    .btn-icon {
-      width: 26px; height: 26px; background: rgba(255,255,255,.18);
-      border-radius: 6px; display: flex; align-items: center;
-      justify-content: center; font-size: .85rem;
+    .button-group {
+      display: flex;
+      gap: 10px;
     }
 
-    /* ── LOADING SPINNER ── */
-    .spinner {
-      width: 16px; height: 16px;
-      border: 2px solid rgba(255,255,255,.3);
-      border-top-color: #fff; border-radius: 50%;
-      animation: spin .7s linear infinite; flex-shrink: 0;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── ALERT MESSAGES ── */
-    .alert {
-      display: none; align-items: flex-start; gap: 12px;
-      padding: 14px 18px; border-radius: var(--r-md);
-      font-size: .83rem; font-weight: 600; margin-bottom: 18px;
-      border: 1.5px solid transparent; line-height: 1.5;
-      animation: slideUp .3s var(--t-slow);
-    }
-    .alert.show { display: flex; }
-    .alert.success {
-      background: var(--green-lt); color: var(--green);
-      border-color: rgba(26,122,74,.2);
-    }
-    .alert.error {
-      background: var(--danger-lt); color: var(--danger);
-      border-color: rgba(192,57,43,.2);
-    }
-    .alert.info {
-      background: var(--purple-lt); color: var(--purple);
-      border-color: rgba(91,45,142,.2);
-    }
-    .alert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
-
-    /* ── RECORDS TOP ── */
-    .records-top {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; margin-bottom: 24px; padding-bottom: 18px;
-      border-bottom: 1.5px solid var(--purple-xlt); flex-wrap: wrap;
-    }
-    .records-left { display: flex; align-items: center; gap: 12px; }
-    .search-wrap { position: relative; display: flex; align-items: center; }
-    .search-icon { position: absolute; left: 12px; font-size: .85rem; pointer-events: none; opacity: .5; }
-    .search-box {
-      border: 1.5px solid var(--border); border-radius: var(--r-full);
-      padding: 8px 16px 8px 34px; font-size: .82rem; font-family: inherit;
-      color: var(--text); background: var(--bg); outline: none;
-      transition: border-color var(--t-mid), box-shadow var(--t-mid), width var(--t-mid);
-      width: 185px;
-    }
-    .search-box:focus {
-      border-color: var(--purple-mid);
-      box-shadow: 0 0 0 4px rgba(124,69,184,.10); background: #fff; width: 210px;
-    }
-    @media (max-width: 500px) { .search-box { width: 140px; } .search-box:focus { width: 155px; } }
-
-    /* ── TABLE ── */
-    .table-wrap { overflow-x: auto; border-radius: var(--r-md); border: 1px solid var(--border); }
-    table { width: 100%; border-collapse: collapse; font-size: .86rem; }
-    thead tr { background: linear-gradient(135deg, var(--purple-xlt), var(--purple-lt)); }
-    thead th {
-      padding: 13px 16px; text-align: left;
-      font-size: .67rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 1.4px; color: var(--purple); white-space: nowrap;
-      border-bottom: 1.5px solid var(--border);
-    }
-    thead th:last-child { text-align: center; }
-    tbody tr { border-bottom: 1px solid #f0eaf8; transition: background var(--t-fast); }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: var(--purple-xlt); }
-    td { padding: 13px 16px; color: var(--text); vertical-align: middle; }
-    td.serial { color: var(--text-3); font-size: .75rem; font-weight: 700; width: 46px; }
-    .serial-num {
-      width: 26px; height: 26px; background: var(--purple-lt);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: .7rem; font-weight: 800; color: var(--purple);
-    }
-    td.name { font-weight: 700; color: var(--text); }
-    .name-chip { display: inline-flex; align-items: center; gap: 8px; }
-    .name-avatar {
-      width: 30px; height: 30px;
-      background: linear-gradient(135deg, var(--purple-lt), var(--purple-lt));
-      border: 1.5px solid var(--border); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .72rem; font-weight: 800; color: var(--purple);
-      flex-shrink: 0; text-transform: uppercase;
-    }
-    td.amount { font-weight: 800; white-space: nowrap; }
-    .amount-chip {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: var(--green-lt); color: var(--green);
-      border: 1px solid rgba(26,122,74,.15); border-radius: var(--r-full);
-      padding: 4px 12px; font-size: .82rem; font-weight: 700;
-    }
-    td.area-col { color: var(--text-2); font-size: .84rem; }
-    .area-chip {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: var(--saffron-lt); color: var(--saffron-deep);
-      border: 1px solid rgba(232,102,10,.12); border-radius: var(--r-full);
-      padding: 3px 10px; font-size: .78rem; font-weight: 600;
-    }
-    td.remark-col { color: var(--text-3); font-size: .81rem; font-style: italic; max-width: 150px; }
-    td.action { text-align: center; }
-    .btn-del {
-      background: none; border: 1.5px solid #f0ccc8; color: var(--danger);
-      border-radius: var(--r-sm); padding: 6px 13px;
-      font-size: .74rem; font-weight: 700; font-family: inherit; cursor: pointer;
-      transition: background var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
-      display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
-    }
-    .btn-del:hover { background: var(--danger-lt); border-color: var(--danger); transform: translateY(-1px); }
-    .btn-del:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-
-    /* ── SKELETON LOADER ── */
-    .skeleton-row td { padding: 14px 16px; }
-    .skeleton-box {
-      height: 14px; border-radius: 6px; background: linear-gradient(90deg, #f0eaf8 25%, #e8dff5 50%, #f0eaf8 75%);
-      background-size: 200% 100%; animation: skeleton 1.4s ease infinite;
-    }
-    @keyframes skeleton {
-      0%   { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+    .btn {
+      padding: 12px 18px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
     }
 
-    /* ── EMPTY STATE ── */
-    .empty-state { text-align: center; padding: 52px 20px; color: var(--text-3); }
-    .empty-icon-wrap {
-      width: 72px; height: 72px; background: var(--purple-lt);
-      border-radius: var(--r-xl); display: flex; align-items: center;
-      justify-content: center; font-size: 2rem; margin: 0 auto 16px;
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-gold), var(--gold-hover));
+      color: white;
+      flex: 1;
+      box-shadow: 0 4px 12px rgba(217,119,6,0.25);
     }
-    .empty-state h3 { font-size: .95rem; font-weight: 700; color: var(--text-2); margin-bottom: 6px; }
-    .empty-state p { font-size: .82rem; line-height: 1.6; }
 
-    /* ── TOAST ── */
-    #toast {
-      position: fixed; bottom: 28px; left: 50%;
-      transform: translateX(-50%) translateY(90px);
-      background: var(--text); color: #fff;
-      padding: 12px 22px 12px 16px; border-radius: var(--r-full);
-      font-size: .84rem; font-weight: 600;
-      box-shadow: 0 8px 28px rgba(0,0,0,.22);
-      z-index: 9999;   transition: transform .4s cubic-bezier(.34,1.56,.64,1);
-      white-space: nowrap; display: flex; align-items: center; gap: 9px;
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(217,119,6,0.35);
+    }
+
+    .btn-cancel {
+      background: #e2e8f0;
+      color: var(--text-dark);
+      display: none;
+    }
+
+    .btn-action {
+      padding: 6px 11px;
+      font-size: 0.78rem;
+      border-radius: 6px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .btn-edit  { background: #eff6ff; color: #2563eb; margin-right: 4px; }
+    .btn-edit:hover  { background: #2563eb; color: white; }
+    .btn-delete { background: var(--danger-bg); color: var(--danger); }
+    .btn-delete:hover { background: var(--danger); color: white; }
+
+    /* ============ SEARCH ============ */
+    .search-wrapper { position: relative; margin-bottom: 16px; }
+
+    .search-wrapper input {
+      width: 100%;
+      padding: 11px 14px 11px 42px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      outline: none;
+      background: #f8fafc;
+      transition: all 0.2s;
+    }
+
+    .search-wrapper input:focus {
+      background: #ffffff;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(217,119,6,0.12);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
       pointer-events: none;
     }
-    #toast.show { transform: translateX(-50%) translateY(0); }
-    .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold-mid); flex-shrink: 0; }
 
-    /* ── DIALOG ── */
-    .overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(26,15,46,.55); backdrop-filter: blur(6px);
-      z-index: 1000; align-items: center; justify-content: center; padding: 20px;
-    }
-    .overlay.active { display: flex; }
-    .dialog {
-      background: var(--card); border-radius: var(--r-xl);
-      padding: 36px 32px; max-width: 360px; width: 100%;
-      box-shadow: var(--shadow-xl); text-align: center;
-      animation: popIn .3s var(--t-slow); border: 1px solid var(--border);
-    }
-    @keyframes popIn {
-      from { transform: scale(.82) translateY(20px); opacity: 0; }
-      to   { transform: scale(1) translateY(0); opacity: 1; }
-    }
-    .dialog .d-icon-wrap {
-      width: 62px; height: 62px; background: var(--danger-lt);
-      border-radius: var(--r-full);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.7rem; margin: 0 auto 16px;
-      border: 2px solid rgba(192,57,43,.12);
-    }
-    .dialog h3 { font-size: 1.08rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
-    .dialog p  { font-size: .83rem; color: var(--text-2); margin-bottom: 26px; line-height: 1.65; }
-    .dialog-btns { display: flex; gap: 12px; justify-content: center; }
-    .btn-cancel {
-      flex: 1; padding: 11px 20px; border: 1.5px solid var(--border);
-      border-radius: var(--r-md); background: var(--bg);
-      font-size: .86rem; font-weight: 700; font-family: inherit;
-      color: var(--text-2); cursor: pointer;
-      transition: background var(--t-fast), border-color var(--t-fast);
-    }
-    .btn-cancel:hover { background: var(--purple-xlt); border-color: var(--purple-mid); }
-    .btn-confirm-del {
-      flex: 1; padding: 11px 20px; border: none; border-radius: var(--r-md);
-      background: linear-gradient(135deg, #e74c3c, var(--danger));
-      color: #fff; font-size: .86rem; font-weight: 700; font-family: inherit;
-      cursor: pointer; box-shadow: 0 4px 14px rgba(192,57,43,.30);
-      transition: transform var(--t-fast), box-shadow var(--t-fast);
-    }
-    .btn-confirm-del:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(192,57,43,.40); }
-
-    /* ── FOOTER ── */
-    footer { text-align: center; font-size: .74rem; color: var(--text-3); padding: 0 16px 36px; line-height: 1.8; }
-    footer strong { color: var(--purple); }
-    footer .heart { color: var(--saffron); }
-    .footer-divider {
-      width: 40px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 0 auto 14px; border-radius: var(--r-full);
+    /* ============ TABLE ============ */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
     }
 
-    @media (max-width: 600px) { .card { padding: 22px 18px; } .total-card { padding: 22px 20px; } }
-    @media (max-width: 400px) { .container { padding: 22px 12px 60px; } .dialog { padding: 28px 20px; } }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+      background: #ffffff;
+    }
+
+    th {
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.5px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    .amount-cell { font-weight: 800; color: #059669; }
+
+    .badge-area {
+      display: inline-block;
+      padding: 3px 9px;
+      background: #f1f5f9;
+      color: #334155;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.78rem;
+    }
+
+    /* ============ SERIAL NUMBER ============ */
+    .sr-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-navy), #1e4a7a);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ============ NOTIFICATION ============ */
+    .notification {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      padding: 12px 24px;
+      border-radius: 30px;
+      background: #0f172a;
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .notification.success { background: #059669; }
+    .notification.error   { background: var(--danger); }
+
+    /* ============ SPINNER ============ */
+    .spinner {
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top: 2px solid #ffffff;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .text-center { text-align: center; }
+
+    .empty-msg {
+      padding: 32px;
+      color: var(--text-muted);
+      text-align: center;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
 
-<!-- ══ HEADER ══ -->
-<header>
-  <div class="header-pattern"></div>
-  <div class="header-inner">
-    <div class="header-emblem">🪔</div>
-    <div class="header-tag">Est. Mitra Mandal</div>
-    <h1>Radha Krishna Mitra Mandal</h1>
-    <div class="header-divider"></div>
-    <p class="subtitle">Chanda Collection Register</p>
-  </div>
-</header>
+<div class="container">
 
-<!-- ══ MAIN ══ -->
-<main class="container">
+  <!-- ======== HEADER ======== -->
+  <div class="app-header">
+    <div class="brand-group">
 
-  <!-- Sync Status Bar -->
-  <div class="sync-bar">
-    <div class="sync-status">
-      <div class="sync-dot" id="syncDot"></div>
-      <span id="syncText">Connecting to server…</span>
+      <!-- Logo -->
+      <div class="brand-logo-wrapper">
+        <img
+          src="logo.png"
+          alt="Radha Krishna Mitra Mandal Logo"
+          class="brand-logo"
+          id="mandalLogo"
+          onerror="this.style.display='none'"
+        >
+      </div>
+
+      <div class="brand-info">
+        <h1>Radha Krishna Mitra Mandal</h1>
+        <p>सेवा • सहयोग • सद्भाव</p>
+      </div>
     </div>
-    <button class="btn-refresh" id="btnRefresh" onclick="loadRecords()">
-      🔄 Refresh
-    </button>
+
+    <div class="sync-badge">
+      <div class="sync-dot"></div>
+      <span>Live Sync</span>
+    </div>
   </div>
 
-  <!-- Total Card -->
+  <!-- ======== TOTAL CARD ======== -->
   <div class="total-card">
-    <div class="total-left">
-      <div class="label">Total Chanda Collected</div>
-      <div class="amount" id="totalAmount">₹ 0</div>
-      <span class="count-badge" id="totalCount">📋 0 Records</span>
+    <div class="tc-left">
+      <div class="label">Total Donation Collected</div>
+      <div class="amount" id="totalAmountDisplay">₹ 0</div>
     </div>
-    <div class="total-right">
-      <div class="total-icon-wrap">💰</div>
+    <div class="tc-right">
+      Total Records
+      <span id="totalRecordsDisplay">0</span>
     </div>
   </div>
 
-  <!-- Add Chanda Form -->
+  <!-- ======== FORM CARD ======== -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-icon">➕</div>
-      <div>
-        <div class="card-title-text">Add New Chanda Entry</div>
-        <div class="card-subtitle">Fill all required fields and save</div>
-      </div>
+    <div class="card-title">
+      <span id="formTitle">➕ Add New Donation Entry</span>
     </div>
 
-    <!-- Form Alert -->
-    <div class="alert" id="formAlert">
-      <span class="alert-icon" id="formAlertIcon"></span>
-      <span id="formAlertMsg"></span>
-    </div>
+    <form id="chandaForm">
+      <input type="hidden" id="editRecordId" value="">
+      <div class="form-grid">
 
-    <form id="chandaForm" novalidate>
-      <div class="form-row">
         <div class="form-group">
-          <label for="memberName"><span class="label-dot"></span> Member / Donor Name</label>
-          <input type="text" id="memberName" placeholder="Enter full name" autocomplete="off"/>
-          <span class="error-msg" id="nameError"></span>
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" required placeholder="Enter full name">
         </div>
+
         <div class="form-group">
-          <label for="chandaAmount"><span class="label-dot"></span> Chanda Amount (₹)</label>
-          <input type="number" id="chandaAmount" placeholder="e.g. 500" min="1" autocomplete="off"/>
-          <span class="error-msg" id="amountError"></span>
+          <label for="amount">Amount (₹) *</label><input type="number" id="amount" required min="1" placeholder="Enter donation amount">
         </div>
+
+        <div class="form-group">
+          <label for="area">Area / Location *</label>
+          <input type="text" id="area" required placeholder="Enter area or location">
+        </div>
+
+        <div class="form-group">
+          <label for="remark">Remark / Payment Mode</label>
+          <input type="text" id="remark" placeholder="e.g. Cash / Online / UPI">
+        </div>
+
+        <div class="full-width button-group" style="margin-top: 4px;">
+          <button type="button" class="btn btn-cancel" id="cancelBtn" onclick="resetFormState()">
+            ✕ Cancel
+          </button>
+          <button type="submit" class="btn btn-primary" id="submitBtn">
+            <span id="submitBtnText">Add Donation</span>
+          </button>
+        </div>
+
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="areaName"><span class="label-dot"></span> Area Name</label>
-          <input type="text" id="areaName" placeholder="Enter area name" autocomplete="off"/>
-          <span class="error-msg" id="areaError"></span>
-        </div>
-        <div class="form-group">
-          <label for="remark"><span class="label-dot"></span> Remark</label>
-          <input type="text" id="remark" placeholder="Enter remark" autocomplete="off"/>
-          <span class="error-msg"></span>
-        </div>
-      </div>
-      <button type="submit" class="btn-add" id="btnSubmit">
-        <span class="btn-icon">💾</span>
-        <span id="btnSubmitText">Save Chanda Entry</span>
-      </button>
     </form>
   </div>
 
-  <!-- Records -->
+  <!-- ======== REGISTER LIST CARD ======== -->
   <div class="card">
-    <div class="records-top">
-      <div class="records-left">
-        <div class="card-icon">📋</div>
-        <div>
-          <div class="card-title-text">Chanda Records</div>
-          <div class="card-subtitle">All saved entries — synced from server</div>
-        </div>
-      </div>
-      <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" class="search-box" id="searchBox" placeholder="Search name…"/>
-      </div>
+    <div class="card-title">
+      📋 Donation Register List
     </div>
 
-    <!-- Records Alert -->
-    <div class="alert" id="recordsAlert">
-      <span class="alert-icon" id="recordsAlertIcon"></span>
-      <span id="recordsAlertMsg"></span>
+    <div class="search-wrapper">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search by name, amount, area, remark..."
+      >
     </div>
 
-    <div class="table-wrap" id="tableWrap"></div>
-  </div>
-
-</main>
-
-<!-- ══ FOOTER ══ -->
-<footer>
-  <div class="footer-divider"></div>
-  <p>🌸 <strong>Radha Krishna Mitra Mandal</strong> &nbsp;·&nbsp; Data synced online &nbsp;·&nbsp; Made with <span class="heart">♥</span></p>
-</footer>
-
-<!-- ══ TOAST ══ -->
-<div id="toast"><span class="toast-dot"></span><span id="toastMsg"></span></div>
-
-<!-- ══ CONFIRM DELETE DIALOG ══ -->
-<div class="overlay" id="overlay">
-  <div class="dialog">
-    <div class="d-icon-wrap">🗑️</div>
-    <h3>Delete this record?</h3>
-    <p id="dialogMsg">Are you sure you want to remove this Chanda entry? This action cannot be undone.</p>
-    <div class="dialog-btns">
-      <button class="btn-cancel" id="cancelDel">Cancel</button>
-      <button class="btn-confirm-del" id="confirmDel">Yes, Delete</button>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Area</th>
+            <th>Remark</th>
+            <th style="text-align:right;">Action</th>
+          </tr>
+        </thead>
+        <tbody id="recordsTableBody">
+          <tr>
+            <td colspan="6" class="text-center">
+              Loading records from Google Sheet...
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</div>
+
+</div><!-- end .container -->
+
+<div id="notification" class="notification"></div>
 
 <script>
-  // ════════════════════════════════════════════════════
-  //  ⚠️  IMPORTANT: REPLACE THIS URL WITH YOUR
-  //  GOOGLE APPS SCRIPT WEB APP URL
-  // ════════════════════════════════════════════════════
-  const API_URL = 'https://script.google.com/macros/s/AKfycbx0kesRyGZY9qnan8ThVrA5MAEK-J4zJG9PsvY8C43MKXmy9OgOvaDt2HZuNt2ulFdw/exec';
+  // ✅ Paste your Google Apps Script Web App URL here
+  const API_URL = "PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
 
-  // ════════════════════════════════════════════════════
-  //  STATE
-  // ════════════════════════════════════════════════════
-  let allRecords    = [];
-  let currentSearch = '';
-  let pendingDeleteId = null;
+  let allRecords = [];
 
-  // ════════════════════════════════════════════════════
-  //  SYNC STATUS HELPERS
-  // ════════════════════════════════════════════════════
-  function setSyncStatus(state, text) {
-    const dot  = document.getElementById('syncDot');
-    const span = document.getElementById('syncText');
-    dot.className  = 'sync-dot ' + state;
-    span.textContent = text;
-  }
+  // ===== DOM References =====
+  const chandaForm         = document.getElementById('chandaForm');
+  const submitBtn          = document.getElementById('submitBtn');
+  const cancelBtn          = document.getElementById('cancelBtn');
+  const formTitle          = document.getElementById('formTitle');
+  const editRecordId       = document.getElementById('editRecordId');
+  const searchInput        = document.getElementById('searchInput');
+  const recordsTableBody   = document.getElementById('recordsTableBody');
+  const totalAmountDisplay = document.getElementById('totalAmountDisplay');
+  const totalRecordsDisplay= document.getElementById('totalRecordsDisplay');
+  const notification       = document.getElementById('notification');
 
-  // ════════════════════════════════════════════════════
-  //  ALERT HELPERS
-  // ════════════════════════════════════════════════════
-  function showAlert(alertId, iconId, msgId, type, icon, msg) {
-    const el = document.getElementById(alertId);
-    document.getElementById(iconId).textContent = icon;
-    document.getElementById(msgId).textContent  = msg;
-    el.className = 'alert show ' + type;
-    setTimeout(() => { el.className = 'alert'; }, 5000);
-  }
+  // ===== Init =====
+  document.addEventListener('DOMContentLoaded', fetchRecords);
+  chandaForm.addEventListener('submit', handleFormSubmit);
+  searchInput.addEventListener('input', handleSearch);
 
-  function showFormAlert(type, icon, msg) {
-    showAlert('formAlert','formAlertIcon','formAlertMsg', type, icon, msg);
-  }
-
-  function showRecordsAlert(type, icon, msg) {
-    showAlert('recordsAlert','recordsAlertIcon','recordsAlertMsg', type, icon, msg);
-  }
-
-  // ════════════════════════════════════════════════════
-  //  TOAST
-  // ════════════════════════════════════════════════════
-  function showToast(msg, isError = false) {
-    const t   = document.getElementById('toast');
-    const dot = t.querySelector('.toast-dot');
-    document.getElementById('toastMsg').textContent = msg;
-    t.style.background   = isError ? 'var(--danger)' : 'var(--text)';
-    dot.style.background = isError ? '#ff8f85' : 'var(--gold-mid)';
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2800);
-  }
-
-  // ════════════════════════════════════════════════════
-  //  FORMAT HELPERS
-  // ════════════════════════════════════════════════════
-  function formatAmount(n) {
-    return '₹ ' + Number(n).toLocaleString('en-IN');
-  }
-
-  function escHtml(str) {
-    if (!str) return '—';
-    return String(str)
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function getInitials(name) {
-    return name.trim().split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
-  }
-
-  // ════════════════════════════════════════════════════
-  //  UPDATE TOTALS
-  // ════════════════════════════════════════════════════
-  function updateTotals(records) {
-    const total = records.reduce((sum, r) => sum + Number(r.amount), 0);
-    document.getElementById('totalAmount').textContent = formatAmount(total);
-    const c = records.length;
-    document.getElementById('totalCount').textContent = '📋 ' + c + (c === 1 ? ' Record' : ' Records');
-  }
-
-  // ════════════════════════════════════════════════════
-  //  RENDER SKELETON LOADER
-  // ════════════════════════════════════════════════════
-  function renderSkeleton() {
-    const wrap = document.getElementById('tableWrap');
-    let rows = '';
-    for (let i = 0; i < 4; i++) {
-      rows += `
-        <tr class="skeleton-row">
-          <td><div class="skeleton-box" style="width:26px;height:26px;border-radius:50%"></div></td>
-          <td><div class="skeleton-box" style="width:${100 + i*20}px"></div></td>
-          <td><div class="skeleton-box" style="width:80px"></div></td>
-          <td><div class="skeleton-box" style="width:90px"></div></td>
-          <td><div class="skeleton-box" style="width:70px"></div></td>
-          <td><div class="skeleton-box" style="width:60px;margin:0 auto"></div></td>
-        </tr>`;
-    }
-    wrap.innerHTML = `
-      <table>
-        <thead><tr>
-          <th>#</th><th>Member / Donor Name</th><th>Amount</th>
-          <th>Area Name</th><th>Remark</th><th>Action</th>
-        </tr></thead>
-        <tbody>${rows}</tbody>
-      </table>`;
-  }
-
-  // ════════════════════════════════════════════════════
-  //  RENDER TABLE
-  // ════════════════════════════════════════════════════
-  function renderTable() {
-    const wrap = document.getElementById('tableWrap');
-    updateTotals(allRecords);
-
-    const filtered = allRecords.filter(r =>
-      r.name.toLowerCase().includes(currentSearch.toLowerCase())
-    );
-
-    if (allRecords.length === 0) {
-      wrap.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon-wrap">📭</div>
-          <h3>No entries yet</h3>
-          <p>No Chanda entries have been added.<br/>Use the form above to add the first entry.</p>
-        </div>`;
-      return;
-    }
-
-    if (filtered.length === 0) {
-      wrap.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon-wrap">🔍</div>
-          <h3>No results found</h3>
-          <p>No records match "<strong>${escHtml(currentSearch)}</strong>".</p>
-        </div>`;
-      return;
-    }
-
-    let rows = '';
-    filtered.forEach((r, i) => {
-      rows += `
-        <tr>
-          <td class="serial"><div class="serial-num">${i + 1}</div></td>
-          <td class="name">
-            <div class="name-chip">
-              <div class="name-avatar">${getInitials(r.name)}</div>
-              ${escHtml(r.name)}
-            </div>
-          </td>
-          <td class="amount"><span class="amount-chip">✓ ${formatAmount(r.amount)}</span></td>
-          <td class="area-col"><span class="area-chip">📍 ${escHtml(r.area)}</span></td>
-          <td class="remark-col">${escHtml(r.remark)}</td>
-          <td class="action">
-            <button class="btn-del" data-id="${r.id}" title="Delete">🗑 Delete</button>
-          </td>
-        </tr>`;
-    });
-
-    wrap.innerHTML = `
-      <table>
-        <thead><tr>
-          <th>#</th><th>Member / Donor Name</th><th>Amount</th>
-          <th>Area Name</th><th>Remark</th><th>Action</th>
-        </tr></thead>
-        <tbody>${rows}</tbody>
-      </table>`;
-
-    wrap.querySelectorAll('.btn-del').forEach(btn => {
-      btn.addEventListener('click', ()=> askDelete(btn.dataset.id));
-    });
-  }
-
-  // ════════════════════════════════════════════════════
-  //  LOAD RECORDS FROM SERVER
-  // ════════════════════════════════════════════════════
-  async function loadRecords() {
-    const btnRefresh = document.getElementById('btnRefresh');
-    btnRefresh.disabled = true;
-    setSyncStatus('syncing', 'Fetching latest data…');
-    renderSkeleton();
-
+  // ================================================
+  // FETCH ALL RECORDS  (GET)
+  // ================================================
+  async function fetchRecords() {
     try {
-      const res  = await fetch(API_URL + '?action=getAll', { method: 'GET' });
-      const data = await res.json();
+      renderTableLoading();
+      const res    = await fetch(API_URL);
+      const result = await res.json();
 
-      if (data.status === 'success') {
-        allRecords = data.records || [];
-        renderTable();
-        setSyncStatus('online', 'Synced · ' + new Date().toLocaleTimeString('en-IN'));
-        showRecordsAlert('success', '✅', 'Records loaded successfully from server.');
+      if (result.status === 'success') {
+        allRecords = result.data || [];
+        renderData(allRecords);
       } else {
-        throw new Error(data.message || 'Failed to load records');
+        showNotification(result.message || 'Error fetching records.', 'error');
+        showEmptyTable('Could not load data. Please try again.');
       }
-
     } catch (err) {
-      setSyncStatus('error', 'Connection failed');
-      showRecordsAlert('error', '❌', 'Could not load records. Check internet and refresh. (' + err.message + ')');
-      document.getElementById('tableWrap').innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon-wrap">⚠️</div>
-          <h3>Connection Error</h3>
-          <p>Could not connect to server.<br/>Please check your internet and tap Refresh.</p>
-        </div>`;
-    } finally {
-      btnRefresh.disabled = false;
+      showNotification('Connection error. Please check the API URL.', 'error');
+      showEmptyTable('⚠️ Failed to load data. Check your internet connection.');
     }
   }
 
-  // ════════════════════════════════════════════════════
-  //  FORM VALIDATION
-  // ════════════════════════════════════════════════════
-  function validate(name, amount, area) {
-    let valid = true;
-
-    const nameErr  = document.getElementById('nameError');
-    const amtErr   = document.getElementById('amountError');
-    const areaErr  = document.getElementById('areaError');
-    const nameInp  = document.getElementById('memberName');
-    const amtInp   = document.getElementById('chandaAmount');
-    const areaInp  = document.getElementById('areaName');
-
-    nameErr.textContent = '';
-    amtErr.textContent  = '';
-    areaErr.textContent = '';
-    nameInp.classList.remove('error');
-    amtInp.classList.remove('error');
-    areaInp.classList.remove('error');
-
-    if (!name.trim()) {
-      nameErr.textContent = '⚠ Please enter member / donor name.';
-      nameInp.classList.add('error');
-      valid = false;
-    } else if (name.trim().length < 2) {
-      nameErr.textContent = '⚠ Name must be at least 2 characters.';
-      nameInp.classList.add('error');
-      valid = false;
-    }
-
-    if (!amount || isNaN(amount)) {
-      amtErr.textContent = '⚠ Please enter a valid amount.';
-      amtInp.classList.add('error');
-      valid = false;
-    } else if (Number(amount) <= 0) {
-      amtErr.textContent = '⚠ Amount must be greater than 0.';
-      amtInp.classList.add('error');
-      valid = false;
-    } else if (Number(amount) > 10000000) {
-      amtErr.textContent = '⚠ Amount seems too large. Please check.';
-      amtInp.classList.add('error');
-      valid = false;
-    }
-
-    if (!area.trim()) {
-      areaErr.textContent = '⚠ Please enter area name.';
-      areaInp.classList.add('error');
-      valid = false;
-    }
-
-    return valid;
-  }
-
-  // ════════════════════════════════════════════════════
-  //  SET FORM LOADING STATE
-  // ════════════════════════════════════════════════════
-  function setFormLoading(loading) {
-    const btn     = document.getElementById('btnSubmit');
-    const btnText = document.getElementById('btnSubmitText');
-    const inputs  = document.querySelectorAll('#chandaForm input');
-
-    if (loading) {
-      btn.disabled = true;
-      btn.innerHTML = '<div class="spinner"></div><span>Saving to server…</span>';
-      inputs.forEach(i => i.disabled = true);
-    } else {
-      btn.disabled = false;
-      btn.innerHTML = '<span class="btn-icon">💾</span><span id="btnSubmitText">Save Chanda Entry</span>';
-      inputs.forEach(i => i.disabled = false);
-    }
-  }
-
-  // ════════════════════════════════════════════════════
-  //  SUBMIT FORM — ADD NEW RECORD
-  // ════════════════════════════════════════════════════
-  document.getElementById('chandaForm').addEventListener('submit', async function(e) {
+  // ================================================
+  // HANDLE FORM SUBMIT  (ADD or EDIT)
+  // ================================================
+  async function handleFormSubmit(e) {
     e.preventDefault();
 
-    const name   = document.getElementById('memberName').value;
-    const amount = document.getElementById('chandaAmount').value;
-    const area   = document.getElementById('areaName').value;
-    const remark = document.getElementById('remark').value;
+    const id     = editRecordId.value;
+    const name   = document.getElementById('name').value.trim();
+    const amount = parseFloat(document.getElementById('amount').value);
+    const area   = document.getElementById('area').value.trim();
+    const remark = document.getElementById('remark').value.trim();
 
-    if (!validate(name, amount, area)) return;
+    // Client-side validation
+    if (!name || isNaN(amount) || amount <= 0 || !area) {
+      showNotification('Please fill in all required fields correctly.', 'error');
+      return;
+    }
 
-    setFormLoading(true);
-    setSyncStatus('syncing', 'Saving entry…');
+    setSubmittingState(true);
+
+    const isEdit  = Boolean(id);
+    const payload = {
+      action : isEdit ? 'edit' : 'add',
+      id     : id || undefined,
+      name,
+      amount,
+      area,
+      remark
+    };
 
     try {
-      const res = await fetch(API_URL, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'add',
-          data: {
-            name:   name.trim(),
-            amount: Number(amount),
-            area:   area.trim(),
-            remark: remark.trim()
-          }
-        })
+      const res    = await fetch(API_URL, {
+        method : 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body   : JSON.stringify(payload)
       });
+      const result = await res.json();
 
-      const data = await res.json();
-
-      if (data.status === 'success') {
-        this.reset();
-        showFormAlert('success', '✅', 'Chanda entry saved successfully to server!');
-        showToast('✅ Entry saved successfully!');
-        setSyncStatus('syncing', 'Refreshing records…');
-        await loadRecords();
+      if (result.status === 'success') {
+        showNotification(
+          isEdit
+            ? '✅ Entry updated successfully!'
+            : '✅ New donation entry added!',
+          'success'
+        );
+        resetFormState();
+        fetchRecords();
       } else {
-        throw new Error(data.message || 'Failed to save entry');
+        showNotification(result.message || 'Error saving entry.', 'error');
       }
-
     } catch (err) {
-      setSyncStatus('error', 'Save failed');
-      showFormAlert('error', '❌', 'Could not save entry. Please check internet and try again. (' + err.message + ')');
-      showToast('❌ Save failed. Try again.', true);
+      showNotification('Network error. Please try again.', 'error');
     } finally {
-      setFormLoading(false);
+      setSubmittingState(false);
     }
-  });
-
-  // ════════════════════════════════════════════════════
-  //  SEARCH
-  // ════════════════════════════════════════════════════
-  document.getElementById('searchBox').addEventListener('input', function() {
-    currentSearch = this.value;
-    renderTable();
-  });
-
-  // ════════════════════════════════════════════════════
-  //  DELETE FLOW
-  // ════════════════════════════════════════════════════
-  function askDelete(id) {
-    const rec = allRecords.find(r => r.id === id);
-    if (!rec) return;
-    pendingDeleteId = id;
-    document.getElementById('dialogMsg').textContent =
-      `You are about to delete the entry for "${rec.name}" (${formatAmount(rec.amount)}). This cannot be undone.`;
-    document.getElementById('overlay').classList.add('active');
   }
 
-  document.getElementById('cancelDel').addEventListener('click', () => {
-    pendingDeleteId = null;
-    document.getElementById('overlay').classList.remove('active');
-  });
+  // ================================================
+  // START EDIT MODE
+  // ================================================
+  function startEditRecord(id) {
+    const record = allRecords.find(r => String(r.id) === String(id));
+    if (!record) return;
 
-  document.getElementById('confirmDel').addEventListener('click', async () => {
-    if (!pendingDeleteId) return;
+    editRecordId.value = record.id;
+    document.getElementById('name').value   = record.name;
+    document.getElementById('amount').value = record.amount;
+    document.getElementById('area').value   = record.area;
+    document.getElementById('remark').value = record.remark || '';
 
-    const rec = allRecords.find(r => r.id === pendingDeleteId);
-    const btn = document.getElementById('confirmDel');
+    formTitle.textContent = '✏️ Edit / Update Donation Entry';
+    document.getElementById('submitBtnText').textContent = 'Update Entry';
+    cancelBtn.style.display = 'inline-flex';
 
-    btn.disabled    = true;
-    btn.textContent = 'Deleting…';
-    setSyncStatus('syncing', 'Deleting record…');
-    document.getElementById('overlay').classList.remove('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ================================================
+  // RESET FORM → ADD MODE
+  // ================================================
+  function resetFormState() {
+    chandaForm.reset();
+    editRecordId.value    = '';
+    formTitle.textContent = '➕ Add New Donation Entry';
+    document.getElementById('submitBtnText').textContent = 'Add Donation';
+    cancelBtn.style.display = 'none';
+  }
+
+  // ================================================
+  // DELETE RECORD
+  // ================================================
+  async function deleteRecord(id) {
+    if (!confirm('Are you sure you want to permanently delete this entry?')) return;
+
+    showNotification('Deleting entry...', 'success');
 
     try {
-      const res = await fetch(API_URL, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'delete',
-          id:     pendingDeleteId
-        })
+      const res    = await fetch(API_URL, {
+        method : 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body   : JSON.stringify({ action: 'delete', id })
       });
+      const result = await res.json();
 
-      const data = await res.json();
-
-      if (data.status === 'success') {
-        pendingDeleteId = null;
-        showToast(`🗑️ Entry for "${rec ? rec.name : 'record'}" deleted.`);
-        showRecordsAlert('success', '✅', 'Record deleted successfully from server.');
-        await loadRecords();
+      if (result.status === 'success') {
+        showNotification('✅ Entry deleted successfully!', 'success');
+        if (editRecordId.value === String(id)) resetFormState();
+        fetchRecords();
       } else {
-        throw new Error(data.message || 'Failed to delete');
+        showNotification(result.message || 'Error deleting entry.', 'error');
       }
-
     } catch (err) {
-      setSyncStatus('error', 'Delete failed');
-      showToast('❌ Delete failed. Try again.', true);
-      showRecordsAlert('error', '❌', 'Could not delete record. (' + err.message + ')');
-      pendingDeleteId = null;
-    } finally {
-      btn.disabled    = false;
-      btn.textContent = 'Yes, Delete';
+      showNotification('Network error while deleting. Please try again.', 'error');
     }
-  });
+  }
 
-  document.getElementById('overlay').addEventListener('click', function(e) {
-    if (e.target === this) {
-      pendingDeleteId = null;
-      this.classList.remove('active');
+  // ================================================
+  // RENDER DATA → TABLE
+  // ================================================
+  function renderData(records) {
+    // Update totals
+    const total = records.reduce((sum, r) => sum + (Number(r.amount) || 0), 0);
+    totalAmountDisplay.textContent  = `₹ ${total.toLocaleString('en-IN')}`;
+    totalRecordsDisplay.textContent = records.length;
+
+    recordsTableBody.innerHTML = '';
+
+    if (records.length === 0) {
+      showEmptyTable('No records found.');
+      return;
     }
-  });
 
-  // ════════════════════════════════════════════════════
-  //  AUTO REFRESH EVERY 30 SECONDS
-  // ════════════════════════════════════════════════════
-  setInterval(() => {
-    loadRecords();
-  }, 30000);
+    // Show latest first
+    const reversed = records.slice().reverse();
 
-  // ════════════════════════════════════════════════════
-  //  INIT — Load records on page open
-  // ════════════════════════════════════════════════════
-  loadRecords();
+    reversed.forEach((record, index) => {
+      const tr     = document.createElement('tr');
+      tr.innerHTML = `
+        <td>
+          <div class="sr-num">${reversed.length - index}</div>
+        </td>
+        <td>
+          <strong style="color: var(--primary-navy);">
+            ${escapeHtml(record.name)}
+          </strong>
+        </td>
+        <td class="amount-cell">
+          ₹ ${Number(record.amount).toLocaleString('en-IN')}
+        </td>
+        <td>
+          <span class="badge-area">${escapeHtml(record.area)}</span>
+        </td>
+        <td style="color: var(--text-muted);">
+          ${escapeHtml(record.remark || '—')}
+        </td>
+        <td style="text-align:right; white-space:nowrap;">
+          <button
+            class="btn-action btn-edit"
+            onclick="startEditRecord('${record.id}')">
+            ✏️ Edit
+          </button>
+          <button
+            class="btn-action btn-delete"
+            onclick="deleteRecord('${record.id}')">
+            🗑️ Delete
+          </button>
+        </td>
+      `;
+      recordsTableBody.appendChild(tr);
+    });
+  }
+
+  // ================================================
+  // LIVE SEARCH
+  // ================================================
+  function handleSearch() {
+    const q = searchInput.value.toLowerCase().trim();
+
+    if (!q) {
+      renderData(allRecords);
+      return;
+    }
+
+    const filtered = allRecords.filter(r =>
+      r.name.toLowerCase().includes(q)                    ||
+      String(r.amount).includes(q)                        ||
+      r.area.toLowerCase().includes(q)                    ||
+      (r.remark && r.remark.toLowerCase().includes(q))
+    );
+
+    renderData(filtered);
+  }
+
+  // ================================================
+  // UI HELPERS
+  // ================================================
+  function setSubmittingState(on) {
+    if (on) {
+      submitBtn.disabled  = true;
+      submitBtn.innerHTML = `<div class="spinner"></div><span>Saving...</span>`;
+    } else {
+      submitBtn.disabled  = false;
+      submitBtn.innerHTML = `
+        <span id="submitBtnText">
+          ${editRecordId.value ? 'Update Entry' : 'Add Donation'}
+        </span>`;
+    }
+  }
+
+  function renderTableLoading() {
+    recordsTableBody.innerHTML = `
+      <tr>
+        <td colspan="6" class="text-center" style="padding:36px;">
+          <div class="spinner" style="
+            width            : 30px;
+            height           : 30px;
+            border-color     : #e2e8f0;
+            border-top-color : var(--accent-gold);
+            margin           : 0 auto 12px;
+          "></div>
+          <div style="color:var(--text-muted);font-size:0.85rem;">
+            Loading records...
+          </div>
+        </td>
+      </tr>`;
+  }
+
+  function showEmptyTable(msg = 'No records found.') {
+    recordsTableBody.innerHTML = `
+      <tr>
+        <td colspan="6" class="empty-msg">${msg}</td>
+      </tr>`;
+  }
+
+  function showNotification(msg, type = 'success') {
+    notification.textContent = msg;
+    notification.className   = `notification show ${type}`;
+    setTimeout(() => {
+      notification.className = 'notification';
+    }, 3000);
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, m => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;',
+      '"': '&quot;', "'": '&#39;'
+    })[m]);
+  }
+
 </script>
 </body>
 </html>
