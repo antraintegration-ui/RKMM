@@ -943,12 +943,19 @@ async function handleFormSubmit(e) {
 }
 
 // ─────────────────────────────────────────────
-// DELETE
+// DELETE (Admin PIN Protected)
 // ─────────────────────────────────────────────
 async function deleteRecord(id) {
   if (!id) return;
 
-  if (!confirm('Are you sure? This record will be permanently deleted.')) return;
+  // 1. Admin PIN poochne ke liye prompt
+  const adminPin = prompt("⚠️ Delete Rights: Sirf Admin ke liye.\n\nDelete karne ke liye Admin PIN darj karein:");
+
+  if (adminPin === null) return; // User ne Cancel kar diya
+  if (adminPin.trim() === '') {
+    showNotification('❌ PIN enter karna zaroori hai.', 'error');
+    return;
+  }
 
   // If currently editing this record — reset form
   if (editRecordId.value === String(id)) resetFormState();
@@ -958,12 +965,15 @@ async function deleteRecord(id) {
   try {
     const result = await apiFetch({
       method : 'POST',
-      body   : { action: 'delete', id: String(id) },
+      body   : { 
+        action: 'delete', 
+        id: String(id),
+        adminPin: adminPin.trim() // <-- Admin PIN backend ko bhej rahe hain
+      },
     });
 
     if (result.status === 'success') {
 
-      // ✅ Use fresh server data if returned
       if (Array.isArray(result.data) && result.data.length >= 0) {
         allRecords = result.data;
       } else {
@@ -975,7 +985,7 @@ async function deleteRecord(id) {
 
     } else {
       showNotification(
-        '❌ ' + (result.message || 'Delete failed. Please try again.'),
+        '❌ ' + (result.message || 'Delete failed. Incorrect PIN.'),
         'error'
       );
     }
