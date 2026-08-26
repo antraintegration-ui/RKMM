@@ -385,8 +385,8 @@
   // =============================================
   // STATE
   // =============================================
-  let allRecords   = [];   // master list
-  let isSyncing    = false; // background sync chal raha hai?
+  let allRecords  = [];
+  let isSyncing   = false;
 
   // =============================================
   // DOM REFS
@@ -408,14 +408,18 @@
   // =============================================
   document.addEventListener('DOMContentLoaded', fetchRecords);
   chandaForm.addEventListener('submit', handleFormSubmit);
-  searchInput.addEventListener('input', handleSearch);
+
+  // ✅ SEARCH FIX — input event + keyup dono
+  searchInput.addEventListener('input',  handleSearch);
+  searchInput.addEventListener('keyup',  handleSearch);
+  searchInput.addEventListener('change', handleSearch);
 
   // =============================================
-  // FETCH — initial load
+  // FETCH
   // =============================================
   async function fetchRecords(showLoader = true) {
     try {
-      if (showLoader) renderTableLoading();
+      if (showLoader === true) renderTableLoading();
 
       const res    = await fetch(API_URL, { redirect: 'follow' });
       const text   = await res.text();
@@ -423,7 +427,8 @@
 
       if (result.status === 'success') {
         allRecords = result.data || [];
-        renderData(allRecords);
+        // ✅ Fetch ke baad bhi search preserve karo
+        renderFiltered();
       } else {
         showEmptyTable('❌ Data load nahi hua.');
         showNotification(result.message || 'Fetch error.', 'error');
@@ -454,28 +459,33 @@
 
     const isEdit = Boolean(id);
 
-    // ── OPTIMISTIC UPDATE ──────────────────────
+    // OPTIMISTIC UPDATE
     if (isEdit) {
-      // locally update karo turant
       const idx = allRecords.findIndex(r => String(r.id) === id);
       if (idx !== -1) {
-        allRecords[idx] = { ...allRecords[idx], name, amount, area, remark };
+        allRecords[idx] = {
+          ...allRecords[idx], name, amount, area, remark
+        };
       }
       showNotification('✅ Entry update ho gayi!', 'success');
     } else {
-      // temp ID se turant row add karo
       const tempId = 'TEMP_' + Date.now();
-      allRecords.push({ id: tempId, name, amount, area, remark, timestamp: 'Saving...' });
+      allRecords.push({
+        id        : tempId,
+        name, amount, area, remark,
+        timestamp : 'Saving...'
+      });
       showNotification('✅ Entry add ho gayi!', 'success');
     }
 
-    // UI turant update
-    renderData(allRecords);
+    renderFiltered();
     resetFormState();
-    // ──────────────────────────────────────────
 
-    // Background mein API call
-    const payload = { action: isEdit ? 'edit' : 'add', name, amount, area, remark };
+    // Background API call
+    const payload = {
+      action: isEdit ? 'edit' : 'add',
+      name, amount, area, remark
+    };
     if (isEdit) payload.id = id;
 
     setSyncBadge(true);
@@ -490,24 +500,26 @@
       const result = JSON.parse(text);
 
       if (result.status === 'success') {
-        // Temp ID ko real ID se replace karo (add case)
         if (!isEdit && result.id) {
-          const tempIdx = allRecords.findIndex(r => String(r.id).startsWith('TEMP_'));
+          const tempIdx = allRecords.findIndex(
+            r => String(r.id).startsWith('TEMP_')
+          );
           if (tempIdx !== -1) {
             allRecords[tempIdx].id        = result.id;
-            allRecords[tempIdx].timestamp = new Date().toLocaleString('en-IN');
+            allRecords[tempIdx].timestamp =
+              new Date().toLocaleString('en-IN');
           }
         }
-        // Silent background re-fetch (sync karo)
         silentRefresh();
       } else {
-        showNotification('⚠️ Save failed: ' + (result.message || 'Error'), 'error');
-        // Rollback: server se fresh data lo
+        showNotification(
+          '⚠️ Save failed: ' + (result.message || 'Error'), 'error'
+        );
         fetchRecords(false);
       }
     } catch (err) {
       console.error('Submit error:', err);
-      showNotification('⚠️ Server se sync nahi hua. Refresh karo.', 'error');
+      showNotification('⚠️ Sync nahi hua. Refresh karo.', 'error');
       fetchRecords(false);
     } finally {
       setSyncBadge(false);
@@ -520,9 +532,8 @@
   async function deleteRecord(id) {
     if (!confirm('Sure ho? Permanently delete ho jayega!')) return;
 
-    // Turant local se remove karo
     allRecords = allRecords.filter(r => String(r.id) !== String(id));
-    renderData(allRecords);
+    renderFiltered();
     showNotification('✅ Entry delete ho gayi!', 'success');
     if (editRecordId.value === String(id)) resetFormState();
 
@@ -538,14 +549,14 @@
       const result = JSON.parse(text);
 
       if (result.status !== 'success') {
-        showNotification('⚠️ Delete sync failed. Refresh karo.', 'error');
-        fetchRecords(false); // rollback
+        showNotification('⚠️ Delete sync failed.', 'error');
+        fetchRecords(false);
       } else {
         silentRefresh();
       }
     } catch (err) {
       console.error('Delete error:', err);
-      showNotification('⚠️ Network error. Refresh karo.', 'error');
+      showNotification('⚠️ Network error.', 'error');
       fetchRecords(false);
     } finally {
       setSyncBadge(false);
@@ -553,7 +564,7 @@
   }
 
   // =============================================
-  // SILENT REFRESH — No loader, background sync
+  // SILENT REFRESH
   // =============================================
   async function silentRefresh() {
     try {
@@ -562,7 +573,7 @@
       const result = JSON.parse(text);
       if (result.status === 'success') {
         allRecords = result.data || [];
-        renderData(allRecords);
+        renderFiltered();
       }
     } catch (err) {
       console.warn('silentRefresh failed:', err);
@@ -593,55 +604,94 @@
   // =============================================
   function resetFormState() {
     chandaForm.reset();
-    editRecordId.value    = '';
-    formTitle.textContent = '➕ Add New Donation Entry';
-    document.getElementById('submitBtnText').textContent = 'Add Donation';
-    cancelBtn.style.display = 'none';
+    editRecordId.value      = '';
+    formTitle.textContent   = '➕ Add New Donation Entry';
     submitBtn.disabled      = false;
     submitBtn.innerHTML     = '<span id="submitBtnText">Add Donation</span>';
+    cancelBtn.style.display = 'none';
   }
 
   // =============================================
-  // RENDER TABLE
+  // ✅ SEARCH HANDLER — FIXED
   // =============================================
-  function renderData(records) {
-    const q        = searchInput.value.toLowerCase().trim();
-    const filtered = q ? records.filter(r =>
-      r.name.toLowerCase().includes(q)              ||
-      String(r.amount).includes(q)                  ||
-      r.area.toLowerCase().includes(q)              ||
-      (r.remark && r.remark.toLowerCase().includes(q))
-    ) : records;
+  function handleSearch() {
+    renderFiltered();
+  }
 
-    // Totals
-    const total = records.reduce((s, r) => s + (Number(r.amount) || 0), 0);
+  // =============================================
+  // ✅ renderFiltered — Search + Render ek saath
+  // =============================================
+  function renderFiltered() {
+    const q = searchInput.value.toLowerCase().trim();
+
+    // ✅ Agar search empty hai toh sab dikhao
+    const filtered = (q === '')
+      ? allRecords
+      : allRecords.filter(r => {
+          const nameMatch   = r.name.toLowerCase().includes(q);
+          const amountMatch = String(r.amount).includes(q);
+          const areaMatch   = r.area.toLowerCase().includes(q);
+          const remarkMatch = r.remark
+            ? r.remark.toLowerCase().includes(q)
+            : false;
+          return nameMatch || amountMatch || areaMatch || remarkMatch;
+        });
+
+    // ✅ Total hamesha allRecords se (search se affect na ho)
+    const total = allRecords.reduce(
+      (s, r) => s + (Number(r.amount) || 0), 0
+    );
     totalAmountDisplay.textContent  = `₹ ${total.toLocaleString('en-IN')}`;
-    totalRecordsDisplay.textContent = records.length;
+    totalRecordsDisplay.textContent = allRecords.length;
 
+    // Empty check
     if (filtered.length === 0) {
-      showEmptyTable(q ? 'Koi result nahi mila.' : 'Koi record nahi hai. Pehli entry add karo!');
+      showEmptyTable(
+        q
+          ? `🔍 "${escapeHtml(q)}" ke liye koi record nahi mila.`
+          : 'Koi record nahi hai. Pehli entry add karo!'
+      );
       return;
     }
 
-    // DocumentFragment — fast DOM insert
+    // ✅ DocumentFragment — fast DOM render
     const frag     = document.createDocumentFragment();
     const reversed = filtered.slice().reverse();
 
     reversed.forEach((record, index) => {
-      const tr        = document.createElement('tr');
-      const isSaving  = String(record.id).startsWith('TEMP_');
+      const tr       = document.createElement('tr');
+      const isSaving = String(record.id).startsWith('TEMP_');
       if (isSaving) tr.classList.add('saving');
+
+      // ✅ Search highlight
+      const displayName   = q ? highlight(escapeHtml(record.name), q)   : escapeHtml(record.name);
+      const displayArea   = q ? highlight(escapeHtml(record.area), q)   : escapeHtml(record.area);
+      const displayRemark = q ? highlight(escapeHtml(record.remark || '—'), q) : escapeHtml(record.remark || '—');
 
       tr.innerHTML = `
         <td><div class="sr-num">${reversed.length - index}</div></td>
-        <td><strong style="color:var(--primary-navy);">${escapeHtml(record.name)}</strong></td>
-        <td class="amount-cell">₹ ${Number(record.amount).toLocaleString('en-IN')}</td>
-        <td><span class="badge-area">${escapeHtml(record.area)}</span></td>
-        <td style="color:var(--text-muted);">${escapeHtml(record.remark || '—')}</td>
+        <td>
+          <strong style="color:var(--primary-navy);">
+            ${displayName}
+          </strong>
+        </td>
+        <td class="amount-cell">
+          ₹ ${Number(record.amount).toLocaleString('en-IN')}
+        </td>
+        <td>
+          <span class="badge-area">${displayArea}</span>
+        </td>
+        <td style="color:var(--text-muted);">
+          ${displayRemark}
+        </td>
         <td style="text-align:right; white-space:nowrap;">
-          ${isSaving ? '<span style="font-size:.75rem;color:var(--text-muted);">⏳ Saving…</span>' : `
-          <button class="btn-action btn-edit"   onclick="startEditRecord('${record.id}')">✏️ Edit</button>
-          <button class="btn-action btn-delete" onclick="deleteRecord('${record.id}')">🗑️ Delete</button>`}
+          ${isSaving
+            ? '<span style="font-size:.75rem;color:var(--text-muted);">⏳ Saving…</span>'
+            : `<button class="btn-action btn-edit"
+                 onclick="startEditRecord('${record.id}')">✏️ Edit</button>
+               <button class="btn-action btn-delete"
+                 onclick="deleteRecord('${record.id}')">🗑️ Delete</button>`
+          }
         </td>`;
       frag.appendChild(tr);
     });
@@ -651,15 +701,27 @@
   }
 
   // =============================================
-  // SEARCH
+  // ✅ HIGHLIGHT — Search word yellow highlight
   // =============================================
-  function handleSearch() { renderData(allRecords); }
+  function highlight(text, query) {
+    if (!query) return text;
+    try {
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex   = new RegExp(`(${escaped})`, 'gi');
+      return text.replace(
+        regex,
+        '<mark style="background:#fef08a;color:#0f172a;border-radius:3px;padding:0 2px;">$1</mark>'
+      );
+    } catch (e) {
+      return text;
+    }
+  }
 
   // =============================================
   // SYNC BADGE
   // =============================================
   function setSyncBadge(syncing) {
-    isSyncing        = syncing;
+    isSyncing             = syncing;
     syncLabel.textContent = syncing ? 'Syncing…' : 'Live Sync';
   }
 
@@ -670,9 +732,15 @@
     recordsTableBody.innerHTML = `
       <tr>
         <td colspan="6" class="text-center" style="padding:36px;">
-          <div class="spinner" style="width:30px;height:30px;border-color:#e2e8f0;
-               border-top-color:var(--accent-gold);margin:0 auto 12px;"></div>
-          <div style="color:var(--text-muted);font-size:.85rem;">Loading records…</div>
+          <div class="spinner" style="
+            width:30px; height:30px;
+            border-color:#e2e8f0;
+            border-top-color:var(--accent-gold);
+            margin:0 auto 12px;
+          "></div>
+          <div style="color:var(--text-muted);font-size:.85rem;">
+            Loading records…
+          </div>
         </td>
       </tr>`;
   }
@@ -693,8 +761,13 @@
   }
 
   function escapeHtml(str) {
-    return String(str).replace(/[&<>"']/g, m =>
-      ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[m]);
+    return String(str).replace(/[&<>"']/g, m => ({
+      '&' : '&amp;',
+      '<' : '&lt;',
+      '>' : '&gt;',
+      '"' : '&quot;',
+      "'" : '&#39;'
+    })[m]);
   }
 </script>
 </body>
