@@ -2,32 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Radha Krishna Mitra Mandal - Donation Register</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-navy: #0e2a47;
-      --accent-gold:  #d97706;
-      --gold-hover:   #b45309;
-      --bg-main:      #f8fafc;
-      --card-bg:      #ffffff;
-      --text-dark:    #0f172a;
-      --text-muted:   #64748b;
-      --border-color: #e2e8f0;
-      --danger:       #ef4444;
-      --danger-bg:    #fef2f2;
-      --success:      #10b981;
-      --radius-lg:    16px;
-      --radius-md:    10px;
-      --shadow-card:  0 10px 25px -5px rgba(14,42,71,0.08),
-                      0 8px 10px -6px rgba(14,42,71,0.03);
+      --primary-navy : #0e2a47;
+      --accent-gold  : #d97706;
+      --gold-hover   : #b45309;
+      --bg-main      : #f8fafc;
+      --card-bg      : #ffffff;
+      --text-dark    : #0f172a;
+      --text-muted   : #64748b;
+      --border-color : #e2e8f0;
+      --danger       : #ef4444;
+      --danger-bg    : #fef2f2;
+      --success      : #10b981;
+      --radius-lg    : 16px;
+      --radius-md    : 10px;
+      --shadow-card  : 0 10px 25px -5px rgba(14,42,71,0.08),
+                       0 8px 10px -6px rgba(14,42,71,0.03);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0;
-        font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
 
     body {
       background-color: var(--bg-main);
@@ -59,211 +63,510 @@
       box-shadow: var(--shadow-card);
       gap: 16px;
     }
-    .brand-group { display: flex; align-items: center; gap: 16px; }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
 
     .brand-logo-wrapper {
-      width: 90px; height: 90px; min-width: 90px;
+      width: 90px;
+      height: 90px;
+      min-width: 90px;
       border-radius: 50%;
       background: #fff;
       border: 3px solid #d97706;
       outline: 2px solid rgba(251,191,36,0.35);
       outline-offset: 2px;
-      box-shadow: 0 0 0 5px rgba(251,191,36,0.12), 0 8px 24px rgba(217,119,6,0.22);
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden; flex-shrink: 0; padding: 2px;
+      box-shadow: 0 0 0 5px rgba(251,191,36,0.12),
+                  0 8px 24px rgba(217,119,6,0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      padding: 2px;
     }
+
     .brand-logo {
-      width: 100%; height: 100%; border-radius: 50%;
-      object-fit: contain; object-position: center; display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
     }
 
     .brand-info h1 {
-      font-size: 1.3rem; font-weight: 800;
-      color: var(--primary-navy); letter-spacing: -0.01em; line-height: 1.25;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary-navy);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
     }
+
     .brand-info .tagline {
-      font-size: 0.82rem; color: var(--accent-gold);
-      font-weight: 700; margin-top: 4px;
+      font-size: 0.82rem;
+      color: var(--accent-gold);
+      font-weight: 700;
+      margin-top: 4px;
     }
 
     .sync-badge {
-      display: flex; align-items: center; gap: 6px;
-      background: #ecfdf5; color: #047857;
-      padding: 6px 12px; border-radius: 20px;
-      font-size: 0.75rem; font-weight: 700;
-      border: 1px solid #a7f3d0; white-space: nowrap; flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: #047857;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid #a7f3d0;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
     }
+
+    .sync-badge.syncing {
+      background: #fffbeb;
+      color: #92400e;
+      border-color: #fde68a;
+    }
+
     .sync-dot {
-      width: 8px; height: 8px;
+      width: 8px;
+      height: 8px;
       background-color: var(--success);
-      border-radius: 50%; animation: pulse 2s infinite;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
     }
+
+    .sync-badge.syncing .sync-dot {
+      background-color: #f59e0b;
+    }
+
     @keyframes pulse {
-      0%,100% { opacity:1; transform:scale(1); }
-      50%      { opacity:.5; transform:scale(1.2); }
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.2); }
     }
 
     @media (max-width: 500px) {
-      .app-header { flex-direction:column; align-items:center; text-align:center; padding:16px; gap:12px; }
-      .brand-group { flex-direction:column; align-items:center; gap:10px; }
-      .brand-logo-wrapper { width:100px; height:100px; min-width:100px; }
-      .brand-info h1 { font-size:1.15rem; }
+      .app-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 16px;
+        gap: 12px;
+      }
+      .brand-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      .brand-logo-wrapper {
+        width: 100px;
+        height: 100px;
+        min-width: 100px;
+      }
+      .brand-info h1 { font-size: 1.15rem; }
     }
 
     /* ===== TOTAL CARD ===== */
     .total-card {
-      background: linear-gradient(135deg,#0e2a47 0%,#173d66 100%);
-      color:#fff; padding:24px 28px; border-radius:var(--radius-lg);
-      box-shadow:0 16px 25px -10px rgba(14,42,71,0.3);
-      border:1px solid rgba(251,191,36,0.3);
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      background: linear-gradient(135deg, #0e2a47 0%, #173d66 100%);
+      color: #fff;
+      padding: 24px 28px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 16px 25px -10px rgba(14,42,71,0.3);
+      border: 1px solid rgba(251,191,36,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
+
     .total-card .tc-left .label {
-      font-size:.75rem; text-transform:uppercase; letter-spacing:1.4px;
-      color:#fbbf24; font-weight:700; margin-bottom:6px;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: #fbbf24;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
+
     .total-card .tc-left .amount {
-      font-size:2.4rem; font-weight:800; letter-spacing:-0.02em; color:#fff;
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
     }
+
     .total-card .tc-right {
-      font-size:.78rem; color:rgba(255,255,255,0.6); font-weight:600; text-align:right;
+      font-size: .78rem;
+      color: rgba(255,255,255,0.6);
+      font-weight: 600;
+      text-align: right;
     }
+
     .total-card .tc-right span {
-      display:block; font-size:1.3rem; font-weight:800; color:#fbbf24; margin-top:2px;
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fbbf24;
+      margin-top: 2px;
     }
 
     /* ===== CARDS ===== */
     .card {
-      background:var(--card-bg); border-radius:var(--radius-lg);
-      border:1px solid var(--border-color); padding:20px; box-shadow:var(--shadow-card);
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
     }
+
     .card-title {
-      font-size:1.05rem; font-weight:700; color:var(--primary-navy);
-      margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-navy);
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     /* ===== FORM ===== */
-    .form-grid { display:grid; grid-template-columns:1fr; gap:14px; }
-    @media (min-width:600px) {
-      .form-grid { grid-template-columns:1fr 1fr; }
-      .full-width { grid-column:span 2; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;     gap: 14px;
     }
-    .form-group { display:flex; flex-direction:column; gap:6px; }
+
+    @media (min-width: 600px) {
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .full-width { grid-column: span 2; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
     .form-group label {
-      font-size:.75rem; font-weight:700; color:var(--text-dark);
-      text-transform:uppercase; letter-spacing:.5px;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: .5px;
     }
+
     .form-group input {
-      padding:11px 14px; border:1.5px solid var(--border-color);
-      border-radius:var(--radius-md); font-size:.95rem; color:var(--text-dark);
-      outline:none; transition:border-color .15s, box-shadow .15s;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: .95rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      background: #fff;
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
     }
+
     .form-group input:focus {
-      border-color:var(--accent-gold);
-      box-shadow:0 0 0 3px rgba(217,119,6,0.15);
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(217,119,6,0.15);
     }
-    .button-group { display:flex; gap:10px; }
+
+    .form-group input.input-error {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.12);
+    }
+
+    .field-error {
+      font-size: .75rem;
+      color: var(--danger);
+      font-weight: 600;
+      display: none;
+    }
+
+    .field-error.show { display: block; }
+
+    /* Edit mode highlight */
+    .card.edit-mode {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(217,119,6,0.12),
+                  var(--shadow-card);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
 
     .btn {
-      padding:12px 18px; border:none; border-radius:var(--radius-md);
-      font-size:.95rem; font-weight:700; cursor:pointer;
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:8px; transition:transform .15s, box-shadow .15s;
+      padding: 12px 18px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform .15s, box-shadow .15s, opacity .15s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      user-select: none;
     }
+
+    .btn:active { transform: scale(0.97); }
+
     .btn-primary {
-      background:linear-gradient(135deg,var(--accent-gold),var(--gold-hover));
-      color:#fff; flex:1; box-shadow:0 4px 12px rgba(217,119,6,0.25);
+      background: linear-gradient(135deg, var(--accent-gold), var(--gold-hover));
+      color: #fff;
+      flex: 1;
+      box-shadow: 0 4px 12px rgba(217,119,6,0.25);
     }
-    .btn-primary:hover { transform:translateY(-1px); box-shadow:0 6px 16px rgba(217,119,6,0.35); }
-    .btn-cancel { background:#e2e8f0; color:var(--text-dark); display:none; }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(217,119,6,0.35);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-cancel {
+      background: #e2e8f0;
+      color: var(--text-dark);
+      display: none;
+      min-width: 110px;
+    }
+
+    .btn-cancel:hover { background: #cbd5e1; }
 
     .btn-action {
-      padding:6px 11px; font-size:.78rem; border-radius:6px;
-      font-weight:700; border:none; cursor:pointer; transition:all .15s;
+      padding: 6px 11px;
+      font-size: .78rem;
+      border-radius: 6px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all .15s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
-    .btn-edit   { background:#eff6ff; color:#2563eb; margin-right:4px; }
-    .btn-edit:hover   { background:#2563eb; color:#fff; }
-    .btn-delete { background:var(--danger-bg); color:var(--danger); }
-    .btn-delete:hover { background:var(--danger); color:#fff; }
+
+    .btn-edit   { background: #eff6ff; color: #2563eb; margin-right: 4px; }
+    .btn-edit:hover   { background: #2563eb; color: #fff; }
+    .btn-delete { background: var(--danger-bg); color: var(--danger); }
+    .btn-delete:hover { background: var(--danger); color: #fff; }
 
     /* ===== SEARCH ===== */
-    .search-wrapper { position:relative; margin-bottom:16px; }
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
     .search-wrapper input {
-      width:100%; padding:11px 14px 11px 42px;
-      border:1.5px solid var(--border-color); border-radius:var(--radius-md);
-      font-size:.95rem; outline:none; background:#f8fafc; transition:all .15s;
+      width: 100%;
+      padding: 11px 14px 11px 42px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: .95rem;
+      outline: none;
+      background: #f8fafc;
+      transition: all .15s;
+      -webkit-appearance: none;
+      appearance: none;
     }
+
     .search-wrapper input:focus {
-      background:#fff; border-color:var(--accent-gold);
-      box-shadow:0 0 0 3px rgba(217,119,6,0.12);
+      background: #fff;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(217,119,6,0.12);
     }
+
     .search-icon {
-      position:absolute; left:14px; top:50%;
-      transform:translateY(-50%); color:#94a3b8; pointer-events:none;
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      pointer-events: none;
     }
+
+    .search-clear {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #94a3b8;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: .7rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      line-height: 1;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .search-clear.show { display: flex; }
 
     /* ===== TABLE ===== */
     .table-responsive {
-      width:100%; overflow-x:auto;
-      border-radius:var(--radius-md); border:1px solid var(--border-color);
-    }
-    table { width:100%; border-collapse:collapse; text-align:left; font-size:.88rem; background:#fff; }
-    th {
-      background:#f8fafc; color:var(--text-muted); font-weight:700;
-      text-transform:uppercase; font-size:.72rem; letter-spacing:.5px;
-      padding:12px 14px; border-bottom:1px solid var(--border-color);
-    }
-    td { padding:12px 14px; border-bottom:1px solid var(--border-color); vertical-align:middle; }
-    tr:last-child td { border-bottom:none; }
-    tr:hover td { background:#f8fafc; }
-    .amount-cell { font-weight:800; color:#059669; }
-    .badge-area {
-      display:inline-block; padding:3px 9px; background:#f1f5f9;
-      color:#334155; border-radius:6px; font-weight:600; font-size:.78rem;
-    }
-    .sr-num {
-      width:32px; height:32px; border-radius:50%;
-      background:linear-gradient(135deg,var(--primary-navy),#1e4a7a);
-      color:#fff; font-size:.72rem; font-weight:800;
-      display:inline-flex; align-items:center; justify-content:center;
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      -webkit-overflow-scrolling: touch;
     }
 
-    /* ===== OPTIMISTIC ROW (saving state) ===== */
-    tr.saving td { opacity: .55; }
-    tr.saving td:first-child::after {
-      content: ' ⏳';
-      font-size: .7rem;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: .88rem;
+      background: #fff;
+      min-width: 500px;
+    }
+
+    th {
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: .72rem;
+      letter-spacing: .5px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    .amount-cell {
+      font-weight: 800;
+      color: #059669;
+      white-space: nowrap;
+    }
+
+    .badge-area {
+      display: inline-block;
+      padding: 3px 9px;
+      background: #f1f5f9;
+      color: #334155;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: .78rem;
+    }
+
+    .sr-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-navy), #1e4a7a);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
     /* ===== NOTIFICATION ===== */
     .notification {
-      position:fixed; bottom:24px; left:50%;
-      transform:translateX(-50%) translateY(100px);
-      padding:12px 24px; border-radius:30px; background:#0f172a;
-      color:#fff; font-size:.88rem; font-weight:600;
-      box-shadow:0 10px 25px rgba(0,0,0,0.2); z-index:1000;
-      opacity:0; transition:all .25s ease; white-space:nowrap;
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      padding: 13px 28px;
+      border-radius: 30px;
+      background: #0f172a;
+      color: #fff;
+      font-size: .88rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 9999;
+      opacity: 0;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+      white-space: nowrap;
+      max-width: calc(100vw - 40px);
+      text-align: center;
     }
-    .notification.show { transform:translateX(-50%) translateY(0); opacity:1; }
-    .notification.success { background:#059669; }
-    .notification.error   { background:var(--danger); }
+
+    .notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .notification.success { background: #059669; }
+    .notification.error   { background: var(--danger); }
+    .notification.info    { background: #2563eb; }
 
     /* ===== SPINNER ===== */
     .spinner {
-      border:2px solid rgba(255,255,255,0.3); border-top:2px solid #fff;
-      border-radius:50%; width:16px; height:16px;
-      animation:spin .7s linear infinite; flex-shrink:0;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top: 2px solid #fff;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin .7s linear infinite;
+      flex-shrink: 0;
     }
-    @keyframes spin { to { transform:rotate(360deg); } }
 
-    .text-center { text-align:center; }
-    .empty-msg { padding:32px; color:var(--text-muted); text-align:center; font-size:.9rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .spinner-gold {
+      border-color: rgba(217,119,6,0.2);
+      border-top-color: var(--accent-gold);
+    }
+
+    /* ===== MISC ===== */
+    .text-center { text-align: center; }
+
+    .empty-msg {
+      padding: 40px 20px;
+      color: var(--text-muted);
+      text-align: center;
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    mark {
+      background: #fef08a;
+      color: #0f172a;
+      border-radius: 3px;
+      padding: 0 2px;
+    }
   </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- HEADER -->
+  <!-- ===== HEADER ===== -->
   <div class="app-header">
     <div class="brand-group">
       <div class="brand-logo-wrapper">
@@ -275,13 +578,13 @@
         <p class="tagline">सेवा &nbsp;•&nbsp; सहयोग &nbsp;•&nbsp; सद्भाव</p>
       </div>
     </div>
-    <div class="sync-badge">
+    <div class="sync-badge" id="syncBadge">
       <div class="sync-dot"></div>
       <span id="syncLabel">Live Sync</span>
     </div>
   </div>
 
-  <!-- TOTAL -->
+  <!-- ===== TOTAL CARD ===== -->
   <div class="total-card">
     <div class="tc-left">
       <div class="label">Total Donation Collected</div>
@@ -293,37 +596,47 @@
     </div>
   </div>
 
-  <!-- FORM -->
-  <div class="card">
+  <!-- ===== FORM CARD ===== -->
+  <div class="card" id="formCard">
     <div class="card-title">
       <span id="formTitle">➕ Add New Donation Entry</span>
     </div>
-    <formid="chandaForm">
+
+    <!-- ✅ FIXED: was <formid= (typo) — now proper <form id= -->
+    <form id="chandaForm" novalidate autocomplete="off">
       <input type="hidden" id="editRecordId" value="">
+
       <div class="form-grid">
 
         <div class="form-group">
           <label for="name">Full Name *</label>
-          <input type="text" id="name" required placeholder="Enter full name">
+          <input type="text" id="name" placeholder="Enter full name"
+                 autocomplete="off" inputmode="text">
+          <span class="field-error" id="nameError">Name is required.</span>
         </div>
 
         <div class="form-group">
           <label for="amount">Amount (₹) *</label>
-          <input type="number" id="amount" required min="1" placeholder="Enter donation amount">
+          <input type="number" id="amount" placeholder="Enter donation amount"
+                 min="1" inputmode="numeric">
+          <span class="field-error" id="amountError">Enter a valid amount (min ₹1).</span>
         </div>
 
         <div class="form-group">
           <label for="area">Area / Location *</label>
-          <input type="text" id="area" required placeholder="Enter area or location">
+          <input type="text" id="area" placeholder="Enter area or location"
+                 autocomplete="off" inputmode="text">
+          <span class="field-error" id="areaError">Area is required.</span>
         </div>
 
         <div class="form-group">
           <label for="remark">Remark / Payment Mode</label>
-          <input type="text" id="remark" placeholder="e.g. Cash / Online / UPI">
+          <input type="text" id="remark" placeholder="e.g. Cash / Online / UPI"
+                 autocomplete="off" inputmode="text">
         </div>
 
-        <div class="full-width button-group" style="margin-top:4px;">
-          <button type="button" class="btn btn-cancel" id="cancelBtn" onclick="resetFormState()">
+        <div class="full-width button-group" style="margin-top: 4px;">
+          <button type="button" class="btn btn-cancel" id="cancelBtn">
             ✕ Cancel
           </button>
           <button type="submit" class="btn btn-primary" id="submitBtn">
@@ -335,7 +648,7 @@
     </form>
   </div>
 
-  <!-- REGISTER LIST -->
+  <!-- ===== REGISTER LIST ===== -->
   <div class="card">
     <div class="card-title">📋 Donation Register List</div>
 
@@ -346,7 +659,10 @@
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
       <input type="text" id="searchInput"
-             placeholder="Search by name, amount, area, remark...">
+             placeholder="Search by name, amount, area, remark..."
+             autocomplete="off">
+      <button class="search-clear" id="searchClear"
+              type="button" title="Clear search">✕</button>
     </div>
 
     <div class="table-responsive">
@@ -364,7 +680,13 @@
         <tbody id="recordsTableBody">
           <tr>
             <td colspan="6" class="text-center">
-              Loading records...
+              <div style="padding:36px;">
+                <div class="spinner spinner-gold"
+                     style="width:28px;height:28px;margin:0 auto 10px;"></div>
+                <div style="color:var(--text-muted);font-size:.85rem;">
+                  Loading records…
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -374,401 +696,613 @@
 
 </div><!-- end .container -->
 
+<!-- Notification toast -->
 <div id="notification" class="notification"></div>
 
 <script>
-  // =============================================
-  // ✅ APNA URL YAHAN DAALO
-  // =============================================
-  const API_URL = "https://script.google.com/macros/s/AKfycbzwYqpSCPwVk-s2CeT9LjY7-_2nmCta92u5iZZ7l1bWYJnnzgv3XZ_TiezXf0S6j7IkzA/exec";
+"use strict";
 
-  // =============================================
-  // STATE
-  // =============================================
-  let allRecords  = [];
-  let isSyncing   = false;
+// ─────────────────────────────────────────────
+// CONFIG
+// ─────────────────────────────────────────────
+const API_URL = "https://script.google.com/macros/s/AKfycbzO6Luyjkx9oYWreq5iepysi8RMuz2y7Gv_af5nQ7SHPCLkLjRqvUCs7Ui7Guz3WAMFVw/exec";
 
-  // =============================================
-  // DOM REFS
-  // =============================================
-  const chandaForm          = document.getElementById('chandaForm');
-  const submitBtn           = document.getElementById('submitBtn');
-  const cancelBtn           = document.getElementById('cancelBtn');
-  const formTitle           = document.getElementById('formTitle');
-  const editRecordId        = document.getElementById('editRecordId');
-  const searchInput         = document.getElementById('searchInput');
-  const recordsTableBody    = document.getElementById('recordsTableBody');
-  const totalAmountDisplay  = document.getElementById('totalAmountDisplay');
-  const totalRecordsDisplay = document.getElementById('totalRecordsDisplay');
-  const notification        = document.getElementById('notification');
-  const syncLabel           = document.getElementById('syncLabel');
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let allRecords    = [];   // master data array
+let isSubmitting  = false; // prevent duplicate submissions
+let _notifTimer   = null;
 
-  // =============================================
-  // INIT
-  // =============================================
-  document.addEventListener('DOMContentLoaded', fetchRecords);
+// ─────────────────────────────────────────────
+// DOM REFS  (cached once — never query again)
+// ─────────────────────────────────────────────
+const chandaForm          = document.getElementById('chandaForm');
+const submitBtn           = document.getElementById('submitBtn');
+const submitBtnText       = document.getElementById('submitBtnText');
+const cancelBtn           = document.getElementById('cancelBtn');
+const formCard            = document.getElementById('formCard');
+const formTitle           = document.getElementById('formTitle');
+const editRecordId        = document.getElementById('editRecordId');
+const nameInput           = document.getElementById('name');
+const amountInput         = document.getElementById('amount');
+const areaInput           = document.getElementById('area');
+const remarkInput         = document.getElementById('remark');
+const nameError           = document.getElementById('nameError');
+const amountError         = document.getElementById('amountError');
+const areaError           = document.getElementById('areaError');
+const searchInput         = document.getElementById('searchInput');
+const searchClear         = document.getElementById('searchClear');
+const recordsTableBody    = document.getElementById('recordsTableBody');
+const totalAmountDisplay  = document.getElementById('totalAmountDisplay');
+const totalRecordsDisplay = document.getElementById('totalRecordsDisplay');
+const notificationEl      = document.getElementById('notification');
+const syncBadge           = document.getElementById('syncBadge');
+const syncLabel           = document.getElementById('syncLabel');
+
+// ─────────────────────────────────────────────
+// INIT
+//// ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  fetchRecords();
+
+  // Form submit — single listener
   chandaForm.addEventListener('submit', handleFormSubmit);
 
-  // ✅ SEARCH FIX — input event + keyup dono
+  // Cancel button
+  cancelBtn.addEventListener('click', resetFormState);
+
+  // Search — covers typing, paste, voice input, Android keyboard
   searchInput.addEventListener('input',  handleSearch);
   searchInput.addEventListener('keyup',  handleSearch);
   searchInput.addEventListener('change', handleSearch);
 
-  // =============================================
-  // FETCH
-  // =============================================
-  async function fetchRecords(showLoader = true) {
-    try {
-      if (showLoader === true) renderTableLoading();
+  // Search clear button
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchClear.classList.remove('show');
+    renderFiltered();
+    searchInput.focus();
+  });
 
-      const res    = await fetch(API_URL, { redirect: 'follow' });
-      const text   = await res.text();
-      const result = JSON.parse(text);
+  // Clear field errors on input
+  nameInput.addEventListener('input',   () => clearFieldError('name'));
+  amountInput.addEventListener('input', () => clearFieldError('amount'));
+  areaInput.addEventListener('input',   () => clearFieldError('area'));
+});
 
-      if (result.status === 'success') {
-        allRecords = result.data || [];
-        // ✅ Fetch ke baad bhi search preserve karo
-        renderFiltered();
-      } else {
-        showEmptyTable('❌ Data load nahi hua.');
-        showNotification(result.message || 'Fetch error.', 'error');
-      }
-    } catch (err) {
-      console.error('fetchRecords:', err);
-      showEmptyTable('⚠️ Connection failed. Refresh karo.');
-      showNotification('Network error. Refresh karo.', 'error');
-    }
+// ─────────────────────────────────────────────
+// API HELPER — single reliable fetch wrapper
+// ─────────────────────────────────────────────
+async function apiFetch(options = {}) {
+  const { method = 'GET', body = null, timeoutMs = 20000 } = options;
+
+  const controller = new AbortController();
+  const timer      = setTimeout(() => controller.abort(), timeoutMs);
+
+  const fetchOptions = {
+    method,
+    redirect : 'follow',
+    signal   : controller.signal,
+  };
+
+  // ✅ For POST: set body only (no Content-Type header)
+  // Google Apps Script requires this — adding Content-Type breaks CORS
+  if (method === 'POST' && body) {
+    fetchOptions.body = JSON.stringify(body);
   }
 
-  // =============================================
-  // FORM SUBMIT — OPTIMISTIC ADD / EDIT
-  // =============================================
-  async function handleFormSubmit(e) {
-    e.preventDefault();
+  try {
+    const res  = await fetch(API_URL, fetchOptions);
+    const text = await res.text();
 
-    const id     = editRecordId.value.trim();
-    const name   = document.getElementById('name').value.trim();
-    const amount = parseFloat(document.getElementById('amount').value);
-    const area   = document.getElementById('area').value.trim();
-    const remark = document.getElementById('remark').value.trim();
-
-    if (!name || isNaN(amount) || amount <= 0 || !area) {
-      showNotification('Sahi se fields bharo!', 'error');
-      return;
+    // Guard against empty response
+    if (!text || text.trim() === '') {
+      throw new Error('Empty response from server.');
     }
 
-    const isEdit = Boolean(id);
+    let parsed;
+    try {
+      parsed = JSON.parse(text);
+    } catch {
+      throw new Error('Invalid JSON from server: ' + text.substring(0, 100));
+    }
 
-    // OPTIMISTIC UPDATE
-    if (isEdit) {
-      const idx = allRecords.findIndex(r => String(r.id) === id);
-      if (idx !== -1) {
-        allRecords[idx] = {
-          ...allRecords[idx], name, amount, area, remark
-        };
-      }
-      showNotification('✅ Entry update ho gayi!', 'success');
+    return parsed;
+
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// ─────────────────────────────────────────────
+// FETCH RECORDS — initial load
+// ─────────────────────────────────────────────
+async function fetchRecords() {
+  renderTableLoading();
+  setSyncBadge(true);
+
+  try {
+    const result = await apiFetch({ method: 'GET' });
+
+    if (result.status === 'success') {
+      allRecords = Array.isArray(result.data) ? result.data : [];
+      renderFiltered();
     } else {
-      const tempId = 'TEMP_' + Date.now();
-      allRecords.push({
-        id        : tempId,
-        name, amount, area, remark,
-        timestamp : 'Saving...'
-      });
-      showNotification('✅ Entry add ho gayi!', 'success');
+      showEmptyTable('❌ Could not load data: ' + (result.message || 'Unknown error'));
+      showNotification(result.message || 'Failed to load records.', 'error');
     }
 
-    renderFiltered();
-    resetFormState();
+  } catch (err) {
+    console.error('fetchRecords error:', err);
+    const msg = err.name === 'AbortError'
+      ? '⏱ Request timed out. Check your internet connection.'
+      : '⚠️ Network error. Please refresh the page.';
+    showEmptyTable(msg);
+    showNotification(msg, 'error');
 
-    // Background API call
-    const payload = {
-      action: isEdit ? 'edit' : 'add',
-      name, amount, area, remark
-    };
-    if (isEdit) payload.id = id;
+  } finally {
+    setSyncBadge(false);
+  }
+}
 
-    setSyncBadge(true);
+// ─────────────────────────────────────────────
+// FORM SUBMIT — ADD or EDIT
+// ─────────────────────────────────────────────
+async function handleFormSubmit(e) {
+  e.preventDefault();
+  e.stopPropagation();
 
-    try {
-      const res    = await fetch(API_URL, {
-        method  : 'POST',
-        redirect: 'follow',
-        body    : JSON.stringify(payload)
-      });
-      const text   = await res.text();
-      const result = JSON.parse(text);
+  // ✅ Prevent double submission (mobile double-tap / fast click)
+  if (isSubmitting) return;
 
-      if (result.status === 'success') {
-        if (!isEdit && result.id) {
-          const tempIdx = allRecords.findIndex(
-            r => String(r.id).startsWith('TEMP_')
-          );
-          if (tempIdx !== -1) {
-            allRecords[tempIdx].id        = result.id;
-            allRecords[tempIdx].timestamp =
-              new Date().toLocaleString('en-IN');
-          }
-        }
-        silentRefresh();
+  // ─── Read values ───
+  const id     = editRecordId.value.trim();
+  const name   = nameInput.value.trim();
+  const amount = parseFloat(amountInput.value);
+  const area   = areaInput.value.trim();
+  const remark = remarkInput.value.trim();
+  const isEdit = Boolean(id);
+
+  // ─── Client-side validation ───
+  let hasError = false;
+
+  if (!name) {
+    showFieldError('name', 'Full name is required.');
+    hasError = true;
+  }
+  if (!amount || isNaN(amount) || amount <= 0) {
+    showFieldError('amount', 'Enter a valid amount (min ₹1).');
+    hasError = true;
+  }
+  if (!area) {
+    showFieldError('area', 'Area / Location is required.');
+    hasError = true;
+  }
+
+  if (hasError) {
+    showNotification('Please fill all required fields.', 'error');
+    return;
+  }
+
+  // ─── Lock UI ───
+  isSubmitting = true;
+  setSubmitLoading(true, isEdit ? 'Updating…' : 'Saving…');
+
+  const payload = {
+    action : isEdit ? 'edit' : 'add',
+    name,
+    amount,
+    area,
+    remark,
+  };
+  if (isEdit) payload.id = id;
+
+  setSyncBadge(true);
+
+  try {
+    const result = await apiFetch({ method: 'POST', body: payload });
+
+    if (result.status === 'success') {
+
+      // ✅ Use fresh server data if returned, else re-fetch once
+      if (Array.isArray(result.data) && result.data.length >= 0) {
+        allRecords = result.data;
       } else {
-        showNotification(
-          '⚠️ Save failed: ' + (result.message || 'Error'), 'error'
-        );
-        fetchRecords(false);
+        // fallback: silent re-fetch
+        await refreshFromServer();
       }
-    } catch (err) {
-      console.error('Submit error:', err);
-      showNotification('⚠️ Sync nahi hua. Refresh karo.', 'error');
-      fetchRecords(false);
-    } finally {
-      setSyncBadge(false);
-    }
-  }
 
-  // =============================================
-  // DELETE — OPTIMISTIC
-  // =============================================
-  async function deleteRecord(id) {
-    if (!confirm('Sure ho? Permanently delete ho jayega!')) return;
+      renderFiltered();
+      resetFormState();
 
-    allRecords = allRecords.filter(r => String(r.id) !== String(id));
-    renderFiltered();
-    showNotification('✅ Entry delete ho gayi!', 'success');
-    if (editRecordId.value === String(id)) resetFormState();
+      const successMsg = isEdit
+        ? '✅ Entry updated successfully!'
+        : '✅ Donation added successfully!';
+      showNotification(successMsg, 'success');
 
-    setSyncBadge(true);
-
-    try {
-      const res    = await fetch(API_URL, {
-        method  : 'POST',
-        redirect: 'follow',
-        body    : JSON.stringify({ action: 'delete', id })
-      });
-      const text   = await res.text();
-      const result = JSON.parse(text);
-
-      if (result.status !== 'success') {
-        showNotification('⚠️ Delete sync failed.', 'error');
-        fetchRecords(false);
-      } else {
-        silentRefresh();
-      }
-    } catch (err) {
-      console.error('Delete error:', err);
-      showNotification('⚠️ Network error.', 'error');
-      fetchRecords(false);
-    } finally {
-      setSyncBadge(false);
-    }
-  }
-
-  // =============================================
-  // SILENT REFRESH
-  // =============================================
-  async function silentRefresh() {
-    try {
-      const res    = await fetch(API_URL, { redirect: 'follow' });
-      const text   = await res.text();
-      const result = JSON.parse(text);
-      if (result.status === 'success') {
-        allRecords = result.data || [];
-        renderFiltered();
-      }
-    } catch (err) {
-      console.warn('silentRefresh failed:', err);
-    }
-  }
-
-  // =============================================
-  // EDIT MODE
-  // =============================================
-  function startEditRecord(id) {
-    const record = allRecords.find(r => String(r.id) === String(id));
-    if (!record) return;
-
-    editRecordId.value = record.id;
-    document.getElementById('name').value   = record.name;
-    document.getElementById('amount').value = record.amount;
-    document.getElementById('area').value   = record.area;
-    document.getElementById('remark').value = record.remark || '';
-
-    formTitle.textContent = '✏️ Edit / Update Entry';
-    document.getElementById('submitBtnText').textContent = 'Update Entry';
-    cancelBtn.style.display = 'inline-flex';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // =============================================
-  // RESET FORM
-  // =============================================
-  function resetFormState() {
-    chandaForm.reset();
-    editRecordId.value      = '';
-    formTitle.textContent   = '➕ Add New Donation Entry';
-    submitBtn.disabled      = false;
-    submitBtn.innerHTML     = '<span id="submitBtnText">Add Donation</span>';
-    cancelBtn.style.display = 'none';
-  }
-
-  // =============================================
-  // ✅ SEARCH HANDLER — FIXED
-  // =============================================
-  function handleSearch() {
-    renderFiltered();
-  }
-
-  // =============================================
-  // ✅ renderFiltered — Search + Render ek saath
-  // =============================================
-  function renderFiltered() {
-    const q = searchInput.value.toLowerCase().trim();
-
-    // ✅ Agar search empty hai toh sab dikhao
-    const filtered = (q === '')
-      ? allRecords
-      : allRecords.filter(r => {
-          const nameMatch   = r.name.toLowerCase().includes(q);
-          const amountMatch = String(r.amount).includes(q);
-          const areaMatch   = r.area.toLowerCase().includes(q);
-          const remarkMatch = r.remark
-            ? r.remark.toLowerCase().includes(q)
-            : false;
-          return nameMatch || amountMatch || areaMatch || remarkMatch;
-        });
-
-    // ✅ Total hamesha allRecords se (search se affect na ho)
-    const total = allRecords.reduce(
-      (s, r) => s + (Number(r.amount) || 0), 0
-    );
-    totalAmountDisplay.textContent  = `₹ ${total.toLocaleString('en-IN')}`;
-    totalRecordsDisplay.textContent = allRecords.length;
-
-    // Empty check
-    if (filtered.length === 0) {
-      showEmptyTable(
-        q
-          ? `🔍 "${escapeHtml(q)}" ke liye koi record nahi mila.`
-          : 'Koi record nahi hai. Pehli entry add karo!'
+    } else {
+      // Server returned error — keep form data intact
+      showNotification(
+        '❌ ' + (result.message || 'Save failed. Please try again.'),
+        'error'
       );
-      return;
     }
 
-    // ✅ DocumentFragment — fast DOM render
-    const frag     = document.createDocumentFragment();
-    const reversed = filtered.slice().reverse();
+  } catch (err) {
+    console.error('handleFormSubmit error:', err);
+    const msg = err.name === 'AbortError'
+      ? '⏱ Request timed out. Please try again.'
+      : '⚠️ Network error. Please check connection and try again.';
+    showNotification(msg, 'error');
+    // ✅ Do NOT reset form — keep user data safe
+  } finally {
+    isSubmitting = false;
+    setSubmitLoading(false, isEdit ? 'Update Entry' : 'Add Donation');
+    setSyncBadge(false);
+  }
+}
 
-    reversed.forEach((record, index) => {
-      const tr       = document.createElement('tr');
-      const isSaving = String(record.id).startsWith('TEMP_');
-      if (isSaving) tr.classList.add('saving');
+// ─────────────────────────────────────────────
+// DELETE
+// ─────────────────────────────────────────────
+async function deleteRecord(id) {
+  if (!id) return;
 
-      // ✅ Search highlight
-      const displayName   = q ? highlight(escapeHtml(record.name), q)   : escapeHtml(record.name);
-      const displayArea   = q ? highlight(escapeHtml(record.area), q)   : escapeHtml(record.area);
-      const displayRemark = q ? highlight(escapeHtml(record.remark || '—'), q) : escapeHtml(record.remark || '—');
+  if (!confirm('Are you sure? This record will be permanently deleted.')) return;
 
-      tr.innerHTML = `
-        <td><div class="sr-num">${reversed.length - index}</div></td>
-        <td>
-          <strong style="color:var(--primary-navy);">
-            ${displayName}
-          </strong>
-        </td>
-        <td class="amount-cell">
-          ₹ ${Number(record.amount).toLocaleString('en-IN')}
-        </td>
-        <td>
-          <span class="badge-area">${displayArea}</span>
-        </td>
-        <td style="color:var(--text-muted);">
-          ${displayRemark}
-        </td>
-        <td style="text-align:right; white-space:nowrap;">
-          ${isSaving
-            ? '<span style="font-size:.75rem;color:var(--text-muted);">⏳ Saving…</span>'
-            : `<button class="btn-action btn-edit"
-                 onclick="startEditRecord('${record.id}')">✏️ Edit</button>
-               <button class="btn-action btn-delete"
-                 onclick="deleteRecord('${record.id}')">🗑️ Delete</button>`
-          }
-        </td>`;
-      frag.appendChild(tr);
+  // If currently editing this record — reset form
+  if (editRecordId.value === String(id)) resetFormState();
+
+  setSyncBadge(true);
+
+  try {
+    const result = await apiFetch({
+      method : 'POST',
+      body   : { action: 'delete', id: String(id) },
     });
 
-    recordsTableBody.innerHTML = '';
-    recordsTableBody.appendChild(frag);
-  }
+    if (result.status === 'success') {
 
-  // =============================================
-  // ✅ HIGHLIGHT — Search word yellow highlight
-  // =============================================
-  function highlight(text, query) {
-    if (!query) return text;
-    try {
-      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex   = new RegExp(`(${escaped})`, 'gi');
-      return text.replace(
-        regex,
-        '<mark style="background:#fef08a;color:#0f172a;border-radius:3px;padding:0 2px;">$1</mark>'
+      // ✅ Use fresh server data if returned
+      if (Array.isArray(result.data) && result.data.length >= 0) {
+        allRecords = result.data;
+      } else {
+        await refreshFromServer();
+      }
+
+      renderFiltered();
+      showNotification('✅ Entry deleted successfully!', 'success');
+
+    } else {
+      showNotification(
+        '❌ ' + (result.message || 'Delete failed. Please try again.'),
+        'error'
       );
-    } catch (e) {
-      return text;
     }
+
+  } catch (err) {
+    console.error('deleteRecord error:', err);
+    const msg = err.name === 'AbortError'
+      ? '⏱ Request timed out. Please try again.'
+      : '⚠️ Network error. Please try again.';
+    showNotification(msg, 'error');
+  } finally {
+    setSyncBadge(false);
+  }
+}
+
+// ─────────────────────────────────────────────
+// EDIT MODE — load record into form
+// ─────────────────────────────────────────────
+function startEditRecord(id) {
+  const record = allRecords.find(r => String(r.id) === String(id));
+  if (!record) {
+    showNotification('❌ Record not found. Please refresh.', 'error');
+    return;
   }
 
-  // =============================================
-  // SYNC BADGE
-  // =============================================
-  function setSyncBadge(syncing) {
-    isSyncing             = syncing;
-    syncLabel.textContent = syncing ? 'Syncing…' : 'Live Sync';
+  // Populate form fields
+  editRecordId.value  = String(record.id);
+  nameInput.value     = record.name   || '';
+  amountInput.value   = record.amount || '';
+  areaInput.value     = record.area   || '';
+  remarkInput.value   = record.remark || '';
+
+  // Clear any field errors
+  clearFieldError('name');
+  clearFieldError('amount');
+  clearFieldError('area');
+
+  // Update UI to Edit mode
+  formTitle.textContent   = '✏️ Edit / Update Entry';
+  submitBtnText.textContent = 'Update Entry';
+  cancelBtn.style.display   = 'inline-flex';
+  formCard.classList.add('edit-mode');
+
+  // Scroll to form smoothly
+  formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─────────────────────────────────────────────
+// RESET FORM
+// ─────────────────────────────────────────────
+function resetFormState() {
+  chandaForm.reset();
+  editRecordId.value        = '';
+  formTitle.textContent     = '➕ Add New Donation Entry';
+  submitBtnText.textContent = 'Add Donation';
+  cancelBtn.style.display   = 'none';
+  formCard.classList.remove('edit-mode');
+  isSubmitting              = false;
+
+  // Re-enable submit button
+  submitBtn.disabled = false;
+  submitBtn.style.opacity = '1';
+
+  // Clear field errors
+  clearFieldError('name');
+  clearFieldError('amount');
+  clearFieldError('area');
+}
+
+// ─────────────────────────────────────────────
+// SEARCH HANDLER
+// ─────────────────────────────────────────────
+function handleSearch() {
+  const q = searchInput.value;
+
+  // Show/hide clear button
+  if (q.trim() !== '') {
+    searchClear.classList.add('show');
+  } else {
+    searchClear.classList.remove('show');
   }
 
-  // =============================================
-  // UI HELPERS
-  // =============================================
-  function renderTableLoading() {
-    recordsTableBody.innerHTML = `
-      <tr>
-        <td colspan="6" class="text-center" style="padding:36px;">
-          <div class="spinner" style="
-            width:30px; height:30px;
-            border-color:#e2e8f0;
-            border-top-color:var(--accent-gold);
-            margin:0 auto 12px;
-          "></div>
-          <div style="color:var(--text-muted);font-size:.85rem;">
-            Loading records…
-          </div>
-        </td>
-      </tr>`;
+  renderFiltered();
+}
+
+// ─────────────────────────────────────────────
+// RENDER FILTERED — search + table render
+// ─────────────────────────────────────────────
+function renderFiltered() {
+  const rawQ = searchInput.value;
+  const q    = rawQ.toLowerCase().trim();
+
+  // ─── Filter ───
+  const filtered = (q === '')
+    ? allRecords
+    : allRecords.filter(r => {
+        const safeName   = String(r.name   || '').toLowerCase();
+        const safeArea   = String(r.area   || '').toLowerCase();
+        const safeRemark = String(r.remark || '').toLowerCase();
+        const safeAmount = String(r.amount || '');
+
+        return (
+          safeName.includes(q)   ||
+          safeArea.includes(q)   ||
+          safeRemark.includes(q) ||
+          safeAmount.includes(q)
+        );
+      });
+
+  // ─── Update totals (always from allRecords) ───
+  updateTotals();
+
+  // ─── Empty states ───
+  if (filtered.length === 0) {
+    if (allRecords.length === 0) {
+      showEmptyTable('No records yet. Add your first donation entry above!');
+    } else {
+      showEmptyTable(
+        '🔍 No records found for <strong>"' + escapeHtml(rawQ.trim()) + '"</strong>.<br>' +
+        '<span style="font-size:.8rem;">Try searching by name, area, amount or remark.</span>'
+      );
+    }
+    return;
   }
 
-  function showEmptyTable(msg = 'No records found.') {
-    recordsTableBody.innerHTML =
-      `<tr><td colspan="6" class="empty-msg">${msg}</td></tr>`;
-  }
+  // ─── Build table rows using DocumentFragment (fast) ───
+  const frag     = document.createDocumentFragment();
+  // Show newest first
+  const reversed = filtered.slice().reverse();
 
-  let _notifTimer;
-  function showNotification(msg, type = 'success') {
-    clearTimeout(_notifTimer);
-    notification.textContent = msg;
-    notification.className   = `notification show ${type}`;
-    _notifTimer = setTimeout(() => {
-      notification.className = 'notification';
-    }, 3000);
-  }
+  reversed.forEach((record, index) => {
+    const tr = document.createElement('tr');
 
-  function escapeHtml(str) {
-    return String(str).replace(/[&<>"']/g, m => ({
-      '&' : '&amp;',
-      '<' : '&lt;',
-      '>' : '&gt;',
-      '"' : '&quot;',
-      "'" : '&#39;'
-    })[m]);
+    // Safe escaped values
+    const eName   = escapeHtml(String(record.name   || ''));
+    const eArea   = escapeHtml(String(record.area   || ''));
+    const eRemark = escapeHtml(String(record.remark || '—'));
+    const eId     = escapeHtml(String(record.id));
+
+    // Highlighted values for search
+    const dName   = q ? highlight(eName,   q) : eName;
+    const dArea   = q ? highlight(eArea,   q) : eArea;
+    const dRemark = q ? highlight(eRemark, q) : eRemark;
+
+    // Amount display
+    const amtNum = Number(record.amount) || 0;
+    const dAmt   = q
+      ? highlight(amtNum.toLocaleString('en-IN'), q)
+      : amtNum.toLocaleString('en-IN');
+
+    tr.innerHTML =
+      '<td><div class="sr-num">' + (reversed.length - index) + '</div></td>' +
+      '<td><strong style="color:var(--primary-navy);">' + dName + '</strong></td>' +
+      '<td class="amount-cell">₹ ' + dAmt + '</td>' +
+      '<td><span class="badge-area">' + dArea + '</span></td>' +
+      '<td style="color:var(--text-muted);">' + dRemark + '</td>' +
+      '<td style="text-align:right;white-space:nowrap;">' +
+        '<button class="btn-action btn-edit" ' +
+                'data-id="' + eId + '" ' +
+                'aria-label="Edit record">✏️ Edit</button>' +
+        '<button class="btn-action btn-delete" ' +
+                'data-id="' + eId + '" ' +
+                'aria-label="Delete record">🗑️ Delete</button>' +
+      '</td>';
+
+    frag.appendChild(tr);
+  });
+
+  // ✅ Single DOM write
+  recordsTableBody.innerHTML = '';
+  recordsTableBody.appendChild(frag);
+
+  // ✅ Event delegation — attach once on tbody (not inline onclick)
+  // Listeners are re-attached on each render safely
+  recordsTableBody.onclick = (e) => {
+    const editBtn   = e.target.closest('.btn-edit');
+    const deleteBtn = e.target.closest('.btn-delete');
+
+    if (editBtn) {
+      const id = editBtn.getAttribute('data-id');
+      if (id) startEditRecord(id);
+    }
+
+    if (deleteBtn) {
+      const id = deleteBtn.getAttribute('data-id');
+      if (id) deleteRecord(id);
+    }
+  };
+}
+
+// ─────────────────────────────────────────────
+// UPDATE TOTALS
+// ─────────────────────────────────────────────
+function updateTotals() {
+  const total = allRecords.reduce((sum, r) => sum + (Number(r.amount) || 0), 0);
+  totalAmountDisplay.textContent  = '₹ ' + total.toLocaleString('en-IN');
+  totalRecordsDisplay.textContent = allRecords.length;
+}
+
+// ─────────────────────────────────────────────
+// REFRESH FROM SERVER (silent, no loader)
+// ─────────────────────────────────────────────
+async function refreshFromServer() {
+  try {
+    const result = await apiFetch({ method: 'GET' });
+    if (result.status === 'success' && Array.isArray(result.data)) {
+      allRecords = result.data;
+    }
+  } catch (err) {
+    console.warn('refreshFromServer failed:', err);
   }
+}
+
+// ─────────────────────────────────────────────
+// SUBMIT BUTTON LOADING STATE
+// ─────────────────────────────────────────────
+function setSubmitLoading(loading, label) {
+  submitBtn.disabled = loading;
+
+  if (loading) {
+    submitBtn.innerHTML =
+      '<div class="spinner"></div>' +
+      '<span>' + escapeHtml(label) + '</span>';
+  } else {
+    submitBtn.innerHTML =
+      '<span id="submitBtnText">' + escapeHtml(label) + '</span>';
+  }
+}
+
+// ─────────────────────────────────────────────
+// SYNC BADGE
+// ─────────────────────────────────────────────
+function setSyncBadge(syncing) {
+  if (syncing) {
+    syncBadge.classList.add('syncing');
+    syncLabel.textContent = 'Syncing…';
+  } else {
+    syncBadge.classList.remove('syncing');
+    syncLabel.textContent = 'Live Sync';
+  }
+}
+
+// ─────────────────────────────────────────────
+// FIELD VALIDATION HELPERS
+// ─────────────────────────────────────────────
+function showFieldError(field, msg) {
+  const input = document.getElementById(field);
+  const err   = document.getElementById(field + 'Error');if (input) input.classList.add('input-error');
+  if (err)   { err.textContent = msg; err.classList.add('show'); }
+}
+
+function clearFieldError(field) {
+  const input = document.getElementById(field);
+  const err   = document.getElementById(field + 'Error');
+  if (input) input.classList.remove('input-error');
+  if (err)   err.classList.remove('show');
+}
+
+// ─────────────────────────────────────────────
+// NOTIFICATION TOAST
+// ─────────────────────────────────────────────
+function showNotification(msg, type = 'success') {
+  clearTimeout(_notifTimer);
+
+  notificationEl.textContent = msg;
+  notificationEl.className   = 'notification show ' + type;
+
+  _notifTimer = setTimeout(() => {
+    notificationEl.className = 'notification';
+  }, 3500);
+}
+
+// ─────────────────────────────────────────────
+// TABLE LOADING STATE
+// ─────────────────────────────────────────────
+function renderTableLoading() {
+  recordsTableBody.innerHTML =
+    '<tr>' +
+      '<td colspan="6" class="text-center">' +
+        '<div style="padding:36px;">' +
+          '<div class="spinner spinner-gold" ' +
+               'style="width:28px;height:28px;margin:0 auto 12px;"></div>' +
+          '<div style="color:var(--text-muted);font-size:.85rem;">' +
+            'Loading records…' +
+          '</div>' +
+        '</div>' +
+      '</td>' +
+    '</tr>';
+}
+
+// ─────────────────────────────────────────────
+// EMPTY TABLE MESSAGE
+// ─────────────────────────────────────────────
+function showEmptyTable(msg) {
+  recordsTableBody.innerHTML =
+    '<tr>' +
+      '<td colspan="6" class="empty-msg">' + msg + '</td>' +
+    '</tr>';
+}
+
+// ─────────────────────────────────────────────
+// HIGHLIGHT — search keyword in text
+// ─────────────────────────────────────────────
+function highlight(text, query) {
+  if (!query || !text) return text;
+  try {
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex   = new RegExp('(' + escaped + ')', 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  } catch (e) {
+    return text;
+  }
+}
+
+// ─────────────────────────────────────────────
+// HTML ESCAPE — prevent XSS
+// ─────────────────────────────────────────────
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, m => ({
+    '&'  : '&amp;',
+    '<'  : '&lt;',
+    '>'  : '&gt;',
+    '"'  : '&quot;',
+    "'"  : '&#39;'
+  })[m]);
+}
 </script>
 </body>
-</html>
+</html>furl
