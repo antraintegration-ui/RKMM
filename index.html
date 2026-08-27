@@ -432,6 +432,17 @@
   <div class="card">
     <div class="card-title">📋 Donation Register List</div>
 
+	  <div style="text-align:center; margin-bottom:16px;">
+  <button id="showRecordsBtn" onclick="showRecords()"
+    style="padding:12px 32px;
+           background:linear-gradient(135deg,#ff6600,#ff8c00);
+           color:#fff; border:none; border-radius:10px;
+           font-size:.95rem; font-weight:700; cursor:pointer;
+           box-shadow:0 4px 12px rgba(255,102,0,0.3);">
+    📋 Show Records
+  </button>
+</div>
+<div id="recordsSection" style="display:none;">
     <div class="search-wrapper">
       <svg class="search-icon" width="18" height="18"
            viewBox="0 0 24 24" fill="none"
@@ -476,6 +487,7 @@
       </table>
     </div>
   </div>
+	  </div>
 
 </div><!-- /.container -->
 
@@ -540,6 +552,7 @@ const API_URL = "https://script.google.com/macros/s/AKfycbwPjoL1RQ5EidjxU5J3HnjA
 //  STATE
 // ════════════════════════════════════════════════════════════
 let allRecords    = [];
+	let recordsVisible = false;
 let isSubmitting  = false;
 let isDeleting    = false;
 let pendingDeleteId = null;
@@ -975,6 +988,10 @@ async function confirmDelete() {
       populateYearFilters();
       renderFiltered();
       closeDeleteModal();
+		recordsVisible = true;
+document.getElementById('recordsSection').style.display = 'block';
+document.getElementById('showRecordsBtn').textContent   = '🙈 Hide Records';
+document.getElementById('showRecordsBtn').style.background = 'linear-gradient(135deg,#64748b,#475569)';
       showNotification('🗑️ Record deleted successfully!', 'success');
     } else {
       throw new Error(res.message || 'Delete failed');
@@ -1015,7 +1032,25 @@ function resetFormState() {
 // ════════════════════════════════════════════════════════════
 //  POPULATE YEAR FILTER DROPDOWN
 // ════════════════════════════════════════════════════════════
-function populateYearFilters() {
+function showRecords() {
+  const section = document.getElementById('recordsSection');
+  const btn     = document.getElementById('showRecordsBtn');
+
+  if (!recordsVisible) {
+    section.style.display = 'block';
+    btn.textContent       = '🙈 Hide Records';
+    btn.style.background  = 'linear-gradient(135deg,#64748b,#475569)';
+    recordsVisible        = true;
+    renderFiltered();
+  } else {
+    section.style.display = 'none';
+    btn.textContent       = '📋 Show Records';
+    btn.style.background  = 'linear-gradient(135deg,#ff6600,#ff8c00)';
+    recordsVisible        = false;
+  }
+}
+	
+	function populateYearFilters() {
   const currentVal = filterYear.value;
 
   const years = [...new Set(allRecords.map(r => r.year))]
@@ -1042,6 +1077,7 @@ function handleSearch() {
 //  RENDER FILTERED TABLE
 // ════════════════════════════════════════════════════════════
 function renderFiltered() {
+	if (!recordsVisible) return;
   const q       = searchInput.value.toLowerCase().trim();
   const yFilter = filterYear.value;
   const sFilter = filterStatus.value;
