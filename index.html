@@ -798,7 +798,19 @@ function startEditRecord(id) {
     return;
   }
 
-  // Fill form fields
+  // ── Password Prompt ──
+  const enteredPassword = prompt('🔒 Enter Password to Edit:');
+
+  // Cancel button dabaya
+  if (enteredPassword === null) return;
+
+  // Wrong password
+  if (enteredPassword !== DELETE_PASSWORD) {
+    showNotification('❌ Wrong password. Edit not allowed.', 'error');
+    return;
+  }
+
+  // ── Password Sahi — Edit Form Fill Karo ──
   editRecordId.value  = record.id;
   nameInput.value     = record.name;
   amountInput.value   = record.amount;
@@ -807,16 +819,13 @@ function startEditRecord(id) {
   yearInput.value     = record.year;
   statusInput.value   = record.status;
 
-  // Update UI to edit mode
-  formTitle.textContent       = '✏️ Edit Donation Entry';
-  submitBtnText.textContent   = 'Update Entry';
-  cancelBtn.style.display     = 'flex';
+  formTitle.textContent        = '✏️ Edit Donation Entry';
+  submitBtnText.textContent    = 'Update Entry';
+  cancelBtn.style.display      = 'flex';
   formCard.classList.add('edit-mode');
 
-  // Scroll to form smoothly
+  // Form tak scroll karo
   formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  showNotification('✏️ Editing record — make changes and save.', 'info');
 }
 
 // ════════════════════════════════════════════════════════════
