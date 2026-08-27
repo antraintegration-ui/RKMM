@@ -881,7 +881,33 @@ function closeDeleteModal() {
 async function confirmDelete() {
   if (!pendingDeleteId || isDeleting) return;
 
-  isDeleting = true;
+  // ── STEP A: Password check karo ──
+  const passInput       = document.getElementById('deletePasswordInput');
+  const passError       = document.getElementById('deletePasswordError');
+  const enteredPassword = passInput ? passInput.value : '';
+
+  if (enteredPassword !== DELETE_PASSWORD) {
+    // ❌ Wrong password
+    if (passInput) {
+      passInput.style.borderColor = '#ef4444';
+      passInput.style.boxShadow   = '0 0 0 3px rgba(239,68,68,0.12)';
+      passInput.focus();
+      passInput.select();
+    }
+    if (passError) {
+      passError.style.display = 'block';
+    }
+    return; // Yahan se bahar nahi jayega — delete nahi hogi
+  }
+
+  // ── STEP B: Password sahi hai — delete karo ──
+  if (passError) passError.style.display = 'none';
+  if (passInput) {
+    passInput.style.borderColor = '#10b981';
+    passInput.style.boxShadow   = '0 0 0 3px rgba(16,185,129,0.12)';
+  }
+
+  isDeleting               = true;
   modalConfirmBtn.disabled = true;
   modalConfirmText.innerHTML =
     '<div class="spinner" style="width:14px;height:14px;"></div> Deleting...';
@@ -904,7 +930,7 @@ async function confirmDelete() {
 
   } catch (err) {
     console.error('confirmDelete error:', err);
-    showNotification('❌ Error deleting: ' + err.message, 'error');
+    showNotification('❌ Error: ' + err.message, 'error');
     closeDeleteModal();
   } finally {
     isDeleting = false;
