@@ -823,16 +823,36 @@ function deleteRecord(id) {
 
   pendingDeleteId = id;
 
+  // Password field reset karo jab modal khule
+  const passInput = document.getElementById('deletePasswordInput');
+  const passError = document.getElementById('deletePasswordError');
+  if (passInput) {
+    passInput.value             = '';
+    passInput.style.borderColor = '#e2e8f0';
+    passInput.style.boxShadow   = 'none';
+  }
+  if (passError) {
+    passError.style.display = 'none';
+  }
+
+  // Modal message set karo
   deleteModalMsg.innerHTML =
     'Are you sure you want to delete <strong>"' +
     escapeHtml(record.name) + '"</strong> — ₹' +
     Number(record.amount).toLocaleString('en-IN') +
     ' (' + escapeHtml(record.year) + ')?' +
-    '<br><br><small style="color:var(--danger);">This action cannot be undone.</small>';
+    '<br><br><small style="color:#ef4444;">' +
+    'This action cannot be undone.</small>';
 
+  // Modal kholo
   deleteModal.classList.add('show');
-  modalConfirmBtn.disabled  = false;
+  modalConfirmBtn.disabled     = false;
   modalConfirmText.textContent = 'Yes, Delete';
+
+  // Password field focus karo
+  setTimeout(() => {
+    if (passInput) passInput.focus();
+  }, 200);
 }
 
 // ── Close modal without deleting ──
