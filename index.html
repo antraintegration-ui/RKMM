@@ -859,7 +859,20 @@ function deleteRecord(id) {
 function closeDeleteModal() {
   deleteModal.classList.remove('show');
   pendingDeleteId = null;
-  isDeleting = false;
+  isDeleting      = false;
+
+  // Password field reset karo
+  const passInput = document.getElementById('deletePasswordInput');
+  const passError = document.getElementById('deletePasswordError');
+  if (passInput) {
+    passInput.value             = '';
+    passInput.style.borderColor = '#e2e8f0';
+    passInput.style.boxShadow   = 'none';
+  }
+  if (passError) {
+    passError.style.display = 'none';
+  }
+
   modalConfirmBtn.disabled     = false;
   modalConfirmText.textContent = 'Yes, Delete';
 }
