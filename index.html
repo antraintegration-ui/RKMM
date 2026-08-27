@@ -9,103 +9,172 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-navy : #0e2a47;
-      --accent-gold  : #d97706;
-      --gold-hover   : #b45309;
-      --bg-main      : #f8fafc;
-      --card-bg      : #ffffff;
-      --text-dark    : #0f172a;
-      --text-muted   : #64748b;
-      --border-color : #e2e8f0;
-      --danger       : #ef4444;
-      --danger-bg    : #fef2f2;
-      --success      : #10b981;
-      --pending-color: #f59e0b;
+      --primary-navy  : #0e2a47;
+      --accent-gold   : #d97706;
+      --gold-hover    : #b45309;
+      --bg-main       : #f8fafc;
+      --card-bg       : #ffffff;
+      --text-dark     : #0f172a;
+      --text-muted    : #64748b;
+      --border-color  : #e2e8f0;
+      --danger        : #ef4444;
+      --danger-bg     : #fef2f2;
+      --success       : #10b981;
+      --pending-color : #f59e0b;
       --received-color: #10b981;
-      --radius-lg    : 16px;
-      --radius-md    : 10px;
-      --shadow-card  : 0 10px 25px -5px rgba(14,42,71,0.08),
-                       0 8px 10px -6px rgba(14,42,71,0.03);
+      --radius-lg     : 16px;
+      --radius-md     : 10px;
+      --shadow-card   : 0 10px 25px -5px rgba(14,42,71,0.08),
+                        0 8px 10px -6px rgba(14,42,71,0.03);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0;
+        font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
 
-    body { background-color: var(--bg-main); color: var(--text-dark); padding: 16px; display: flex; justify-content: center; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    body { background-color: var(--bg-main); color: var(--text-dark);
+           padding: 16px; display: flex; justify-content: center;
+           min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-    .container { width: 100%; max-width: 950px; display: flex; flex-direction: column; gap: 20px; }
+    .container { width: 100%; max-width: 950px; display: flex;
+                 flex-direction: column; gap: 20px; }
 
     /* ===== HEADER ===== */
-    .app-header { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-card); gap: 16px; }
+    .app-header { background: var(--card-bg); border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: var(--shadow-card); gap: 16px; }
     .brand-group { display: flex; align-items: center; gap: 16px; }
-    .brand-logo-wrapper { width: 90px; height: 90px; min-width: 90px; border-radius: 50%; background: #fff; border: 3px solid #d97706; outline: 2px solid rgba(251,191,36,0.35); outline-offset: 2px; box-shadow: 0 0 0 5px rgba(251,191,36,0.12), 0 8px 24px rgba(217,119,6,0.22); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 2px; }
-    .brand-logo { width: 100%; height: 100%; border-radius: 50%; object-fit: contain; object-position: center; display: block; }
-    .brand-info h1 { font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); letter-spacing: -0.01em; line-height: 1.25; }
-    .brand-info .tagline { font-size: 0.82rem; color: var(--accent-gold); font-weight: 700; margin-top: 4px; }
-    .sync-badge { display: flex; align-items: center; gap: 6px; background: #ecfdf5; color: #047857; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; border: 1px solid #a7f3d0; white-space: nowrap; flex-shrink: 0; transition: background 0.2s, color 0.2s; }
-    .sync-badge.syncing { background: #fffbeb; color: #92400e; border-color: #fde68a; }
-    .sync-dot { width: 8px; height: 8px; background-color: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+    .brand-logo-wrapper { width: 90px; height: 90px; min-width: 90px;
+      border-radius: 50%; background: #fff; border: 3px solid #d97706;
+      outline: 2px solid rgba(251,191,36,0.35); outline-offset: 2px;
+      box-shadow: 0 0 0 5px rgba(251,191,36,0.12),0 8px 24px rgba(217,119,6,0.22);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0; padding: 2px; }
+    .brand-logo { width: 100%; height: 100%; border-radius: 50%;
+      object-fit: contain; object-position: center; display: block; }
+    .brand-info h1 { font-size: 1.3rem; font-weight: 800; color: var(--primary-navy);
+      letter-spacing: -0.01em; line-height: 1.25; }
+    .brand-info .tagline { font-size: 0.82rem; color: var(--accent-gold);
+      font-weight: 700; margin-top: 4px; }
+    .sync-badge { display: flex; align-items: center; gap: 6px;
+      background: #ecfdf5; color: #047857; padding: 6px 12px;
+      border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+      border: 1px solid #a7f3d0; white-space: nowrap;
+      flex-shrink: 0; transition: background 0.2s, color 0.2s; }
+    .sync-badge.syncing { background: #fffbeb; color: #92400e;
+      border-color: #fde68a; }
+    .sync-badge.error-badge { background: #fef2f2; color: #991b1b;
+      border-color: #fecaca; }
+    .sync-dot { width: 8px; height: 8px; background-color: var(--success);
+      border-radius: 50%; animation: pulse 2s infinite; }
     .sync-badge.syncing .sync-dot { background-color: #f59e0b; }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+    .sync-badge.error-badge .sync-dot { background-color: var(--danger);
+      animation: none; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.2); }
+    }
     @media (max-width: 500px) {
-      .app-header { flex-direction: column; align-items: center; text-align: center; padding: 16px; gap: 12px; }
+      .app-header { flex-direction: column; align-items: center;
+        text-align: center; padding: 16px; gap: 12px; }
       .brand-group { flex-direction: column; align-items: center; gap: 10px; }
       .brand-logo-wrapper { width: 100px; height: 100px; min-width: 100px; }
       .brand-info h1 { font-size: 1.15rem; }
     }
 
     /* ===== SUMMARY CARDS ===== */
-    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
     @media (max-width: 600px) { .summary-grid { grid-template-columns: 1fr; } }
-    .summary-card { border-radius: var(--radius-lg); padding: 18px 20px; box-shadow: var(--shadow-card); border: 1px solid rgba(255,255,255,0.2); }
-    .summary-card.total { background: linear-gradient(135deg, #0e2a47 0%, #173d66 100%); color: #fff; border-color: rgba(251,191,36,0.3); }
-    .summary-card.pending { background: linear-gradient(135deg, #78350f 0%, #92400e 100%); color: #fff; border-color: rgba(245,158,11,0.3); }
-    .summary-card.received { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); color: #fff; border-color: rgba(16,185,129,0.3); }
-    .summary-card .sc-label { font-size: .72rem; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,0.7); font-weight: 700; margin-bottom: 6px; }
-    .summary-card .sc-amount { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; color: #fff; }
-    .summary-card.total .sc-label { color: #fbbf24; }
+    .summary-card { border-radius: var(--radius-lg); padding: 18px 20px;
+      box-shadow: var(--shadow-card); border: 1px solid rgba(255,255,255,0.2); }
+    .summary-card.total { background: linear-gradient(135deg,#0e2a47 0%,#173d66 100%);
+      color: #fff; border-color: rgba(251,191,36,0.3); }
+    .summary-card.pending { background: linear-gradient(135deg,#78350f 0%,#92400e 100%);
+      color: #fff; border-color: rgba(245,158,11,0.3); }
+    .summary-card.received { background: linear-gradient(135deg,#064e3b 0%,#065f46 100%);
+      color: #fff; border-color: rgba(16,185,129,0.3); }
+    .summary-card .sc-label { font-size: .72rem; text-transform: uppercase;
+      letter-spacing: 1.2px; color: rgba(255,255,255,0.7); font-weight: 700;
+      margin-bottom: 6px; }
+    .summary-card .sc-amount { font-size: 1.8rem; font-weight: 800;
+      letter-spacing: -0.02em; color: #fff; }
+    .summary-card.total .sc-label  { color: #fbbf24; }
     .summary-card.total .sc-amount { color: #fff; }
-    .summary-card.pending .sc-label { color: #fcd34d; }
-    .summary-card.received .sc-label { color: #6ee7b7; }
-    .summary-card .sc-sub { font-size: .72rem; color: rgba(255,255,255,0.5); font-weight: 600; margin-top: 4px; }
+    .summary-card.pending .sc-label   { color: #fcd34d; }
+    .summary-card.received .sc-label  { color: #6ee7b7; }
+    .summary-card .sc-sub { font-size: .72rem; color: rgba(255,255,255,0.5);
+      font-weight: 600; margin-top: 4px; }
 
     /* ===== FILTER BAR ===== */
-    .filter-bar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; } .filter-group { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 140px; }
-    .filter-group label { font-size: .72rem; font-weight: 700; color: var(--text-dark); text-transform: uppercase; letter-spacing: .5px; }
-    .filter-group select { padding: 10px 14px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); font-size: .9rem; color: var(--text-dark); background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; transition: border-color .15s, box-shadow .15s; }
-    .filter-group select:focus { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(217,119,6,0.15); }
-
-    /* ===== TOTAL CARD (old - kept for compatibility) ===== */
-    .total-card { background: linear-gradient(135deg, #0e2a47 0%, #173d66 100%); color: #fff; padding: 24px 28px; border-radius: var(--radius-lg); box-shadow: 0 16px 25px -10px rgba(14,42,71,0.3); border: 1px solid rgba(251,191,36,0.3); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .total-card .tc-left .label { font-size: .75rem; text-transform: uppercase; letter-spacing: 1.4px; color: #fbbf24; font-weight: 700; margin-bottom: 6px; }
-    .total-card .tc-left .amount { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.02em; color: #fff; }
-    .total-card .tc-right { font-size: .78rem; color: rgba(255,255,255,0.6); font-weight: 600; text-align: right; }
-    .total-card .tc-right span { display: block; font-size: 1.3rem; font-weight: 800; color: #fbbf24; margin-top: 2px; }
+    .filter-bar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .filter-group { display: flex; flex-direction: column; gap: 4px;
+      flex: 1; min-width: 140px; }
+    .filter-group label { font-size: .72rem; font-weight: 700; color: var(--text-dark);
+      text-transform: uppercase; letter-spacing: .5px; }
+    .filter-group select { padding: 10px 14px; border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md); font-size: .9rem; color: var(--text-dark);
+      background: #fff; outline: none; cursor: pointer;
+      -webkit-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+      padding-right: 32px; transition: border-color .15s, box-shadow .15s; }
+    .filter-group select:focus { border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(217,119,6,0.15); }
 
     /* ===== CARDS ===== */
-    .card { background: var(--card-bg); border-radius: var(--radius-lg); border: 1px solid var(--border-color); padding: 20px; box-shadow: var(--shadow-card); }
-    .card-title { font-size: 1.05rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .card { background: var(--card-bg); border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color); padding: 20px;
+      box-shadow: var(--shadow-card); }
+    .card-title { font-size: 1.05rem; font-weight: 700; color: var(--primary-navy);
+      margin-bottom: 16px; display: flex; justify-content: space-between;
+      align-items: center; }
+    .card.edit-mode { border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(217,119,6,0.12), var(--shadow-card); }
 
     /* ===== FORM ===== */
     .form-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    @media (min-width: 600px) { .form-grid { grid-template-columns: 1fr 1fr; } .full-width { grid-column: span 2; } }
+    @media (min-width: 600px) {
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .full-width { grid-column: span 2; }
+    }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group label { font-size: .75rem; font-weight: 700; color: var(--text-dark); text-transform: uppercase; letter-spacing: .5px; }
-    .form-group input, .form-group select { padding: 11px 14px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); font-size: .95rem; color: var(--text-dark); outline: none; transition: border-color .15s, box-shadow .15s; background: #fff; -webkit-appearance: none; appearance: none; width: 100%; }
-    .form-group input:focus, .form-group select:focus { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(217,119,6,0.15); }
-    .form-group input.input-error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
-    .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
-    .field-error { font-size: .75rem; color: var(--danger); font-weight: 600; display: none; }
+    .form-group label { font-size: .75rem; font-weight: 700; color: var(--text-dark);
+      text-transform: uppercase; letter-spacing: .5px; }
+    .form-group input,
+    .form-group select { padding: 11px 14px; border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md); font-size: .95rem; color: var(--text-dark);
+      outline: none; transition: border-color .15s, box-shadow .15s;
+      background: #fff; -webkit-appearance: none; appearance: none; width: 100%; }
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(217,119,6,0.15); }
+    .form-group input.input-error { border-color: var(--danger);
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
+    .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+      padding-right: 36px; cursor: pointer; }
+    .field-error { font-size: .75rem; color: var(--danger);
+      font-weight: 600; display: none; }
     .field-error.show { display: block; }
-    .card.edit-mode { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(217,119,6,0.12), var(--shadow-card); }
     .button-group { display: flex; gap: 10px; }
-    .btn { padding: 12px 18px; border: none; border-radius: var(--radius-md); font-size: .95rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: transform .15s, box-shadow .15s, opacity .15s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none; }
+    .btn { padding: 12px 18px; border: none; border-radius: var(--radius-md);
+      font-size: .95rem; font-weight: 700; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; transition: transform .15s, box-shadow .15s, opacity .15s;
+      -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+      user-select: none; }
     .btn:active { transform: scale(0.97); }
-    .btn-primary { background: linear-gradient(135deg, var(--accent-gold), var(--gold-hover)); color: #fff; flex: 1; box-shadow: 0 4px 12px rgba(217,119,6,0.25); }
-    .btn-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(217,119,6,0.35); }
+    .btn-primary { background: linear-gradient(135deg,var(--accent-gold),var(--gold-hover));
+      color: #fff; flex: 1; box-shadow: 0 4px 12px rgba(217,119,6,0.25); }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(217,119,6,0.35); }
     .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
-    .btn-cancel { background: #e2e8f0; color: var(--text-dark); display: none; min-width: 110px; }
+    .btn-cancel { background: #e2e8f0; color: var(--text-dark);
+      display: none; min-width: 110px; }
     .btn-cancel:hover { background: #cbd5e1; }
-    .btn-action { padding: 6px 11px; font-size: .78rem; border-radius: 6px; font-weight: 700; border: none; cursor: pointer; transition: all .15s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    .btn-action { padding: 6px 11px; font-size: .78rem; border-radius: 6px;
+      font-weight: 700; border: none; cursor: pointer; transition: all .15s;
+      -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
     .btn-edit   { background: #eff6ff; color: #2563eb; margin-right: 4px; }
     .btn-edit:hover   { background: #2563eb; color: #fff; }
     .btn-delete { background: var(--danger-bg); color: var(--danger); }
@@ -113,42 +182,106 @@
 
     /* ===== SEARCH ===== */
     .search-wrapper { position: relative; margin-bottom: 16px; }
-    .search-wrapper input { width: 100%; padding: 11px 14px 11px 42px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); font-size: .95rem; outline: none; background: #f8fafc; transition: all .15s; -webkit-appearance: none; appearance: none; }
-    .search-wrapper input:focus { background: #fff; border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(217,119,6,0.12); }
-    .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none; }  .search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: #94a3b8; color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: .7rem; cursor: pointer; display: none; align-items: center; justify-content: center; font-weight: 700; line-height: 1; -webkit-tap-highlight-color: transparent; }
+    .search-wrapper input { width: 100%; padding: 11px 14px 11px 42px;
+      border: 1.5px solid var(--border-color); border-radius: var(--radius-md);
+      font-size: .95rem; outline: none; background: #f8fafc;
+      transition: all .15s; -webkit-appearance: none; appearance: none; }
+    .search-wrapper input:focus { background: #fff; border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(217,119,6,0.12); }
+    .search-icon { position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%); color: #94a3b8; pointer-events: none; }
+    .search-clear { position: absolute; right: 12px; top: 50%;
+      transform: translateY(-50%); background: #94a3b8; color: #fff;
+      border: none; border-radius: 50%; width: 20px; height: 20px;
+      font-size: .7rem; cursor: pointer; display: none; align-items: center;
+      justify-content: center; font-weight: 700; line-height: 1;
+      -webkit-tap-highlight-color: transparent; }
     .search-clear.show { display: flex; }
 
     /* ===== TABLE ===== */
-    .table-responsive { width: 100%; overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border-color); -webkit-overflow-scrolling: touch; }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: .88rem; background: #fff; min-width: 560px; }
-    th { background: #f8fafc; color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: .72rem; letter-spacing: .5px; padding: 12px 14px; border-bottom: 1px solid var(--border-color); white-space: nowrap; }
-    td { padding: 12px 14px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+    .table-responsive { width: 100%; overflow-x: auto;
+      border-radius: var(--radius-md); border: 1px solid var(--border-color);
+      -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; text-align: left;
+      font-size: .88rem; background: #fff; min-width: 560px; }
+    th { background: #f8fafc; color: var(--text-muted); font-weight: 700;
+      text-transform: uppercase; font-size: .72rem; letter-spacing: .5px;
+      padding: 12px 14px; border-bottom: 1px solid var(--border-color);
+      white-space: nowrap; }
+    td { padding: 12px 14px; border-bottom: 1px solid var(--border-color);
+      vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: #f8fafc; }
     .amount-cell { font-weight: 800; color: #059669; white-space: nowrap; }
-    .badge-area { display: inline-block; padding: 3px 9px; background: #f1f5f9; color: #334155; border-radius: 6px; font-weight: 600; font-size: .78rem; }
-    .badge-status { display: inline-block; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-size: .72rem; letter-spacing: .3px; white-space: nowrap; }
-    .badge-status.pending  { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
-    .badge-status.received { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
-    .badge-year { display: inline-block; padding: 2px 8px; background: #ede9fe; color: #5b21b6; border-radius: 6px; font-weight: 700; font-size: .72rem; }
-    .sr-num { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-navy), #1e4a7a); color: #fff; font-size: .72rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .badge-status { display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-weight: 700; font-size: .72rem; letter-spacing: .3px; white-space: nowrap; }
+    .badge-status.pending  { background: #fef3c7; color: #92400e;
+      border: 1px solid #fde68a; }
+    .badge-status.received { background: #d1fae5; color: #065f46;
+      border: 1px solid #a7f3d0; }
+    .badge-year { display: inline-block; padding: 2px 8px; background: #ede9fe;
+      color: #5b21b6; border-radius: 6px; font-weight: 700; font-size: .72rem; }
+    .sr-num { width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg,var(--primary-navy),#1e4a7a);
+      color: #fff; font-size: .72rem; font-weight: 800;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0; }
 
     /* ===== NOTIFICATION ===== */
-    .notification { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120px); padding: 13px 28px; border-radius: 30px; background: #0f172a; color: #fff; font-size: .88rem; font-weight: 600; box-shadow: 0 10px 25px rgba(0,0,0,0.25); z-index: 9999; opacity: 0; transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; white-space: nowrap; max-width: calc(100vw - 40px); text-align: center; }
+    .notification { position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(120px); padding: 13px 28px;
+      border-radius: 30px; background: #0f172a; color: #fff;
+      font-size: .88rem; font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25); z-index: 9999; opacity: 0;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+      white-space: nowrap; max-width: calc(100vw - 40px); text-align: center; }
     .notification.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     .notification.success { background: #059669; }
     .notification.error   { background: var(--danger); }
     .notification.info    { background: #2563eb; }
 
     /* ===== SPINNER ===== */
-    .spinner { border: 2px solid rgba(255,255,255,0.35); border-top: 2px solid #fff; border-radius: 50%; width: 16px; height: 16px; animation: spin .7s linear infinite; flex-shrink: 0; }
+    .spinner { border: 2px solid rgba(255,255,255,0.35);
+      border-top: 2px solid #fff; border-radius: 50%;
+      width: 16px; height: 16px;
+      animation: spin .7s linear infinite; flex-shrink: 0; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .spinner-gold { border-color: rgba(217,119,6,0.2); border-top-color: var(--accent-gold); }
+    .spinner-gold { border-color: rgba(217,119,6,0.2);
+      border-top-color: var(--accent-gold); }
 
     /* ===== MISC ===== */
     .text-center { text-align: center; }
-    .empty-msg { padding: 40px 20px; color: var(--text-muted); text-align: center; font-size: .9rem; line-height: 1.6; }
-    mark { background: #fef08a; color: #0f172a; border-radius: 3px; padding: 0 2px; }
+    .empty-msg { padding: 40px 20px; color: var(--text-muted);
+      text-align: center; font-size: .9rem; line-height: 1.6; }
+    mark { background: #fef08a; color: #0f172a;
+      border-radius: 3px; padding: 0 2px; }
+
+    /* ===== DELETE CONFIRM MODAL ===== */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+      z-index: 9990; display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none;
+      transition: opacity .2s ease; }
+    .modal-overlay.show { opacity: 1; pointer-events: all; }
+    .modal-box { background: #fff; border-radius: var(--radius-lg);
+      padding: 28px 24px; max-width: 380px; width: 100%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+	     transform: translateY(20px); transition: transform .25s ease; }
+    .modal-overlay.show .modal-box { transform: translateY(0); }
+    .modal-box h3 { font-size: 1.1rem; font-weight: 800;
+      color: var(--text-dark); margin-bottom: 8px; }
+    .modal-box p { font-size: .88rem; color: var(--text-muted);
+      line-height: 1.6; margin-bottom: 20px; }
+    .modal-actions { display: flex; gap: 10px; }
+    .btn-modal-cancel { flex: 1; padding: 11px; border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md); background: #fff; color: var(--text-dark);
+      font-size: .9rem; font-weight: 700; cursor: pointer; transition: all .15s; }
+    .btn-modal-cancel:hover { background: #f1f5f9; }
+    .btn-modal-delete { flex: 1; padding: 11px; border: none;
+      border-radius: var(--radius-md); background: var(--danger); color: #fff;
+      font-size: .9rem; font-weight: 700; cursor: pointer; transition: all .15s;
+      display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-modal-delete:hover { background: #dc2626; }
+    .btn-modal-delete:disabled { opacity: 0.65; cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -158,7 +291,9 @@
   <div class="app-header">
     <div class="brand-group">
       <div class="brand-logo-wrapper">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAPoCAIAAADCwUOzAAEAAElEQVR42uz9YYPiOLIsDEdmSjZUz7nP//+P55cz3QW2pMx4P0gGU1U903N29t49u4rpZY0BFxhjh0KRkUISExMTExMTExMTExP/2tC5CyYmJiYmJiYmJiYmcZ+YmJiYmJiYmJiYhP" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAPoCAIAAADCwUOzAAEAAElEQVR42uz9YYPiOLIsDEdmSjZUz7nP//+P55cz3QW2pMx4P0gGU1U903N29t49u4rpZY0BFxhjh0KRkUISExMTExMTExMTExP/2tC5CyYmJiYmJiYmJiYmcZ+YmJiYmJiYmJiYhP"
+             alt="Logo" class="brand-logo"
+             onerror="this.style.display='none'">
       </div>
       <div class="brand-info">
         <h1>Radha Krishna Mitra Mandal</h1>
@@ -176,17 +311,17 @@
     <div class="summary-card total">
       <div class="sc-label">Total Donation Collected</div>
       <div class="sc-amount" id="totalAmountDisplay">₹ 0</div>
-      <div class="sc-sub" id="totalRecordsDisplay">0 Records</div>
+      <div class="sc-sub"   id="totalRecordsDisplay">0 Records</div>
     </div>
     <div class="summary-card pending">
       <div class="sc-label">Pending Amount</div>
       <div class="sc-amount" id="pendingAmountDisplay">₹ 0</div>
-      <div class="sc-sub" id="pendingCountDisplay">0 Pending</div>
+      <div class="sc-sub"   id="pendingCountDisplay">0 Pending</div>
     </div>
     <div class="summary-card received">
       <div class="sc-label">Received Amount</div>
       <div class="sc-amount" id="receivedAmountDisplay">₹ 0</div>
-      <div class="sc-sub" id="receivedCountDisplay">0 Received</div>
+      <div class="sc-sub"   id="receivedCountDisplay">0 Received</div>
     </div>
   </div>
 
@@ -203,25 +338,33 @@
 
         <div class="form-group">
           <label for="name">Full Name *</label>
-          <input type="text" id="name" placeholder="Enter full name" autocomplete="off" inputmode="text">
+          <input type="text" id="name"
+                 placeholder="Enter full name"
+                 autocomplete="off" inputmode="text">
           <span class="field-error" id="nameError">Name is required.</span>
         </div>
 
         <div class="form-group">
           <label for="amount">Amount (₹) *</label>
-          <input type="number" id="amount" placeholder="Enter donation amount" min="1" inputmode="numeric">
+          <input type="number" id="amount"
+                 placeholder="Enter donation amount"
+                 min="1" inputmode="numeric">
           <span class="field-error" id="amountError">Enter a valid amount (min ₹1).</span>
         </div>
 
         <div class="form-group">
           <label for="area">Area / Location *</label>
-          <input type="text" id="area" placeholder="Enter area or location" autocomplete="off" inputmode="text">
+          <input type="text" id="area"
+                 placeholder="Enter area or location"
+                 autocomplete="off" inputmode="text">
           <span class="field-error" id="areaError">Area is required.</span>
         </div>
 
         <div class="form-group">
           <label for="remark">Remark / Payment Mode</label>
-          <input type="text" id="remark" placeholder="e.g. Cash / Online / UPI" autocomplete="off" inputmode="text">
+          <input type="text" id="remark"
+                 placeholder="e.g. Cash / Online / UPI"
+                 autocomplete="off" inputmode="text">
         </div>
 
         <div class="form-group">
@@ -249,8 +392,10 @@
           <span class="field-error" id="statusError">Please select a status.</span>
         </div>
 
-        <div class="full-width button-group" style="margin-top: 4px;">
-          <button type="button" class="btn btn-cancel" id="cancelBtn">✕ Cancel</button>
+        <div class="full-width button-group" style="margin-top:4px;">
+          <button type="button" class="btn btn-cancel" id="cancelBtn">
+            ✕ Cancel
+          </button>
           <button type="submit" class="btn btn-primary" id="submitBtn">
             <span id="submitBtnText">Add Donation</span>
           </button>
@@ -261,7 +406,7 @@
   </div>
 
   <!-- ===== FILTER BAR ===== -->
-  <div class="card" style="padding: 16px 20px;">
+  <div class="card" style="padding:16px 20px;">
     <div class="filter-bar">
       <div class="filter-group">
         <label for="filterYear">Filter by Year</label>
@@ -285,12 +430,17 @@
     <div class="card-title">📋 Donation Register List</div>
 
     <div class="search-wrapper">
-      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg class="search-icon" width="18" height="18"
+           viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input type="text" id="searchInput" placeholder="Search by name, amount, area, remark, year, status..." autocomplete="off">
-      <button class="search-clear" id="searchClear" type="button" title="Clear search">✕</button>
+      <input type="text" id="searchInput"
+             placeholder="Search by name, amount, area, remark, year, status..."
+             autocomplete="off">
+      <button class="search-clear" id="searchClear"
+              type="button" title="Clear search">✕</button>
     </div>
 
     <div class="table-responsive">
@@ -311,8 +461,11 @@
           <tr>
             <td colspan="8" class="text-center">
               <div style="padding:36px;">
-                <div class="spinner spinner-gold" style="width:28px;height:28px;margin:0 auto 10px;"></div>
-                <div style="color:var(--text-muted);font-size:.85rem;">Loading records…</div>
+                <div class="spinner spinner-gold"
+                     style="width:28px;height:28px;margin:0 auto 10px;"></div>
+                <div style="color:var(--text-muted);font-size:.85rem;">
+                  Loading records…
+                </div>
               </div>
             </td>
           </tr>
@@ -321,69 +474,99 @@
     </div>
   </div>
 
+</div><!-- /.container -->
+
+<!-- ===== DELETE CONFIRM MODAL ===== -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-box">
+    <h3>🗑️ Delete Record?</h3>
+    <p id="deleteModalMsg">
+      Are you sure you want to delete this record?
+      This action cannot be undone.
+    </p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" id="modalCancelBtn">
+        Cancel
+      </button>
+      <button class="btn-modal-delete" id="modalConfirmBtn">
+        <span id="modalConfirmText">Yes, Delete</span>
+      </button>
+    </div>
+  </div>
 </div>
 
-<!-- Notification toast -->
+<!-- ===== NOTIFICATION TOAST ===== -->
 <div id="notification" class="notification"></div>
 
 <script>
 "use strict";
 
-// ─────────────────────────────────────────────
-// CONFIG
-// ─────────────────────────────────────────────
-const API_URL = "https://script.google.com/macros/s/AKfycbzFuFpUL1RGGMoFTe7jDUylgD6tunFeJBjabC9Mo4sjPEKHCRie3UDdnYomQMi_0kOdcQ/exec";
+// ════════════════════════════════════════════════════════════
+//  ⚙️  CONFIGURATION  — Replace with your actual Web App URL
+// ════════════════════════════════════════════════════════════
+const API_URL = "https://script.google.com/macros/s/AKfycbwPjoL1RQ5EidjxU5J3HnjALt7zQEZXiGit_0u4enG7VtOmsmCLnGmaWgZOWDSiFfJiiw/exec";
+// Example:
+// const API_URL = "https://script.google.com/macros/s/AKfycb.../exec";
 
-// ─────────────────────────────────────────────
-// STATE
-// ─────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════════
 let allRecords    = [];
 let isSubmitting  = false;
+let isDeleting    = false;
+let pendingDeleteId = null;
 let _notifTimer   = null;
 
-// ─────────────────────────────────────────────
-// DOM REFS
-// ─────────────────────────────────────────────
-const chandaForm          = document.getElementById('chandaForm');
-const submitBtn           = document.getElementById('submitBtn');
-const submitBtnText       = document.getElementById('submitBtnText');
-const cancelBtn           = document.getElementById('cancelBtn');
-const formCard            = document.getElementById('formCard');
-const formTitle           = document.getElementById('formTitle');
-const editRecordId        = document.getElementById('editRecordId');
-const nameInput           = document.getElementById('name');
-const amountInput         = document.getElementById('amount');
-const areaInput           = document.getElementById('area');
-const remarkInput         = document.getElementById('remark');
-const yearInput           = document.getElementById('yearInput');
-const statusInput         = document.getElementById('statusInput');
-const nameError           = document.getElementById('nameError');
-const amountError         = document.getElementById('amountError');
-const areaError           = document.getElementById('areaError');
-const yearError           = document.getElementById('yearError');
-const statusError         = document.getElementById('statusError');
-const searchInput         = document.getElementById('searchInput');
-const searchClear         = document.getElementById('searchClear');
-const recordsTableBody    = document.getElementById('recordsTableBody');
-const totalAmountDisplay  = document.getElementById('totalAmountDisplay');
-const totalRecordsDisplay = document.getElementById('totalRecordsDisplay');
-const pendingAmountDisplay= document.getElementById('pendingAmountDisplay');
-const pendingCountDisplay = document.getElementById('pendingCountDisplay');
-const receivedAmountDisplay=document.getElementById('receivedAmountDisplay');
-const receivedCountDisplay= document.getElementById('receivedCountDisplay');
-const filterYear          = document.getElementById('filterYear');
-const filterStatus        = document.getElementById('filterStatus');
-const notificationEl      = document.getElementById('notification');
-const syncBadge           = document.getElementById('syncBadge');
-const syncLabel           = document.getElementById('syncLabel');
+// ════════════════════════════════════════════════════════════
+//  DOM REFS
+// ════════════════════════════════════════════════════════════
+const chandaForm           = document.getElementById('chandaForm');
+const submitBtn            = document.getElementById('submitBtn');
+const submitBtnText        = document.getElementById('submitBtnText');
+const cancelBtn            = document.getElementById('cancelBtn');
+const formCard             = document.getElementById('formCard');
+const formTitle            = document.getElementById('formTitle');
+const editRecordId         = document.getElementById('editRecordId');
+const nameInput            = document.getElementById('name');
+const amountInput          = document.getElementById('amount');
+const areaInput            = document.getElementById('area');
+const remarkInput          = document.getElementById('remark');
+const yearInput            = document.getElementById('yearInput');
+const statusInput          = document.getElementById('statusInput');
+const nameError            = document.getElementById('nameError');
+const amountError          = document.getElementById('amountError');
+const areaError            = document.getElementById('areaError');
+const yearError            = document.getElementById('yearError');
+const statusError          = document.getElementById('statusError');
+const searchInput          = document.getElementById('searchInput');
+const searchClear          = document.getElementById('searchClear');
+const recordsTableBody     = document.getElementById('recordsTableBody');
+const totalAmountDisplay   = document.getElementById('totalAmountDisplay');
+const totalRecordsDisplay  = document.getElementById('totalRecordsDisplay');
+const pendingAmountDisplay = document.getElementById('pendingAmountDisplay');
+const pendingCountDisplay  = document.getElementById('pendingCountDisplay');
+const receivedAmountDisplay= document.getElementById('receivedAmountDisplay');
+const receivedCountDisplay = document.getElementById('receivedCountDisplay');
+const filterYear           = document.getElementById('filterYear');
+const filterStatus         = document.getElementById('filterStatus');
+const notificationEl       = document.getElementById('notification');
+const syncBadge            = document.getElementById('syncBadge');
+const syncLabel            = document.getElementById('syncLabel');
+const deleteModal          = document.getElementById('deleteModal');
+const deleteModalMsg       = document.getElementById('deleteModalMsg');
+const modalCancelBtn       = document.getElementById('modalCancelBtn');
+const modalConfirmBtn      = document.getElementById('modalConfirmBtn');
+const modalConfirmText     = document.getElementById('modalConfirmText');
 
-// ─────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
+
   fetchRecords();
+
   chandaForm.addEventListener('submit', handleFormSubmit);
-  cancelBtn.addEventListener('click', resetFormState);
+  cancelBtn.addEventListener('click',  resetFormState);
 
   searchInput.addEventListener('input',  handleSearch);
   searchInput.addEventListener('keyup',  handleSearch);
@@ -396,166 +579,557 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.focus();
   });
 
-  filterYear.addEventListener('change', renderFiltered);
+  filterYear.addEventListener('change',   renderFiltered);
   filterStatus.addEventListener('change', renderFiltered);
 
-  nameInput.addEventListener('input',
-() => clearFieldError('name'));
+  // Live clear field errors
+  nameInput.addEventListener('input',   () => clearFieldError('name'));
   amountInput.addEventListener('input', () => clearFieldError('amount'));
   areaInput.addEventListener('input',   () => clearFieldError('area'));
-  yearInput.addEventListener('input',   () => clearFieldError('year'));
-  statusInput.addEventListener('input', () => clearFieldError('status'));
+  yearInput.addEventListener('change',  () => clearFieldError('year'));
+  statusInput.addEventListener('change',() => clearFieldError('status'));
+
+  // Modal buttons
+  modalCancelBtn.addEventListener('click', closeDeleteModal);
+  modalConfirmBtn.addEventListener('click', confirmDelete);
+
+  // Close modal on overlay click
+  deleteModal.addEventListener('click', (e) => {
+    if (e.target === deleteModal) closeDeleteModal();
+  });
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDeleteModal();
+  });
 });
 
-// ─────────────────────────────────────────────
-// FETCH RECORDS
-// ─────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+//  API FETCH  — Handles both GET and POST with CORS
+// ════════════════════════════════════════════════════════════
+async function apiFetch(opts = {}) {
+  const method = opts.method || 'GET';
+
+  const fetchOptions = {
+    method  : method,
+    redirect: 'follow',
+    headers : { 'Content-Type': 'text/plain;charset=utf-8' }
+    // NOTE: 'text/plain' avoids CORS preflight for Apps Script
+  };
+
+  if (method === 'POST' && opts.body) {
+    fetchOptions.body = JSON.stringify(opts.body);
+  }
+
+  const url = method === 'GET'
+    ? API_URL + '?action=getAll&t=' + Date.now()
+    : API_URL;
+
+  const response = await fetch(url, fetchOptions);
+
+  if (!response.ok) {
+    throw new Error('HTTP error: ' + response.status);
+  }
+
+  const text = await response.text();
+
+  let json;
+  try {
+    json = JSON.parse(text);
+  } catch (e) {
+    throw new Error('Invalid JSON response: ' + text.substring(0, 100));
+  }
+
+  if (json.status === 'error') {
+    throw new Error(json.message || 'API error');
+  }
+
+  return json;
+}
+
+// ════════════════════════════════════════════════════════════
+//  FETCH ALL RECORDS  (load from Google Sheet)
+// ════════════════════════════════════════════════════════════
 async function fetchRecords() {
   renderTableLoading();
-  setSyncBadge(true);
+  setSyncBadge('syncing');
+
   try {
     const result = await apiFetch({ method: 'GET' });
-    if (result.status === 'success') {
+	if (result.status === 'success') {
       allRecords = Array.isArray(result.data) ? result.data : [];
       populateYearFilters();
       renderFiltered();
+      setSyncBadge('live');
     } else {
-      showEmptyTable('❌ Error loading data.');
+      throw new Error(result.message || 'Failed to load records');
     }
+
   } catch (err) {
-    showEmptyTable('⚠️ Network error.');
-  } finally {
-    setSyncBadge(false);
+    console.error('fetchRecords error:', err);
+    setSyncBadge('error');
+    showEmptyTable('⚠️ Could not load data. Check API_URL in config.<br><small>' + err.message + '</small>');
+    showNotification('❌ Network error loading records', 'error');
   }
 }
 
-// ─────────────────────────────────────────────
-// FORM SUBMIT
-// ─────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+//  FORM SUBMIT  — Add or Edit
+// ════════════════════════════════════════════════════════════
 async function handleFormSubmit(e) {
   e.preventDefault();
   if (isSubmitting) return;
 
-  const id = editRecordId.value.trim();
-  const name = nameInput.value.trim();
+  const id     = editRecordId.value.trim();
+  const name   = nameInput.value.trim();
   const amount = parseFloat(amountInput.value);
-  const area = areaInput.value.trim();
+  const area   = areaInput.value.trim();
   const remark = remarkInput.value.trim();
-  const year = yearInput.value;
+  const year   = yearInput.value;
   const status = statusInput.value;
 
+  // ── Validation ──
   let hasError = false;
-  if (!name) { showFieldError('name', 'Required'); hasError = true; }
-  if (!amount || amount <= 0) { showFieldError('amount', 'Invalid amount'); hasError = true; }
-  if (!area) { showFieldError('area', 'Required'); hasError = true; }
-  if (!year) { showFieldError('year', 'Required'); hasError = true; }
-  if (!status) { showFieldError('status', 'Required'); hasError = true; }
+
+  if (!name) {
+    showFieldError('name', 'Name is required.');
+    hasError = true;
+  }
+  if (!amountInput.value || isNaN(amount) || amount < 1) {
+    showFieldError('amount', 'Enter a valid amount (min ₹1).');
+    hasError = true;
+  }
+  if (!area) {
+    showFieldError('area', 'Area is required.');
+    hasError = true;
+  }
+  if (!year) {
+    showFieldError('year', 'Please select a year.');
+    hasError = true;
+  }
+  if (!status) {
+    showFieldError('status', 'Please select a status.');
+    hasError = true;
+  }
 
   if (hasError) return;
 
+  // ── Submit ──
   isSubmitting = true;
-  setSubmitLoading(true, id ? 'Updating...' : 'Saving...');
+  const isEdit = Boolean(id);
+  setSubmitLoading(true, isEdit ? 'Updating...' : 'Saving...');
 
   try {
-    const res = await apiFetch({ method: 'POST', body: { action: id ? 'edit' : 'add', id, name, amount, area, remark, year, status } });
+    const payload = {
+      action : isEdit ? 'edit' : 'add',
+      id     : id,
+      name   : name,
+      amount : amount,
+      area   : area,
+      remark : remark,
+      year   : year,
+      status : status
+    };
+
+    const res = await apiFetch({ method: 'POST', body: payload });
+
     if (res.status === 'success') {
-      allRecords = res.data;
+      allRecords = Array.isArray(res.data) ? res.data : [];
       populateYearFilters();
       renderFiltered();
       resetFormState();
-      showNotification('✅ Saved successfully!');
+      showNotification(
+        isEdit ? '✅ Record updated successfully!' : '✅ Donation added successfully!',
+        'success'
+      );
+    } else {
+      throw new Error(res.message || 'Save failed');
     }
+
   } catch (err) {
-    showNotification('❌ Error saving.', 'error');
+    console.error('handleFormSubmit error:', err);
+    showNotification('❌ Error: ' + err.message, 'error');
   } finally {
     isSubmitting = false;
-    setSubmitLoading(false, id ? 'Update Entry' : 'Add Donation');
+    setSubmitLoading(false, isEdit ? 'Update Entry' : 'Add Donation');
   }
 }
 
-// ─────────────────────────────────────────────
-// FILTERING & RENDERING
-// ─────────────────────────────────────────────
-function populateYearFilters() {
-  const years = [...new Set(allRecords.map(r => r.year))].sort((a,b) => b - a);
-  filterYear.innerHTML = '<option value="all">All Years</option>' + years.map(y => `<option value="${y}">${y}</option>`).join('');
+// ════════════════════════════════════════════════════════════
+//  START EDIT RECORD  — Fill form with existing record data
+// ════════════════════════════════════════════════════════════
+function startEditRecord(id) {
+  const record = allRecords.find(r => String(r.id) === String(id));
+  if (!record) {
+    showNotification('❌ Record not found.', 'error');
+    return;
+  }
+
+  // Fill form fields
+  editRecordId.value  = record.id;
+  nameInput.value     = record.name;
+  amountInput.value   = record.amount;
+  areaInput.value     = record.area;
+  remarkInput.value   = record.remark || '';
+  yearInput.value     = record.year;
+  statusInput.value   = record.status;
+
+  // Update UI to edit mode
+  formTitle.textContent       = '✏️ Edit Donation Entry';
+  submitBtnText.textContent   = 'Update Entry';
+  cancelBtn.style.display     = 'flex';
+  formCard.classList.add('edit-mode');
+
+  // Scroll to form smoothly
+  formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  showNotification('✏️ Editing record — make changes and save.', 'info');
 }
 
+// ════════════════════════════════════════════════════════════
+//  DELETE RECORD  — Show confirm modal
+// ════════════════════════════════════════════════════════════
+function deleteRecord(id) {
+  const record = allRecords.find(r => String(r.id) === String(id));
+  if (!record) {
+    showNotification('❌ Record not found.', 'error');
+    return;
+  }
+
+  pendingDeleteId = id;
+
+  deleteModalMsg.innerHTML =
+    'Are you sure you want to delete <strong>"' +
+    escapeHtml(record.name) + '"</strong> — ₹' +
+    Number(record.amount).toLocaleString('en-IN') +
+    ' (' + escapeHtml(record.year) + ')?' +
+    '<br><br><small style="color:var(--danger);">This action cannot be undone.</small>';
+
+  deleteModal.classList.add('show');
+  modalConfirmBtn.disabled  = false;
+  modalConfirmText.textContent = 'Yes, Delete';
+}
+
+// ── Close modal without deleting ──
+function closeDeleteModal() {
+  deleteModal.classList.remove('show');
+  pendingDeleteId = null;
+  isDeleting = false;
+  modalConfirmBtn.disabled     = false;
+  modalConfirmText.textContent = 'Yes, Delete';
+}
+
+// ── Confirm and execute delete ──
+async function confirmDelete() {
+  if (!pendingDeleteId || isDeleting) return;
+
+  isDeleting = true;
+  modalConfirmBtn.disabled = true;
+  modalConfirmText.innerHTML =
+    '<div class="spinner" style="width:14px;height:14px;"></div> Deleting...';
+
+  try {
+    const res = await apiFetch({
+      method : 'POST',
+      body   : { action: 'delete', id: pendingDeleteId }
+    });
+
+    if (res.status === 'success') {
+      allRecords = Array.isArray(res.data) ? res.data : [];
+      populateYearFilters();
+      renderFiltered();
+      closeDeleteModal();
+      showNotification('🗑️ Record deleted successfully!', 'success');
+    } else {
+      throw new Error(res.message || 'Delete failed');
+    }
+
+  } catch (err) {
+    console.error('confirmDelete error:', err);
+    showNotification('❌ Error deleting: ' + err.message, 'error');
+    closeDeleteModal();
+  } finally {
+    isDeleting = false;
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  RESET FORM STATE  — Back to Add mode
+// ════════════════════════════════════════════════════════════
+function resetFormState() {
+  chandaForm.reset();
+  editRecordId.value = '';
+
+  // Reset year to 2025 default
+  yearInput.value   = '2025';
+  statusInput.value = '';
+
+  // Clear all field errors
+  ['name','amount','area','year','status'].forEach(f => clearFieldError(f));
+
+  // Reset UI labels
+  formTitle.textContent     = '➕ Add New Donation Entry';
+  submitBtnText.textContent = 'Add Donation';
+  cancelBtn.style.display   = 'none';
+  formCard.classList.remove('edit-mode');
+
+  submitBtn.disabled = false;
+}
+
+// ════════════════════════════════════════════════════════════
+//  POPULATE YEAR FILTER DROPDOWN
+// ════════════════════════════════════════════════════════════
+function populateYearFilters() {
+  const currentVal = filterYear.value;
+
+  const years = [...new Set(allRecords.map(r => r.year))]
+    .filter(Boolean)
+    .sort((a, b) => Number(b) - Number(a));
+
+  filterYear.innerHTML =
+    '<option value="all">All Years</option>' +
+    years.map(y =>
+      `<option value="${y}" ${String(y) === String(currentVal) ? 'selected' : ''}>${y}</option>`
+    ).join('');
+}
+
+// ════════════════════════════════════════════════════════════
+//  SEARCH HANDLER
+// ════════════════════════════════════════════════════════════
+function handleSearch() {
+  const val = searchInput.value;
+  searchClear.classList.toggle('show', val.length > 0);
+  renderFiltered();
+}
+
+// ════════════════════════════════════════════════════════════
+//  RENDER FILTERED TABLE
+// ════════════════════════════════════════════════════════════
 function renderFiltered() {
-  const q = searchInput.value.toLowerCase().trim();
+  const q       = searchInput.value.toLowerCase().trim();
   const yFilter = filterYear.value;
   const sFilter = filterStatus.value;
 
   const filtered = allRecords.filter(r => {
-    const matchesSearch = String(r.name).toLowerCase().includes(q) || String(r.area).toLowerCase().includes(q) || String(r.remark).toLowerCase().includes(q) || String(r.year).includes(q) || String(r.status).toLowerCase().includes(q);
-    const matchesYear = yFilter === 'all' || String(r.year) === yFilter;
-    const matchesStatus = sFilter === 'all' || r.status === sFilter;
+    const searchStr = [
+      r.name, r.area, r.remark, r.year, r.status,
+      String(r.amount)
+    ].join(' ').toLowerCase();
+
+    const matchesSearch  = !q || searchStr.includes(q);
+    const matchesYear    = yFilter === 'all' || String(r.year) === yFilter;
+    const matchesStatus  = sFilter === 'all' || r.status === sFilter;
+
     return matchesSearch && matchesYear && matchesStatus;
   });
 
-  updateCalculations(filtered, yFilter, sFilter);
+  updateCalculations(filtered);
+  renderTable(filtered, q);
+}
 
-  const body = document.getElementById('recordsTableBody');
-  body.innerHTML = filtered.length ? '' : '<tr><td colspan="8" class="text-center">No records found.</td></tr>';
-  
-  filtered.slice().reverse().forEach((r, i) => {
+// ════════════════════════════════════════════════════════════
+//  RENDER TABLE ROWS
+// ════════════════════════════════════════════════════════════
+function renderTable(filtered, q) {
+  if (!filtered.length) {
+    recordsTableBody.innerHTML =
+      '<tr><td colspan="8" class="text-center">' +
+      '<div class="empty-msg">🔍 No records found.<br>' +
+      '<small>Try changing your search or filters.</small></div>' +
+      '</td></tr>';
+    return;
+  }
+
+  // Show newest first (reverse order)
+  const rows = filtered.slice().reverse();
+
+  recordsTableBody.innerHTML = '';
+
+  rows.forEach((r, i) => {
+    const displayNum = filtered.length - i;
     const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><div class="sr-num">${filtered.length - i}</div></td>
-      <td><strong>${escapeHtml(r.name)}</strong></td>
-      <td class="amount-cell">₹ ${Number(r.amount).toLocaleString('en-IN')}</td>
-      <td>${escapeHtml(r.area)}</td>
-      <td><span class="badge-year">${escapeHtml(r.year)}</span></td>
-      <td><span class="badge-status ${r.status.toLowerCase()}">${r.status}</span></td>
-      <td>${escapeHtml(r.remark || '—')}</td>
-      <td style="text-align:right;">
-        <button class="btn-action btn-edit" onclick="startEditRecord('${r.id}')">✏️</button>
-        <button class="btn-action btn-delete" onclick="deleteRecord('${r.id}')">🗑️</button>
-      </td>`;
-    body.appendChild(tr);
+
+    tr.innerHTML =
+      '<td><div class="sr-num">' + displayNum + '</div></td>' +
+      '<td><strong>' + highlight(escapeHtml(r.name), q) + '</strong></td>' +
+      '<td class="amount-cell">₹ ' +
+        Number(r.amount).toLocaleString('en-IN') + '</td>' +
+      '<td>' + highlight(escapeHtml(r.area), q) + '</td>' +
+      '<td><span class="badge-year">' +
+        highlight(escapeHtml(String(r.year)), q) + '</span></td>' +
+      '<td><span class="badge-status ' + r.status.toLowerCase() + '">' +
+        r.status + '</span></td>' +
+      '<td>' + highlight(escapeHtml(r.remark || '—'), q) + '</td>' +
+      '<td style="text-align:right; white-space:nowrap;">' +
+        '<button class="btn-action btn-edit" ' +
+          'onclick="startEditRecord(\'' + r.id + '\')" ' +
+          'title="Edit this record">✏️ Edit</button>' +
+        '<button class="btn-action btn-delete" ' +
+          'onclick="deleteRecord(\'' + r.id + '\')" ' +
+          'title="Delete this record">🗑️</button>' +
+      '</td>';
+
+    recordsTableBody.appendChild(tr);
   });
 }
 
-function updateCalculations(data, yFilter, sFilter) {
-  let total = 0, pending = 0, received = 0;
-  
+// ════════════════════════════════════════════════════════════
+//  UPDATE SUMMARY CALCULATIONS
+// ════════════════════════════════════════════════════════════
+function updateCalculations(data) {
+  let totalAll  = 0;
+  let pending   = 0;
+  let received  = 0;
+  let pendingCount  = 0;
+  let receivedCount = 0;
+
   data.forEach(r => {
     const amt = Number(r.amount) || 0;
+    totalAll += amt;
+
     if (r.status === 'Received') {
       received += amt;
+      receivedCount++;
     } else {
       pending += amt;
+      pendingCount++;
     }
   });
 
-  if (yFilter === 'all') {
-    total = (sFilter === 'Pending') ? 0 : (sFilter === 'Received' ? received : received);
-  } else {
-    total = received;
-  }
-
-  totalAmountDisplay.textContent = '₹ ' + total.toLocaleString('en-IN');
-  pendingAmountDisplay.textContent = '₹ ' + pending.toLocaleString('en-IN');
+  totalAmountDisplay.textContent    = '₹ ' + totalAll.toLocaleString('en-IN');
+  pendingAmountDisplay.textContent  = '₹ ' + pending.toLocaleString('en-IN');
   receivedAmountDisplay.textContent = '₹ ' + received.toLocaleString('en-IN');
-  totalRecordsDisplay.textContent = data.length + ' Records';
-  pendingCountDisplay.textContent = data.filter(r => r.status === 'Pending').length + ' Pending';
-  receivedCountDisplay.textContent = data.filter(r => r.status === 'Received').length + ' Received';
+
+  totalRecordsDisplay.textContent   = data.length + ' Records';
+  pendingCountDisplay.textContent   = pendingCount  + ' Pending';
+  receivedCountDisplay.textContent  = receivedCount + ' Received';
 }
 
-// ─────────────────────────────────────────────
-// HELPERS
-// ─────────────────────────────────────────────
-function apiFetch(opts) { /* ... same as before ... */ }
-function showNotification(msg, type) { /* ... same as before ... */ }
-function escapeHtml(str) { return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-function clearFieldError(f) { document.getElementById(f).classList.remove('input-error'); document.getElementById(f+'Error').classList.remove('show'); }
-function showFieldError(f, m) { document.getElementById(f).classList.add('input-error'); document.getElementById(f+'Error').textContent = m; document.getElementById(f+'Error').classList.add('show'); }
-function startEditRecord(id) { /* ... logic to fill form ... */ }
-function deleteRecord(id) { /* ... logic with PIN ... */ }
-function resetFormState() { /* ... logic to clear form ... */ }
-function setSyncBadge(s) { /* ... logic for sync badge ... */ }
-function renderTableLoading() { /* ... logic ... */ }
-function showEmptyTable(m) { /* ... logic ... */ }
+// ════════════════════════════════════════════════════════════
+//  SYNC BADGE
+// ════════════════════════════════════════════════════════════
+function setSyncBadge(state) {
+  syncBadge.classList.remove('syncing', 'error-badge');
+
+  if (state === 'syncing') {
+    syncBadge.classList.add('syncing');
+    syncLabel.textContent = 'Syncing...';
+  } else if (state === 'error') {
+    syncBadge.classList.add('error-badge');
+    syncLabel.textContent = 'Sync Error';
+  } else {
+    // live / default
+    syncLabel.textContent = 'Live Sync';
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  SUBMIT BUTTON LOADING STATE
+// ════════════════════════════════════════════════════════════
+function setSubmitLoading(loading, text) {
+  submitBtn.disabled = loading;
+
+  if (loading) {
+    submitBtnText.innerHTML =
+      '<div class="spinner" style="width:15px;height:15px;"></div> ' + text;
+  } else {
+    submitBtnText.textContent = text;
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  TABLE LOADING STATE
+// ════════════════════════════════════════════════════════════
+function renderTableLoading() {
+  recordsTableBody.innerHTML =
+    '<tr><td colspan="8" class="text-center">' +
+    '<div style="padding:36px;">' +
+    '<div class="spinner spinner-gold" ' +
+      'style="width:28px;height:28px;margin:0 auto 10px;"></div>' +
+    '<div style="color:var(--text-muted);font-size:.85rem;">' +
+      'Loading records from Google Sheet…</div>' +
+    '</div></td></tr>';
+}
+
+// ════════════════════════════════════════════════════════════
+//  SHOW EMPTY / ERROR TABLE MESSAGE
+// ════════════════════════════════════════════════════════════
+function showEmptyTable(msg) {
+  recordsTableBody.innerHTML =
+    '<tr><td colspan="8" class="text-center">' +
+    '<div class="empty-msg">' + msg + '</div>' +
+    '</td></tr>';
+}
+
+// ════════════════════════════════════════════════════════════
+//  NOTIFICATION TOAST
+// ════════════════════════════════════════════════════════════
+function showNotification(msg, type = 'success') {
+  clearTimeout(_notifTimer);
+
+  notificationEl.textContent  = msg;
+  notificationEl.className    = 'notification ' + type;
+
+  // Force reflow so transition plays even if re-triggered
+  void notificationEl.offsetWidth;
+  notificationEl.classList.add('show');
+
+  _notifTimer = setTimeout(() => {
+    notificationEl.classList.remove('show');
+  }, 3500);
+}
+
+// ════════════════════════════════════════════════════════════
+//  FIELD ERROR HELPERS
+// ════════════════════════════════════════════════════════════
+function showFieldError(field, message) {
+  const input = document.getElementById(field === 'year'   ? 'yearInput'
+                                       : field === 'status' ? 'statusInput'
+                                       : field);
+  const errEl = document.getElementById(field + 'Error');
+
+  if (input)  input.classList.add('input-error');
+  if (errEl) {
+    errEl.textContent = message;
+    errEl.classList.add('show');
+  }
+}
+
+function clearFieldError(field) {
+  const input = document.getElementById(field === 'year'   ? 'yearInput'
+                                       : field === 'status' ? 'statusInput'
+                                       : field);
+  const errEl = document.getElementById(field + 'Error');
+
+  if (input)  input.classList.remove('input-error');
+  if (errEl)  errEl.classList.remove('show');
+}
+
+// ════════════════════════════════════════════════════════════
+//  ESCAPE HTML  — Prevent XSS
+// ════════════════════════════════════════════════════════════
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, m => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[m]));
+}
+
+// ════════════════════════════════════════════════════════════
+//  HIGHLIGHT SEARCH TERM in table cell text
+// ════════════════════════════════════════════════════════════
+function highlight(text, query) {
+  if (!query) return text;
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(
+    new RegExp('(' + escaped + ')', 'gi'),
+    '<mark>$1</mark>'
+  );
+}
+
 </script>
 </body>
 </html>
