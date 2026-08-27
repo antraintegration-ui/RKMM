@@ -794,7 +794,7 @@ async function handleFormSubmit(e) {
 // ════════════════════════════════════════════════════════════
 //  START EDIT RECORD  — Fill form with existing record data
 // ════════════════════════════════════════════════════════════
-function startEditRecord(id) {
+async function startEditRecord(id) {
   const record = allRecords.find(r => String(r.id) === String(id));
   if (!record) {
     showNotification('❌ Record not found.', 'error');
@@ -802,7 +802,39 @@ function startEditRecord(id) {
   }
 
   // ── Password Prompt ──
-  const enteredPassword = prompt('🔒 Enter Password to Edit:');
+  const enteredPassword = await new Promise(resolve => {
+  const box = document.createElement('div');
+  box.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99999;display:flex;align-items:center;justify-content:center;';
+  box.innerHTML = `<div style="background:#fff;border-radius:16px;padding:28px 24px;max-width:340px;width:90%;box-shadow:0 20px 50px rgba(0,0,0,0.2);">
+    <h3 style="font-size:1rem;font-weight:800;color:#0e2a47;margin-bottom:12px;">🔒 Enter Password to Edit</h3>
+    <input type="password" id="_tmpPwd" placeholder="Enter password"
+           style="width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:.95rem;outline:none;margin-bottom:8px;" autocomplete="off">
+    <p id="_tmpErr" style="font-size:.75rem;color:#ef4444;font-weight:600;display:none;margin-bottom:10px;">❌ Wrong password.</p>
+    <div style="display:flex;gap:10px;margin-top:10px;">
+      <button id="_tmpCancel" style="flex:1;padding:10px;border:none;background:#e2e8f0;border-radius:10px;font-weight:700;cursor:pointer;">Cancel</button>
+      <button id="_tmpOk" style="flex:1;padding:10px;border:none;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border-radius:10px;font-weight:700;cursor:pointer;">Confirm</button>
+    </div>
+  </div>`;
+  document.body.appendChild(box);
+  setTimeout(() => document.getElementById('_tmpPwd').focus(), 100);
+
+  document.getElementById('_tmpCancel').onclick = () => {
+    document.body.removeChild(box); resolve(null);
+  };
+  document.getElementById('_tmpOk').onclick = () => {
+    const v = document.getElementById('_tmpPwd').value;
+    if (v !== DELETE_PASSWORD) {
+      document.getElementById('_tmpErr').style.display = 'block';
+      document.getElementById('_tmpPwd').style.borderColor = '#ef4444';
+      document.getElementById('_tmpPwd').focus();
+      return;
+    }
+    document.body.removeChild(box); resolve(v);
+  };
+  document.getElementById('_tmpPwd').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('_tmpOk').click();
+  });
+});
 
   // Cancel button dabaya
   if (enteredPassword === null) return;
