@@ -627,6 +627,14 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeDeleteModal();
   });
+	// Enter key press karo password field me — delete confirm hoga
+  document.getElementById('deletePasswordInput')
+    .addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        confirmDelete();
+      }
+    });
 });
 
 // ════════════════════════════════════════════════════════════
