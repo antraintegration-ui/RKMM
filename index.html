@@ -409,18 +409,21 @@
     </form>
   </div>
 	<!-- ===== AREA WISE GRAPH ===== -->
-<div class="card">
-  <div class="card-title">
-    📊 Area-wise Collection Graph
-    <span style="font-size:.75rem; color:var(--text-muted); 
-                 font-weight:600;">
-      Live Sync
-    </span>
-  </div>
-  <div style="position:relative; height:300px;">
-    <canvas id="areaChart"></canvas>
-  </div>
+<div class="card-title">
+  📊 Area-wise Collection Graph
+  <button id="showGraphBtn" onclick="toggleGraph()"
+    style="padding:7px 18px;
+           background:linear-gradient(135deg,#ff6600,#ff8c00);
+           color:#fff; border:none; border-radius:20px;
+           font-size:.78rem; font-weight:700;
+           cursor:pointer;">
+    📊 Show Graph
+  </button>
 </div>
+<div id="graphSection" style="display:none; position:relative; height:300px;">
+  <canvas id="areaChart"></canvas>
+</div>
+
 <!-- ===== END AREA WISE GRAPH ===== -->
 
 
@@ -1069,9 +1072,32 @@ function showRecords() {
 	// ─────────────────────────────────────────────
 // AREA WISE CHART
 // ─────────────────────────────────────────────
+	let graphVisible = false;
 let areaChartInstance = null;
+	function toggleGraph() {
+  const section = document.getElementById('graphSection');
+  const btn     = document.getElementById('showGraphBtn');
+
+  if (!graphVisible) {
+    // Show karo
+    section.style.display = 'block';
+    btn.textContent       = '🙈 Hide Graph';
+    btn.style.background  = 'linear-gradient(135deg,#64748b,#475569)';
+    graphVisible          = true;
+    renderAreaChart(allRecords);
+  } else {
+    // Hide karo
+    section.style.display = 'none';
+    btn.textContent       = '📊 Show Graph';
+    btn.style.background  = 'linear-gradient(135deg,#ff6600,#ff8c00)';
+    graphVisible          = false;
+  }
+}
+
 
 function renderAreaChart(data) {
+	// Graph visible nahi hai to return
+  if (!graphVisible) return;
   // ── Area wise amount calculate karo ──
   const areaMap = {};
 
