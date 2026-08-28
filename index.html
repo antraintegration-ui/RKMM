@@ -6,6 +6,7 @@
   <title>Radha Krishna Mitra Mandal - Donation Register</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -407,6 +408,21 @@
       </div>
     </form>
   </div>
+	<!-- ===== AREA WISE GRAPH ===== -->
+<div class="card">
+  <div class="card-title">
+    📊 Area-wise Collection Graph
+    <span style="font-size:.75rem; color:var(--text-muted); 
+                 font-weight:600;">
+      Live Sync
+    </span>
+  </div>
+  <div style="position:relative; height:300px;">
+    <canvas id="areaChart"></canvas>
+  </div>
+</div>
+<!-- ===== END AREA WISE GRAPH ===== -->
+
 
   <!-- ===== FILTER BAR ===== -->
   <div class="card" style="padding:16px 20px;">
@@ -708,6 +724,7 @@ async function fetchRecords() {
 	if (result.status === 'success') {
       allRecords = Array.isArray(result.data) ? result.data : [];
       populateYearFilters();
+	  renderAreaChart(allRecords);
       renderFiltered();
       setSyncBadge('live');
     } else {
@@ -1049,7 +1066,106 @@ function showRecords() {
     recordsVisible        = false;
   }
 }
-	
+	// ─────────────────────────────────────────────
+// AREA WISE CHART
+// ─────────────────────────────────────────────
+let areaChartInstance = null;
+
+function renderAreaChart(data) {
+  // ── Area wise amount calculate karo ──
+  const areaMap = {};
+
+  data.forEach(function(r) {
+    const area = r.area || 'Unknown';
+    const amt  = Number(r.amount) || 0;
+    if (!areaMap[area]) areaMap[area] = 0;
+    areaMap[area] += amt;
+  });
+
+  // ── Sort by amount descending ──
+  const sorted = Object.entries(areaMap)
+    .sort((a, b) => b[1] - a[1]);
+
+  const labels  = sorted.map(e => e[0]);
+  const amounts = sorted.map(e => e[1]);
+
+  // ── Colors ──
+  const colors = [
+    '#ff6600','#ff8c00','#ffa500',
+    '#ffb732','#ffc84a','#ffd966',
+    '#0e2a47','#173d66','#1e4a7a',
+    '#2563eb','#3b82f6','#60a5fa',
+    '#10b981','#059669','#047857',
+    '#ef4444','#f59e0b','#8b5cf6'
+  ];
+
+  const bgColors = labels.map((_, i) =>
+    colors[i % colors.length]
+  );
+
+  // ── Destroy old chart ──
+  if (areaChartInstance) {
+    areaChartInstance.destroy();
+  }
+
+  const ctx = document.getElementById('areaChart').getContext('2d');
+
+  areaChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels  : labels,
+      datasets: [{
+        label           : 'Collection (₹)',
+        data            : amounts,
+        backgroundColor : bgColors,
+        borderColor     : bgColors,
+        borderWidth     : 1,
+        borderRadius    : 6,
+      }]
+    },
+    options: {
+      responsive         : true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return ' ₹ ' +
+                Number(context.raw)
+                .toLocaleString('en-IN');
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            font     : { weight: '700', size: 11 },
+            color    : '#0e2a47',
+            maxRotation: 45,
+          }
+        },
+        y: {
+          grid : { color: '#f1f5f9' },
+          ticks: {
+            font    : { weight: '600', size: 11 },
+            color   : '#64748b',
+            callback: function(value) {
+              return '₹' +
+                Number(value)
+                .toLocaleString('en-IN');
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
 	function populateYearFilters() {
   const currentVal = filterYear.value;
 
@@ -1097,6 +1213,13 @@ function renderFiltered() {
 
   updateCalculations(filtered);
   renderTable(filtered, q);
+	function renderFiltered() {
+  if (!recordsVisible) return;
+  const q = searchInput.value.toLowerCase().trim();
+  // ...baaki code...
+  
+} // ← closing bracket
+
 }
 
 // ════════════════════════════════════════════════════════════
