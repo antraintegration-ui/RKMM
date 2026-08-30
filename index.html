@@ -1090,11 +1090,9 @@ function applyGlobalYear() {
   if (recordsVisible) renderFiltered();
   renderExpensesFiltered();
   if (graphVisible) {
-    const filtered = yr === 'all'
-      ? allRecords
-      : allRecords.filter(r => String(r.year) === yr);
-    renderAreaChart(filtered);
-  }
+  renderAreaChart(allRecords); // function खुद filter करेगा
+}
+
 }
 
 // ════════════════════════════════════════════════════════════
