@@ -1176,25 +1176,60 @@ function toggleGraph() {
 // ════════════════════════════════════════════════════════════
 function renderAreaChart(data) {
   if (!graphVisible) return;
+
+  // ── हमेशा current year filter के अनुसार data filter करो ──
+  const sel = document.getElementById('globalYearSelect');
+  const yr  = sel ? sel.value : 'all';
+
+  // Year filter apply करो — पुराना data कभी reuse नहीं होगा
+  const filteredData = yr === 'all'
+    ? allRecords
+    : allRecords.filter(r => String(r.year) === yr);
+
+  // Area-wise total calculate करो filtered data से
   const areaMap = {};
-  data.forEach(function(r) {
+  filteredData.forEach(function(r) {
     const area = r.area || 'Unknown';
     const amt  = Number(r.amount) || 0;
     if (!areaMap[area]) areaMap[area] = 0;
     areaMap[area] += amt;
   });
 
-  const sorted  = Object.entries(areaMap).sort((a,b) => b[1]-a[1]);
-  const labels  = sorted.map(e => e[0]);
-  const amounts = sorted.map(e => e[1]);
-  const colors  = ['#ff6600','#ff8c00','#ffa500','#ffb732','#ffc84a',
-                   '#0e2a47','#173d66','#1e4a7a','#2563eb','#3b82f6',
-                   '#10b981','#059669','#ef4444','#f59e0b','#8b5cf6'];
+  const sorted   = Object.entries(areaMap).sort((a,b) => b[1]-a[1]);
+  const labels   = sorted.map(e => e[0]);
+  const amounts  = sorted.map(e => e[1]);
+  const colors   = ['#ff6600','#ff8c00','#ffa500','#ffb732','#ffc84a',
+                    '#0e2a47','#173d66','#1e4a7a','#2563eb','#3b82f6',
+                    '#10b981','#059669','#ef4444','#f59e0b','#8b5cf6'];
   const bgColors = labels.map((_,i) => colors[i % colors.length]);
 
-  if (areaChartInstance) areaChartInstance.destroy();
+  // पुराना chart properly destroy करो
+  if (areaChartInstance) {
+    areaChartInstance.destroy();
+    areaChartInstance = null;
+  }
 
-  const ctx = document.getElementById('areaChart').getContext('2d');
+  // Canvas reset करो — पुराना data clear
+  const canvas = document.getElementById('areaChart');
+  const ctx    = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // No data case
+  if (!filteredData.length || !labels.length) {
+    ctx.font      = '14px Plus Jakarta Sans, sans-serif';
+    ctx.fillStyle = '#94a3b8';
+    ctx.textAlign = 'center';
+    ctx.fillText(
+      yr === 'all'
+        ? 'कोई data नहीं मिला।'
+        : yr + ' का कोई donation record नहीं है।',
+      canvas.width / 2,
+      canvas.height / 2
+    );
+    return;
+  }
+
+  // नया chart बनाओ
   areaChartInstance = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -1222,20 +1257,25 @@ function renderAreaChart(data) {
       scales: {
         x: {
           grid : { display: false },
-          ticks: { font:{ weight:'700',size:11 }, color:'#0e2a47', maxRotation:45 }
+          ticks: {
+            font       : { weight:'700', size:11 },
+            color      : '#0e2a47',
+            maxRotation: 45
+          }
         },
         y: {
           grid : { color:'#f1f5f9' },
           ticks: {
-            font    : { weight:'600',size:11 },
+            font    : { weight:'600', size:11 },
             color   : '#64748b',
-            callback: v => '₹'+Number(v).toLocaleString('en-IN')
+            callback: v => '₹' + Number(v).toLocaleString('en-IN')
           }
         }
       }
     }
   });
 }
+
 
 // ════════════════════════════════════════════════════════════
 //  LOCAL STORAGE — EXPENSES
