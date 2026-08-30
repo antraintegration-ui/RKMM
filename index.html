@@ -417,6 +417,66 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
     </div>
   </div>
 
+  <!-- ===== GLOBAL YEAR FILTER ===== -->
+<div id="globalYearBar" style="
+  background: linear-gradient(135deg,#0e2a47,#1e4a7a);
+  border-radius: var(--radius-lg);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: var(--shadow-card);">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span style="font-size:1.3rem;">📅</span>
+    <div>
+      <div style="font-size:.7rem;text-transform:uppercase;
+                  letter-spacing:1px;color:#fbbf24;font-weight:700;
+                  margin-bottom:2px;">
+        Global Year Filter / वर्ष चुनें
+      </div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,0.6);font-weight:600;">
+        पूरे page का data इस year के अनुसार दिखेगा
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <select id="globalYearSelect"
+      onchange="applyGlobalYear()"
+      style="padding:10px 36px 10px 16px;
+             background:#fff;
+             border:2px solid #fbbf24;
+             border-radius:25px;
+             font-size:.95rem;
+             font-weight:700;
+             color:#0e2a47;
+             outline:none;
+             cursor:pointer;
+             min-width:180px;
+             -webkit-appearance:none;
+             appearance:none;
+             background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%230e2a47%22 stroke-width=%222%22%3E%3Cpolyline points=%226 9 12 15 18 9%22%3E%3C/polyline%3E%3C/svg%3E');
+             background-repeat:no-repeat;
+             background-position:right 12px center;
+             box-shadow:0 2px 8px rgba(251,191,36,0.3);">
+      <option value="all">📋 All Years / सभी वर्ष</option>
+    </select>
+    <div id="globalYearBadge"
+      style="background:rgba(251,191,36,0.15);
+             border:1px solid rgba(251,191,36,0.4);
+             color:#fbbf24;
+             padding:8px 16px;
+             border-radius:20px;
+             font-size:.8rem;
+             font-weight:700;
+             white-space:nowrap;">
+      🌐 All Years Active
+    </div>
+  </div>
+</div>
+
+
   <!-- ===== NAVIGATION TABS ===== -->
   <div class="nav-tabs">
     <button class="tab-btn active" id="tabDonationBtn"
@@ -970,6 +1030,73 @@ function switchMainTab(tab) {
     renderExpensesFiltered();
   }
 }
+// ════════════════════════════════════════════════════════════
+//  GLOBAL YEAR FILTER
+// ════════════════════════════════════════════════════════════
+function populateGlobalYearFilter() {
+  const sel = document.getElementById('globalYearSelect');
+  if (!sel) return;
+
+  // सभी years collect करो — donations + expenses दोनों से
+  const donYears = allRecords.map(r => String(r.year)).filter(Boolean);
+  const expYears = allExpenses.map(e => String(e.year)).filter(Boolean);
+  const allYears = [...new Set([...donYears, ...expYears])].sort();
+
+  // Current value save करो
+  const current = sel.value;
+
+  // Options rebuild करो
+  sel.innerHTML = '<option value="all">📋 All Years / सभी वर्ष</option>';
+  allYears.forEach(y => {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = '📅 ' + y;
+    sel.appendChild(opt);
+  });
+
+  // Previous selection restore करो
+  if (allYears.includes(current)) sel.value = current;
+}
+
+function applyGlobalYear() {
+  const sel = document.getElementById('globalYearSelect');
+  if (!sel) return;
+  const yr = sel.value;
+
+  // Badge update करो
+  const badge = document.getElementById('globalYearBadge');
+  if (badge) {
+    badge.textContent = yr === 'all' ? '🌐 All Years Active' : '📅 Year: ' + yr + ' Active';
+    badge.style.background = yr === 'all'
+      ? 'rgba(251,191,36,0.15)'
+      : 'rgba(16,185,129,0.2)';
+    badge.style.borderColor = yr === 'all'
+      ? 'rgba(251,191,36,0.4)'
+      : 'rgba(16,185,129,0.5)';
+    badge.style.color = yr === 'all' ? '#fbbf24' : '#6ee7b7';
+  }
+
+  // Existing filterYear (donation filter) को sync करो
+  if (filterYear) {
+    filterYear.value = yr;
+  }
+
+  // Existing filterExpenseYear (expense filter) को sync करो
+  if (filterExpenseYear) {
+    filterExpenseYear.value = yr;
+  }
+
+  // सभी existing functions call करो
+  updateSummaryCards();
+  if (recordsVisible) renderFiltered();
+  renderExpensesFiltered();
+  if (graphVisible) {
+    const filtered = yr === 'all'
+      ? allRecords
+      : allRecords.filter(r => String(r.year) === yr);
+    renderAreaChart(filtered);
+  }
+}
 
 // ════════════════════════════════════════════════════════════
 //  YEAR FILTER HELPERS
@@ -987,6 +1114,8 @@ function populateYearFilters() {
 
   const countBadge = document.getElementById('recordCountBadge');
   if (countBadge) countBadge.textContent = allRecords.length + ' Records';
+    populateGlobalYearFilter(); // ← यह line add करें
+
 }
 
 function populateExpenseYearFilters() {
