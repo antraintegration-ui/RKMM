@@ -417,7 +417,7 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
     </div>
   </div>
 
-  <!-- ===== GLOBAL YEAR FILTER ===== -->
+<!-- ===== GLOBAL FESTIVAL & YEAR FILTER ===== -->
 <div id="globalYearBar" style="
   background: linear-gradient(135deg,#0e2a47,#1e4a7a);
   border-radius: var(--radius-lg);
@@ -429,51 +429,41 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
   gap: 12px;
   box-shadow: var(--shadow-card);">
   <div style="display:flex;align-items:center;gap:10px;">
-    <span style="font-size:1.3rem;">📅</span>
+    <span style="font-size:1.4rem;">🎉</span>
     <div>
-      <div style="font-size:.7rem;text-transform:uppercase;
-                  letter-spacing:1px;color:#fbbf24;font-weight:700;
-                  margin-bottom:2px;">
-        Global Year Filter / वर्ष चुनें
+      <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:#fbbf24;font-weight:700;margin-bottom:2px;">
+        Global Festival & Year Filter
       </div>
-      <div style="font-size:.78rem;color:rgba(255,255,255,0.6);font-weight:600;">
+      <div style="font-size:.78rem;color:rgba(255,255,255,0.7);font-weight:600;">
+        त्योहार और वर्ष के अनुसार पूरा Data देखें
       </div>
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-    <select id="globalYearSelect"
-      onchange="applyGlobalYear()"
-      style="padding:10px 36px 10px 16px;
-             background:#fff;
-             border:2px solid #fbbf24;
-             border-radius:25px;
-             font-size:.95rem;
-             font-weight:700;
-             color:#0e2a47;
-             outline:none;
-             cursor:pointer;
-             min-width:180px;
-             -webkit-appearance:none;
-             appearance:none;
-             background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%230e2a47%22 stroke-width=%222%22%3E%3Cpolyline points=%226 9 12 15 18 9%22%3E%3C/polyline%3E%3C/svg%3E');
-             background-repeat:no-repeat;
-             background-position:right 12px center;
-             box-shadow:0 2px 8px rgba(251,191,36,0.3);">
+    <!-- Festival Filter -->
+    <select id="globalFestivalSelect" onchange="applyGlobalFilters()"
+      style="padding:10px 14px;background:#fff;border:2px solid #fbbf24;border-radius:20px;font-size:.88rem;font-weight:700;color:#0e2a47;outline:none;cursor:pointer;">
+      <option value="all">🎉 All Festivals / सभी त्योहार</option>
+      <option value="Janmashtami">Janmashtami</option>
+      <option value="Navratri">Navratri</option>
+      <option value="Ganesh Chaturthi">Ganesh Chaturthi</option>
+      <option value="Diwali">Diwali</option>
+      <option value="Holi">Holi</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <!-- Year Filter -->
+    <select id="globalYearSelect" onchange="applyGlobalFilters()"
+      style="padding:10px 14px;background:#fff;border:2px solid #fbbf24;border-radius:20px;font-size:.88rem;font-weight:700;color:#0e2a47;outline:none;cursor:pointer;">
       <option value="all">📋 All Years / सभी वर्ष</option>
     </select>
-    <div id="globalYearBadge"
-      style="background:rgba(251,191,36,0.15);
-             border:1px solid rgba(251,191,36,0.4);
-             color:#fbbf24;
-             padding:8px 16px;
-             border-radius:20px;
-             font-size:.8rem;
-             font-weight:700;
-             white-space:nowrap;">
-      🌐 All Years Active
+
+    <div id="globalYearBadge" style="background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);color:#fbbf24;padding:8px 14px;border-radius:20px;font-size:.78rem;font-weight:700;">
+      🌐 All Active
     </div>
   </div>
 </div>
+
 
 
   <!-- ===== NAVIGATION TABS ===== -->
@@ -571,6 +561,19 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
             <input type="text" id="remark" placeholder="e.g. Cash / Online / UPI"
                    autocomplete="off" inputmode="text">
           </div>
+                    <div class="form-group">
+            <label for="festivalInput">Festival / त्योहार *</label>
+            <select id="festivalInput">
+              <option value="Janmashtami" selected>Janmashtami</option>
+              <option value="Navratri">Navratri</option>
+              <option value="Ganesh Chaturthi">Ganesh Chaturthi</option>
+              <option value="Diwali">Diwali</option>
+              <option value="Holi">Holi</option>
+              <option value="Other">Other</option>
+            </select>
+            <span class="field-error" id="festivalInputError">Please select a festival.</span>
+          </div>
+
           <div class="form-group">
             <label for="yearInput">Year *</label>
             <select id="yearInput">
@@ -720,6 +723,19 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
           </div>
           <div class="form-group">
             <label for="expenseYear">Year *</label>
+                      <div class="form-group">
+            <label for="expenseFestival">Festival / त्योहार *</label>
+            <select id="expenseFestival">
+              <option value="Janmashtami" selected>Janmashtami</option>
+              <option value="Navratri">Navratri</option>
+              <option value="Ganesh Chaturthi">Ganesh Chaturthi</option>
+              <option value="Diwali">Diwali</option>
+              <option value="Holi">Holi</option>
+              <option value="Other">Other</option>
+            </select>
+            <span class="field-error" id="expenseFestivalError">Please select a festival.</span>
+          </div>
+
             <select id="expenseYear">
               <option value="">-- Select Year --</option>
               <option value="2024">2024</option>
@@ -1179,19 +1195,11 @@ function toggleGraph() {
 // ════════════════════════════════════════════════════════════
 //  AREA CHART
 // ════════════════════════════════════════════════════════════
-function renderAreaChart(data) {
+function renderAreaChart() {
   if (!graphVisible) return;
 
-  // ── हमेशा current year filter के अनुसार data filter करो ──
-  const sel = document.getElementById('globalYearSelect');
-  const yr  = sel ? sel.value : 'all';
+  const filteredData = getFilteredDonations();
 
-  // Year filter apply करो — पुराना data कभी reuse नहीं होगा
-  const filteredData = yr === 'all'
-    ? allRecords
-    : allRecords.filter(r => String(r.year) === yr);
-
-  // Area-wise total calculate करो filtered data से
   const areaMap = {};
   filteredData.forEach(function(r) {
     const area = r.area || 'Unknown';
@@ -1208,33 +1216,23 @@ function renderAreaChart(data) {
                     '#10b981','#059669','#ef4444','#f59e0b','#8b5cf6'];
   const bgColors = labels.map((_,i) => colors[i % colors.length]);
 
-  // पुराना chart properly destroy करो
   if (areaChartInstance) {
     areaChartInstance.destroy();
     areaChartInstance = null;
   }
 
-  // Canvas reset करो — पुराना data clear
   const canvas = document.getElementById('areaChart');
   const ctx    = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // No data case
   if (!filteredData.length || !labels.length) {
     ctx.font      = '14px Plus Jakarta Sans, sans-serif';
     ctx.fillStyle = '#94a3b8';
     ctx.textAlign = 'center';
-    ctx.fillText(
-      yr === 'all'
-        ? 'कोई data नहीं मिला।'
-        : yr + ' का कोई donation record नहीं है।',
-      canvas.width / 2,
-      canvas.height / 2
-    );
+    ctx.fillText('Selected Festival & Year का कोई record नहीं है।', canvas.width / 2, canvas.height / 2);
     return;
   }
 
-  // नया chart बनाओ
   areaChartInstance = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -1260,26 +1258,13 @@ function renderAreaChart(data) {
         }
       },
       scales: {
-        x: {
-          grid : { display: false },
-          ticks: {
-            font       : { weight:'700', size:11 },
-            color      : '#0e2a47',
-            maxRotation: 45
-          }
-        },
-        y: {
-          grid : { color:'#f1f5f9' },
-          ticks: {
-            font    : { weight:'600', size:11 },
-            color   : '#64748b',
-            callback: v => '₹' + Number(v).toLocaleString('en-IN')
-          }
-        }
+        x: { grid:{ display:false }, ticks:{ font:{ weight:'700', size:11 }, color:'#0e2a47', maxRotation:45 } },
+        y: { grid:{ color:'#f1f5f9' }, ticks:{ font:{ weight:'600', size:11 }, color:'#64748b', callback: v => '₹'+Number(v).toLocaleString('en-IN') } }
       }
     }
   });
 }
+
 
 
 // ════════════════════════════════════════════════════════════
@@ -1376,22 +1361,61 @@ async function fetchRecords() {
     showNotification('❌ Network error: ' + err.message, 'error');
   }
 }
+function getFilteredDonations() {
+  const festEl = document.getElementById('globalFestivalSelect');
+  const yearEl = document.getElementById('globalYearSelect');
+  const fFest  = festEl ? festEl.value : 'all';
+  const fYear  = yearEl ? yearEl.value : 'all';
+
+  return allRecords.filter(r => {
+    const rFest = r.festival || 'Janmashtami';
+    const festMatch = (fFest === 'all' || rFest === fFest);
+    const yearMatch = (fYear === 'all' || String(r.year) === fYear);
+    return festMatch && yearMatch;
+  });
+}
+
+function getFilteredExpenses() {
+  const festEl = document.getElementById('globalFestivalSelect');
+  const yearEl = document.getElementById('globalYearSelect');
+  const fFest  = festEl ? festEl.value : 'all';
+  const fYear  = yearEl ? yearEl.value : 'all';
+
+  return allExpenses.filter(e => {
+    const eFest = e.festival || 'Janmashtami';
+    const festMatch = (fFest === 'all' || eFest === fFest);
+    const yearMatch = (fYear === 'all' || String(e.year) === fYear);
+    return festMatch && yearMatch;
+  });
+}
+
+function applyGlobalFilters() {
+  const festEl = document.getElementById('globalFestivalSelect');
+  const yearEl = document.getElementById('globalYearSelect');
+  const fFest  = festEl ? festEl.value : 'all';
+  const fYear  = yearEl ? yearEl.value : 'all';
+
+  const badge = document.getElementById('globalYearBadge');
+  if (badge) {
+    if (fFest === 'all' && fYear === 'all') {
+      badge.textContent = '🌐 All Active';
+    } else {
+      badge.textContent = (fFest !== 'all' ? fFest : 'All Fest') + ' | ' + (fYear !== 'all' ? fYear : 'All Yrs');
+    }
+  }
+
+  updateSummaryCards();
+  if (recordsVisible) renderFiltered();
+  renderExpensesFiltered();
+  if (graphVisible) renderAreaChart();
+}
 
 // ════════════════════════════════════════════════════════════
 //  UPDATE SUMMARY CARDS — Year-wise calculation
 // ════════════════════════════════════════════════════════════
 function updateSummaryCards() {
-  const yFilter = filterYear ? filterYear.value : 'all';
-
-  // Filter donations by selected year
-  const donFiltered = yFilter === 'all'
-    ? allRecords
-    : allRecords.filter(r => String(r.year) === yFilter);
-
-  // Filter expenses by same year
-  const expFiltered = yFilter === 'all'
-    ? allExpenses
-    : allExpenses.filter(e => String(e.year) === yFilter);
+  const donFiltered = getFilteredDonations();
+  const expFiltered = getFilteredExpenses();
 
   let total = 0, pending = 0, received = 0;
   let pendingCount = 0, receivedCount = 0;
@@ -1399,35 +1423,44 @@ function updateSummaryCards() {
   donFiltered.forEach(r => {
     const amt = Number(r.amount) || 0;
     total += amt;
-    if (r.status === 'Received') { received += amt; receivedCount++; }
-    else                         { pending  += amt; pendingCount++;  }
+    if (r.status === 'Received') {
+      received += amt;
+      receivedCount++;
+    } else {
+      pending += amt;
+      pendingCount++;
+    }
   });
 
   let totalExpense = 0;
-  expFiltered.forEach(e => { totalExpense += Number(e.amount) || 0; });
+  expFiltered.forEach(e => {
+    totalExpense += Number(e.amount) || 0;
+  });
 
   const collection = received - totalExpense;
 
-  // Cache values
   _cachedTotal      = total;
   _cachedPending    = pending;
   _cachedReceived   = received;
   _cachedExpense    = totalExpense;
   _cachedCollection = collection;
 
-  // Update sub-labels
   totalRecordsDisplay.textContent  = donFiltered.length + ' Records';
-  pendingCountDisplay.textContent  = pendingCount   + ' Pending';
-  receivedCountDisplay.textContent = receivedCount  + ' Received';
+  pendingCountDisplay.textContent  = pendingCount + ' Pending';
+  receivedCountDisplay.textContent = receivedCount + ' Received';
 
-  const yearLabel = yFilter === 'all' ? 'All Years' : 'Year: ' + yFilter;
-  if (expenseYearSubDisplay)  expenseYearSubDisplay.textContent  = yearLabel;
-  if (collectionSubDisplay)   collectionSubDisplay.textContent   =
-    'Receive - Expense' + (yFilter !== 'all' ? ' (' + yFilter + ')' : '');
+  const festEl = document.getElementById('globalFestivalSelect');
+  const yearEl = document.getElementById('globalYearSelect');
+  const fFest  = festEl ? festEl.value : 'all';
+  const fYear  = yearEl ? yearEl.value : 'all';
 
-  // Render amounts (masked or actual based on financialUnlocked)
+  const subLabel = (fFest !== 'all' ? fFest : 'All Fest') + ' • ' + (fYear !== 'all' ? fYear : 'All Yrs');
+  if (expenseYearSubDisplay) expenseYearSubDisplay.textContent = subLabel;
+  if (collectionSubDisplay)  collectionSubDisplay.textContent  = 'Rec - Exp (' + subLabel + ')';
+
   renderFinancialAmounts();
 }
+
 
 // ════════════════════════════════════════════════════════════
 //  DONATION FORM SUBMIT
@@ -1436,13 +1469,14 @@ async function handleFormSubmit(e) {
   e.preventDefault();
   if (isSubmitting) return;
 
-  const id     = editRecordId.value.trim();
-  const name   = nameInput.value.trim();
-  const amount = parseFloat(amountInput.value);
-  const area   = areaInput.value.trim();
-  const remark = remarkInput.value.trim();
-  const year   = yearInput.value;
-  const status = statusInput.value;
+  const id       = editRecordId.value.trim();
+  const name     = nameInput.value.trim();
+  const amount   = parseFloat(amountInput.value);
+  const area     = areaInput.value.trim();
+  const remark   = remarkInput.value.trim();
+  const year     = yearInput.value;
+  const status   = statusInput.value;
+  const festival = document.getElementById('festivalInput') ? document.getElementById('festivalInput').value : 'Janmashtami';
 
   let hasError = false;
   if (!name)   { showFieldError('name',   'Name is required.');              hasError = true; }
@@ -1458,7 +1492,10 @@ async function handleFormSubmit(e) {
   setSubmitLoading(true, isEdit ? 'Updating...' : 'Saving...');
 
   try {
-    const payload = { action: isEdit ? 'edit' : 'add', id, name, amount, area, remark, year, status };
+    const payload = {
+      action: isEdit ? 'edit' : 'add',
+      id, name, amount, area, remark, year, status, festival
+    };
     const res = await apiFetch({ method: 'POST', body: payload });
     if (res.status === 'success') {
       allRecords = Array.isArray(res.data) ? res.data : [];
@@ -1481,6 +1518,7 @@ async function handleFormSubmit(e) {
   }
 }
 
+
 // ════════════════════════════════════════════════════════════
 //  EXPENSE FORM SUBMIT
 // ════════════════════════════════════════════════════════════
@@ -1488,18 +1526,19 @@ async function handleExpenseFormSubmit(e) {
   e.preventDefault();
   if (isSubmittingExp) return;
 
-  const id     = editExpenseId.value.trim();
-  const name   = expenseNameInput.value.trim();
-  const amount = parseFloat(expenseAmountInput.value);
-  const year   = expenseYearInput.value;
+  const id       = editExpenseId.value.trim();
+  const name     = expenseNameInput.value.trim();
+  const amount   = parseFloat(expenseAmountInput.value);
+  const year     = expenseYearInput.value;
+  const festival = document.getElementById('expenseFestival') ? document.getElementById('expenseFestival').value : 'Janmashtami';
 
   let hasError = false;
   if (!name)
-    { showFieldError('expenseName',   'Expense name is required.');      hasError = true; }
+    { showFieldError('expenseName',   'Expense name is required.');          hasError = true; }
   if (!expenseAmountInput.value || isNaN(amount) || amount < 1)
-    { showFieldError('expenseAmount', 'Enter a valid amount (min ₹1).'); hasError = true; }
+    { showFieldError('expenseAmount', 'Enter a valid amount (min ₹1).');     hasError = true; }
   if (!year)
-    { showFieldError('expenseYear',   'Please select a year.');          hasError = true; }
+    { showFieldError('expenseYear',   'Please select a year.');              hasError = true; }
   if (hasError) return;
 
   isSubmittingExp = true;
@@ -1507,7 +1546,7 @@ async function handleExpenseFormSubmit(e) {
   setSubmitExpenseLoading(true, isEdit ? 'Updating...' : 'Saving...');
 
   const expenseId   = isEdit ? id : 'EXP_' + Date.now();
-  const expenseItem = { id: expenseId, name, amount, year };
+  const expenseItem = { id: expenseId, name, amount, year, festival };
 
   if (isEdit) {
     const idx = allExpenses.findIndex(e => String(e.id) === String(id));
@@ -1519,12 +1558,14 @@ async function handleExpenseFormSubmit(e) {
   saveLocalExpenses();
   populateExpenseYearFilters();
   renderExpensesFiltered();
-  updateSummaryCards(); // ← update financial summary
+  updateSummaryCards();
 
   try {
     setSyncBadge('syncing');
-    const payload = { action: isEdit ? 'editExpense' : 'addExpense',
-                      id: expenseId, name, amount, year };
+    const payload = {
+      action: isEdit ? 'editExpense' : 'addExpense',
+      id: expenseId, name, amount, year, festival
+    };
     await apiFetch({ method: 'POST', body: payload });
     setSyncBadge('live');
   } catch(err) {
@@ -1540,6 +1581,7 @@ async function handleExpenseFormSubmit(e) {
   isSubmittingExp = false;
   setSubmitExpenseLoading(false, isEdit ? 'Update Expense' : '➕ Add Expense / खर्चा जोड़ें');
 }
+
 
 // ════════════════════════════════════════════════════════════
 //  RESET FORM STATES
@@ -1584,12 +1626,17 @@ async function startEditRecord(id) {
   remarkInput.value         = record.remark || '';
   yearInput.value           = record.year;
   statusInput.value         = record.status;
+  if (document.getElementById('festivalInput')) {
+    document.getElementById('festivalInput').value = record.festival || 'Janmashtami';
+  }
+
   formTitle.textContent     = '✏️ Edit Donation Entry';
   submitBtnText.textContent = 'Update Entry';
   cancelBtn.style.display   = 'flex';
   formCard.classList.add('edit-mode');
   formCard.scrollIntoView({ behavior:'smooth', block:'start' });
 }
+
 
 // ════════════════════════════════════════════════════════════
 //  EDIT EXPENSE
@@ -1608,12 +1655,17 @@ async function startEditExpense(id) {
   expenseNameInput.value           = expense.name;
   expenseAmountInput.value         = expense.amount;
   expenseYearInput.value           = expense.year;
+  if (document.getElementById('expenseFestival')) {
+    document.getElementById('expenseFestival').value = expense.festival || 'Janmashtami';
+  }
+
   expenseFormTitle.textContent     = '✏️ Edit Expense / खर्चा संशोधित करें';
   submitExpenseBtnText.textContent = 'Update Expense';
   cancelExpenseBtn.style.display   = 'flex';
   expenseFormCard.classList.add('edit-mode');
   expenseFormCard.scrollIntoView({ behavior:'smooth', block:'start' });
 }
+
 
 // ════════════════════════════════════════════════════════════
 //  PASSWORD MODAL (Edit)
@@ -1796,31 +1848,28 @@ function handleSearch() {
 
 function renderFiltered() {
   const q       = searchInput.value.toLowerCase().trim();
-  const yFilter = filterYear.value;
   const sFilter = filterStatus.value;
 
-  // 1. Current Search & Filters के अनुसार records filter करें
-  const filtered = allRecords.filter(r => {
-    const str = [r.name, r.area, r.remark, r.year, r.status, String(r.amount)]
+  // 1. Festival + Year base dataset
+  const baseData = getFilteredDonations();
+
+  // 2. Search & Status filter apply
+  const filtered = baseData.filter(r => {
+    const str = [r.name, r.area, r.remark, r.year, r.status, (r.festival || ''), String(r.amount)]
                   .join(' ').toLowerCase();
-    return (!q || str.includes(q))
-        && (yFilter === 'all' || String(r.year) === yFilter)
-        && (sFilter === 'all' || r.status === sFilter);
+    return (!q || str.includes(q)) && (sFilter === 'all' || r.status === sFilter);
   });
 
-  // 2. Filtered Dataset में से Received, Pending और Total Sum निकालें
+  // 3. Totals Calculation
   let fReceived = 0, fPending = 0;
   filtered.forEach(r => {
     const amt = Number(r.amount) || 0;
-    if (r.status === 'Received') {
-      fReceived += amt;
-    } else {
-      fPending += amt;
-    }
+    if (r.status === 'Received') fReceived += amt;
+    else fPending += amt;
   });
-  const fTotal = fReceived + fPending; // Total = Received + Pending
+  const fTotal = fReceived + fPending;
 
-  // 3. Donation Records के पास बने Badge (id="recordCountBadge") पर Display करें
+  // 4. Update Badge
   const countBadge = document.getElementById('recordCountBadge');
   if (countBadge) {
     countBadge.innerHTML =
@@ -1837,22 +1886,25 @@ function renderFiltered() {
 
 
 
+
 function renderTable(filtered, q) {
   if (!filtered.length) {
     recordsTableBody.innerHTML =
       '<tr><td colspan="8" class="text-center">' +
       '<div class="empty-msg">🔍 No records found.<br>' +
-      '<small>Try changing your search or filters.</small></div></td></tr>';
+      '<small>Try changing your search or festival/year filters.</small></div></td></tr>';
     return;
   }
   const rows = filtered.slice().reverse();
   recordsTableBody.innerHTML = '';
   rows.forEach((r, i) => {
-    const num = filtered.length - i;
-    const tr  = document.createElement('tr');
+    const num     = filtered.length - i;
+    const tr      = document.createElement('tr');
+    const festTag = '<span style="display:inline-block;padding:2px 6px;background:#fef3c7;color:#92400e;border-radius:4px;font-size:.68rem;font-weight:700;margin-left:4px;">' + escapeHtml(r.festival || 'Janmashtami') + '</span>';
+
     tr.innerHTML =
       '<td><div class="sr-num">' + num + '</div></td>' +
-      '<td><strong>' + highlight(escapeHtml(r.name), q) + '</strong></td>' +
+      '<td><strong>' + highlight(escapeHtml(r.name), q) + '</strong>' + festTag + '</td>' +
       '<td class="amount-cell">₹ ' + Number(r.amount).toLocaleString('en-IN') + '</td>' +
       '<td>' + highlight(escapeHtml(r.area||''), q) + '</td>' +
       '<td><span class="badge-year">' + highlight(escapeHtml(String(r.year)), q) + '</span></td>' +
@@ -1860,16 +1912,13 @@ function renderTable(filtered, q) {
         escapeHtml(r.status||'Pending') + '</span></td>' +
       '<td>' + highlight(escapeHtml(r.remark||'—'), q) + '</td>' +
       '<td style="text-align:right;white-space:nowrap;">' +
-        '<button class="btn-action btn-edit" ' +
-          'onclick="startEditRecord(\'' + r.id + '\')">' +
-          '✏️ Edit</button>' +
-        '<button class="btn-action btn-delete" ' +
-          'onclick="deleteRecord(\'' + r.id + '\')">' +
-          '🗑️</button>' +
+        '<button class="btn-action btn-edit" onclick="startEditRecord(\'' + r.id + '\')">✏️ Edit</button>' +
+        '<button class="btn-action btn-delete" onclick="deleteRecord(\'' + r.id + '\')">🗑️</button>' +
       '</td>';
     recordsTableBody.appendChild(tr);
   });
 }
+
 
 // ════════════════════════════════════════════════════════════
 //  RENDER EXPENSES
@@ -1881,13 +1930,15 @@ function handleExpenseSearch() {
 }
 
 function renderExpensesFiltered() {
-  const q       = expenseSearchInput ? expenseSearchInput.value.toLowerCase().trim() : '';
-  const yFilter = filterExpenseYear  ? filterExpenseYear.value : 'all';
+  const q = expenseSearchInput ? expenseSearchInput.value.toLowerCase().trim() : '';
 
-  const filtered = allExpenses.filter(e => {
-    const str = [e.name, e.year, String(e.amount)].join(' ').toLowerCase();
-    return (!q || str.includes(q))
-        && (yFilter === 'all' || String(e.year) === yFilter);
+  // 1. Base Festival + Year Filtered Expenses
+  const baseExpenses = getFilteredExpenses();
+
+  // 2. Search Filter Apply
+  const filtered = baseExpenses.filter(e => {
+    const str = [e.name, e.year, (e.festival || ''), String(e.amount)].join(' ').toLowerCase();
+    return (!q || str.includes(q));
   });
 
   if (expenseCountDisplay) {
@@ -1896,6 +1947,7 @@ function renderExpensesFiltered() {
   updateExpenseTabTotal(filtered);
   renderExpenseTable(filtered, q);
 }
+
 
 function renderExpenseTable(filtered, q) {
   if (!expenseTableBody) return;
@@ -1909,26 +1961,23 @@ function renderExpenseTable(filtered, q) {
   const rows = filtered.slice().reverse();
   expenseTableBody.innerHTML = '';
   rows.forEach((eItem, i) => {
-    const num = filtered.length - i;
-    const tr  = document.createElement('tr');
+    const num     = filtered.length - i;
+    const tr      = document.createElement('tr');
+    const festTag = '<span style="display:inline-block;padding:2px 6px;background:#fef3c7;color:#92400e;border-radius:4px;font-size:.68rem;font-weight:700;margin-left:4px;">' + escapeHtml(eItem.festival || 'Janmashtami') + '</span>';
+
     tr.innerHTML =
       '<td><div class="sr-num">' + num + '</div></td>' +
-      '<td><strong>' + highlight(escapeHtml(eItem.name), q) + '</strong></td>' +
-      '<td class="amount-cell expense-amt">₹ ' +
-        Number(eItem.amount).toLocaleString('en-IN') + '</td>'
-      + '<td><span class="badge-year">' +
-        highlight(escapeHtml(String(eItem.year)), q) + '</span></td>' +
+      '<td><strong>' + highlight(escapeHtml(eItem.name), q) + '</strong>' + festTag + '</td>' +
+      '<td class="amount-cell expense-amt">₹ ' + Number(eItem.amount).toLocaleString('en-IN') + '</td>' +
+      '<td><span class="badge-year">' + highlight(escapeHtml(String(eItem.year)), q) + '</span></td>' +
       '<td style="text-align:right;white-space:nowrap;">' +
-        '<button class="btn-action btn-edit" ' +
-          'onclick="startEditExpense(\'' + eItem.id + '\')">' +
-          '✏️ Edit</button>' +
-        '<button class="btn-action btn-delete" ' +
-          'onclick="deleteExpense(\'' + eItem.id + '\')">' +
-          '🗑️</button>' +
+        '<button class="btn-action btn-edit" onclick="startEditExpense(\'' + eItem.id + '\')">✏️ Edit</button>' +
+        '<button class="btn-action btn-delete" onclick="deleteExpense(\'' + eItem.id + '\')">🗑️</button>' +
       '</td>';
     expenseTableBody.appendChild(tr);
   });
 }
+
 
 // ════════════════════════════════════════════════════════════
 //  EXPENSE TAB TOTAL (for expense tab bottom card only)
