@@ -561,9 +561,10 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
             <input type="text" id="remark" placeholder="e.g. Cash / Online / UPI"
                    autocomplete="off" inputmode="text">
           </div>
-                              <div class="form-group">
-            <label for="festivalInput">Festival / त्योहार * <small style="color:var(--text-muted);font-weight:normal;">(एक से ज़्यादा चुनने के लिए Ctrl/Cmd दबाकर रखें)</small></label>
-            <select id="festivalInput" multiple size="4" style="height: auto; padding: 6px 10px;">
+                                        <div class="form-group">
+            <label for="festivalInput">Festival / त्योहार *</label>
+            <select id="festivalInput">
+              <option value="">-- Select Festival --</option>
               <option value="Janmashtami" selected>Janmashtami</option>
               <option value="Navratri">Navratri</option>
               <option value="Ganesh Chaturthi">Ganesh Chaturthi</option>
@@ -571,8 +572,9 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
               <option value="Holi">Holi</option>
               <option value="Other">Other</option>
             </select>
-            <span class="field-error" id="festivalInputError">Please select at least one festival.</span>
+            <span class="field-error" id="festivalInputError">Please select a festival.</span>
           </div>
+
 
 
           <div class="form-group">
@@ -724,9 +726,10 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
           </div>
           <div class="form-group">
             <label for="expenseYear">Year *</label>
-                                <div class="form-group">
-            <label for="expenseFestival">Festival / त्योहार * <small style="color:var(--text-muted);font-weight:normal;">(एक से ज़्यादा चुनने के लिए Ctrl/Cmd दबाकर रखें)</small></label>
-            <select id="expenseFestival" multiple size="4" style="height: auto; padding: 6px 10px;">
+                                         <div class="form-group">
+            <label for="expenseFestival">Festival / त्योहार *</label>
+            <select id="expenseFestival">
+              <option value="">-- Select Festival --</option>
               <option value="Janmashtami" selected>Janmashtami</option>
               <option value="Navratri">Navratri</option>
               <option value="Ganesh Chaturthi">Ganesh Chaturthi</option>
@@ -734,8 +737,9 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
               <option value="Holi">Holi</option>
               <option value="Other">Other</option>
             </select>
-            <span class="field-error" id="expenseFestivalError">Please select at least one festival.</span>
+            <span class="field-error" id="expenseFestivalError">Please select a festival.</span>
           </div>
+
 
 
             <select id="expenseYear">
