@@ -1800,9 +1800,14 @@ function renderFiltered() {
         && (sFilter === 'all' || r.status === sFilter);
   });
 
-  updateSummaryCards(); // ← recalculate on filter change
+  // ── FIX: Count Badge को selected year के filtered records से update करें ──
+  const countBadge = document.getElementById('recordCountBadge');
+  if (countBadge) countBadge.textContent = filtered.length + ' Records';
+
+  updateSummaryCards();
   renderTable(filtered, q);
 }
+
 
 function renderTable(filtered, q) {
   if (!filtered.length) {
