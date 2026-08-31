@@ -561,9 +561,9 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
             <input type="text" id="remark" placeholder="e.g. Cash / Online / UPI"
                    autocomplete="off" inputmode="text">
           </div>
-                    <div class="form-group">
-            <label for="festivalInput">Festival / त्योहार *</label>
-            <select id="festivalInput">
+                              <div class="form-group">
+            <label for="festivalInput">Festival / त्योहार * <small style="color:var(--text-muted);font-weight:normal;">(एक से ज़्यादा चुनने के लिए Ctrl/Cmd दबाकर रखें)</small></label>
+            <select id="festivalInput" multiple size="4" style="height: auto; padding: 6px 10px;">
               <option value="Janmashtami" selected>Janmashtami</option>
               <option value="Navratri">Navratri</option>
               <option value="Ganesh Chaturthi">Ganesh Chaturthi</option>
@@ -571,8 +571,9 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
               <option value="Holi">Holi</option>
               <option value="Other">Other</option>
             </select>
-            <span class="field-error" id="festivalInputError">Please select a festival.</span>
+            <span class="field-error" id="festivalInputError">Please select at least one festival.</span>
           </div>
+
 
           <div class="form-group">
             <label for="yearInput">Year *</label>
@@ -723,9 +724,9 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
           </div>
           <div class="form-group">
             <label for="expenseYear">Year *</label>
-                      <div class="form-group">
-            <label for="expenseFestival">Festival / त्योहार *</label>
-            <select id="expenseFestival">
+                                <div class="form-group">
+            <label for="expenseFestival">Festival / त्योहार * <small style="color:var(--text-muted);font-weight:normal;">(एक से ज़्यादा चुनने के लिए Ctrl/Cmd दबाकर रखें)</small></label>
+            <select id="expenseFestival" multiple size="4" style="height: auto; padding: 6px 10px;">
               <option value="Janmashtami" selected>Janmashtami</option>
               <option value="Navratri">Navratri</option>
               <option value="Ganesh Chaturthi">Ganesh Chaturthi</option>
@@ -733,8 +734,9 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
               <option value="Holi">Holi</option>
               <option value="Other">Other</option>
             </select>
-            <span class="field-error" id="expenseFestivalError">Please select a festival.</span>
+            <span class="field-error" id="expenseFestivalError">Please select at least one festival.</span>
           </div>
+
 
             <select id="expenseYear">
               <option value="">-- Select Year --</option>
@@ -1361,6 +1363,15 @@ async function fetchRecords() {
     showNotification('❌ Network error: ' + err.message, 'error');
   }
 }
+// 1. फेस्टिवल सेलेक्ट बॉक्स से सभी चुने हुए त्योहारों की लिस्ट बनाने वाला फ़ंक्शन
+function getSelectedFestivalsFromElement(selectId) {
+  const el = document.getElementById(selectId);
+  if (!el) return 'Janmashtami';
+  const selected = Array.from(el.selectedOptions).map(opt => opt.value);
+  return selected.length > 0 ? selected.join(', ') : 'Janmashtami';
+}
+
+// 2. Donation Records को Selected Festival + Year के अनुसार Filter करना
 function getFilteredDonations() {
   const festEl = document.getElementById('globalFestivalSelect');
   const yearEl = document.getElementById('globalYearSelect');
@@ -1368,13 +1379,16 @@ function getFilteredDonations() {
   const fYear  = yearEl ? yearEl.value : 'all';
 
   return allRecords.filter(r => {
-    const rFest = r.festival || 'Janmashtami';
-    const festMatch = (fFest === 'all' || rFest === fFest);
+    const rFestStr = r.festival || 'Janmashtami';
+    const rFestArray = rFestStr.split(',').map(s => s.trim());
+    
+    const festMatch = (fFest === 'all' || rFestArray.includes(fFest));
     const yearMatch = (fYear === 'all' || String(r.year) === fYear);
     return festMatch && yearMatch;
   });
 }
 
+// 3. Expense Records को Selected Festival + Year के अनुसार Filter करना
 function getFilteredExpenses() {
   const festEl = document.getElementById('globalFestivalSelect');
   const yearEl = document.getElementById('globalYearSelect');
@@ -1382,12 +1396,15 @@ function getFilteredExpenses() {
   const fYear  = yearEl ? yearEl.value : 'all';
 
   return allExpenses.filter(e => {
-    const eFest = e.festival || 'Janmashtami';
-    const festMatch = (fFest === 'all' || eFest === fFest);
+    const eFestStr = e.festival || 'Janmashtami';
+    const eFestArray = eFestStr.split(',').map(s => s.trim());
+    
+    const festMatch = (fFest === 'all' || eFestArray.includes(fFest));
     const yearMatch = (fYear === 'all' || String(e.year) === fYear);
     return festMatch && yearMatch;
   });
 }
+
 
 function applyGlobalFilters() {
   const festEl = document.getElementById('globalFestivalSelect');
@@ -1530,7 +1547,7 @@ async function handleExpenseFormSubmit(e) {
   const name     = expenseNameInput.value.trim();
   const amount   = parseFloat(expenseAmountInput.value);
   const year     = expenseYearInput.value;
-  const festival = document.getElementById('expenseFestival') ? document.getElementById('expenseFestival').value : 'Janmashtami';
+  const festival = getSelectedFestivalsFromElement('expenseFestival');
 
   let hasError = false;
   if (!name)
@@ -1626,9 +1643,7 @@ async function startEditRecord(id) {
   remarkInput.value         = record.remark || '';
   yearInput.value           = record.year;
   statusInput.value         = record.status;
-  if (document.getElementById('festivalInput')) {
-    document.getElementById('festivalInput').value = record.festival || 'Janmashtami';
-  }
+  setSelectedFestivalsInElement('festivalInput', record.festival);
 
   formTitle.textContent     = '✏️ Edit Donation Entry';
   submitBtnText.textContent = 'Update Entry';
@@ -1636,6 +1651,8 @@ async function startEditRecord(id) {
   formCard.classList.add('edit-mode');
   formCard.scrollIntoView({ behavior:'smooth', block:'start' });
 }
+
+
 
 
 // ════════════════════════════════════════════════════════════
@@ -1655,9 +1672,7 @@ async function startEditExpense(id) {
   expenseNameInput.value           = expense.name;
   expenseAmountInput.value         = expense.amount;
   expenseYearInput.value           = expense.year;
-  if (document.getElementById('expenseFestival')) {
-    document.getElementById('expenseFestival').value = expense.festival || 'Janmashtami';
-  }
+  setSelectedFestivalsInElement('expenseFestival', expense.festival);
 
   expenseFormTitle.textContent     = '✏️ Edit Expense / खर्चा संशोधित करें';
   submitExpenseBtnText.textContent = 'Update Expense';
@@ -1898,13 +1913,18 @@ function renderTable(filtered, q) {
   const rows = filtered.slice().reverse();
   recordsTableBody.innerHTML = '';
   rows.forEach((r, i) => {
-    const num     = filtered.length - i;
-    const tr      = document.createElement('tr');
-    const festTag = '<span style="display:inline-block;padding:2px 6px;background:#fef3c7;color:#92400e;border-radius:4px;font-size:.68rem;font-weight:700;margin-left:4px;">' + escapeHtml(r.festival || 'Janmashtami') + '</span>';
+    const num = filtered.length - i;
+    const tr  = document.createElement('tr');
+    
+    // Multiple Festivals के लिए अलग-अलग बैज बनाना
+    const fList = (r.festival || 'Janmashtami').split(',').map(s => s.trim());
+    const festBadges = fList.map(f => 
+      '<span style="display:inline-block;padding:2px 6px;background:#fef3c7;color:#92400e;border-radius:4px;font-size:.68rem;font-weight:700;margin-left:3px;margin-top:2px;">' + escapeHtml(f) + '</span>'
+    ).join('');
 
     tr.innerHTML =
       '<td><div class="sr-num">' + num + '</div></td>' +
-      '<td><strong>' + highlight(escapeHtml(r.name), q) + '</strong>' + festTag + '</td>' +
+      '<td><strong>' + highlight(escapeHtml(r.name), q) + '</strong><br>' + festBadges + '</td>' +
       '<td class="amount-cell">₹ ' + Number(r.amount).toLocaleString('en-IN') + '</td>' +
       '<td>' + highlight(escapeHtml(r.area||''), q) + '</td>' +
       '<td><span class="badge-year">' + highlight(escapeHtml(String(r.year)), q) + '</span></td>' +
@@ -1918,6 +1938,7 @@ function renderTable(filtered, q) {
     recordsTableBody.appendChild(tr);
   });
 }
+
 
 
 // ════════════════════════════════════════════════════════════
@@ -1961,13 +1982,18 @@ function renderExpenseTable(filtered, q) {
   const rows = filtered.slice().reverse();
   expenseTableBody.innerHTML = '';
   rows.forEach((eItem, i) => {
-    const num     = filtered.length - i;
-    const tr      = document.createElement('tr');
-    const festTag = '<span style="display:inline-block;padding:2px 6px;background:#fef3c7;color:#92400e;border-radius:4px;font-size:.68rem;font-weight:700;margin-left:4px;">' + escapeHtml(eItem.festival || 'Janmashtami') + '</span>';
+    const num = filtered.length - i;
+    const tr  = document.createElement('tr');
+    
+    // Multiple Festivals के लिए अलग-अलग बैज बनाना
+    const fList = (eItem.festival || 'Janmashtami').split(',').map(s => s.trim());
+    const festBadges = fList.map(f => 
+      '<span style="display:inline-block;padding:2px 6px;background:#fef3c7;color:#92400e;border-radius:4px;font-size:.68rem;font-weight:700;margin-left:3px;margin-top:2px;">' + escapeHtml(f) + '</span>'
+    ).join('');
 
     tr.innerHTML =
       '<td><div class="sr-num">' + num + '</div></td>' +
-      '<td><strong>' + highlight(escapeHtml(eItem.name), q) + '</strong>' + festTag + '</td>' +
+      '<td><strong>' + highlight(escapeHtml(eItem.name), q) + '</strong><br>' + festBadges + '</td>' +
       '<td class="amount-cell expense-amt">₹ ' + Number(eItem.amount).toLocaleString('en-IN') + '</td>' +
       '<td><span class="badge-year">' + highlight(escapeHtml(String(eItem.year)), q) + '</span></td>' +
       '<td style="text-align:right;white-space:nowrap;">' +
@@ -1977,6 +2003,7 @@ function renderExpenseTable(filtered, q) {
     expenseTableBody.appendChild(tr);
   });
 }
+
 
 
 // ════════════════════════════════════════════════════════════
