@@ -1109,11 +1109,18 @@ function populateYearFilters() {
   });
   if (years.includes(current)) filterYear.value = current;
 
-  const countBadge = document.getElementById('recordCountBadge');
-  if (countBadge) countBadge.textContent = allRecords.length + ' Records';
-    populateGlobalYearFilter(); // ← यह line add करें
+  // ── FIX: Current selected year के अनुसार count सेट करें ──
+  const yFilter = filterYear ? filterYear.value : 'all';
+  const filteredRecords = yFilter === 'all'
+    ? allRecords
+    : allRecords.filter(r => String(r.year) === yFilter);
 
+  const countBadge = document.getElementById('recordCountBadge');
+  if (countBadge) countBadge.textContent = filteredRecords.length + ' Records';
+
+  populateGlobalYearFilter();
 }
+
 
 function populateExpenseYearFilters() {
   const years = [...new Set(allExpenses.map(e => String(e.year)).filter(Boolean))].sort();
