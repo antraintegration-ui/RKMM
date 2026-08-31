@@ -1799,21 +1799,39 @@ function renderFiltered() {
   const yFilter = filterYear.value;
   const sFilter = filterStatus.value;
 
+  // 1. Current Search & Filters के अनुसार records filter करें
   const filtered = allRecords.filter(r => {
-    const str = [r.name,r.area,r.remark,r.year,r.status,String(r.amount)]
+    const str = [r.name, r.area, r.remark, r.year, r.status, String(r.amount)]
                   .join(' ').toLowerCase();
     return (!q || str.includes(q))
         && (yFilter === 'all' || String(r.year) === yFilter)
         && (sFilter === 'all' || r.status === sFilter);
   });
 
-  // ── FIX: Count Badge को selected year के filtered records से update करें ──
+  // 2. Filtered Dataset में से Received और Pending का Total Sum निकालें
+  let fReceived = 0, fPending = 0;
+  filtered.forEach(r => {
+    const amt = Number(r.amount) || 0;
+    if (r.status === 'Received') {
+      fReceived += amt;
+    } else {
+      fPending += amt;
+    }
+  });
+
+  // 3. Donation Records के ठीक बगल वाले Badge (id="recordCountBadge") में Display करें
   const countBadge = document.getElementById('recordCountBadge');
-  if (countBadge) countBadge.textContent = filtered.length + ' Records';
+  if (countBadge) {
+    countBadge.innerHTML =
+      filtered.length + ' Records' +
+      ' &nbsp;|&nbsp; <span style="color:#047857;font-weight:800;">Rec: ₹' + fReceived.toLocaleString('en-IN') + '</span>' +
+      ' &nbsp;|&nbsp; <span style="color:#b45309;font-weight:800;">Pend: ₹' + fPending.toLocaleString('en-IN') + '</span>';
+  }
 
   updateSummaryCards();
   renderTable(filtered, q);
 }
+
 
 
 function renderTable(filtered, q) {
