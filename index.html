@@ -1497,15 +1497,17 @@ async function handleFormSubmit(e) {
   const remark   = remarkInput.value.trim();
   const year     = yearInput.value;
   const status   = statusInput.value;
-  const festival = document.getElementById('festivalInput') ? document.getElementById('festivalInput').value : 'Janmashtami';
+  const festival = document.getElementById('festivalInput') ? document.getElementById('festivalInput').value : '';
 
   let hasError = false;
-  if (!name)   { showFieldError('name',   'Name is required.');              hasError = true; }
+  if (!name)     { showFieldError('name',          'Name is required.');              hasError = true; }
   if (!amountInput.value || isNaN(amount) || amount < 1)
-               { showFieldError('amount', 'Enter a valid amount (min ₹1).'); hasError = true; }
-  if (!area)   { showFieldError('area',   'Area is required.');              hasError = true; }
-  if (!year)   { showFieldError('year',   'Please select a year.');          hasError = true; }
-  if (!status) { showFieldError('status', 'Please select a status.');        hasError = true; }
+                 { showFieldError('amount',        'Enter a valid amount (min ₹1).'); hasError = true; }
+  if (!area)     { showFieldError('area',          'Area is required.');              hasError = true; }
+  if (!year)     { showFieldError('year',          'Please select a year.');          hasError = true; }
+  if (!status)   { showFieldError('status',        'Please select a status.');        hasError = true; }
+  if (!festival) { showFieldError('festivalInput', 'Please select a festival.');      hasError = true; }
+
   if (hasError) return;
 
   isSubmitting = true;
@@ -1540,6 +1542,7 @@ async function handleFormSubmit(e) {
 }
 
 
+
 // ════════════════════════════════════════════════════════════
 //  EXPENSE FORM SUBMIT
 // ════════════════════════════════════════════════════════════
@@ -1551,15 +1554,15 @@ async function handleExpenseFormSubmit(e) {
   const name     = expenseNameInput.value.trim();
   const amount   = parseFloat(expenseAmountInput.value);
   const year     = expenseYearInput.value;
-  const festival = getSelectedFestivalsFromElement('expenseFestival');
+  const festival = document.getElementById('expenseFestival') ? document.getElementById('expenseFestival').value : '';
 
   let hasError = false;
-  if (!name)
-    { showFieldError('expenseName',   'Expense name is required.');          hasError = true; }
+  if (!name)     { showFieldError('expenseName',     'Expense name is required.');     hasError = true; }
   if (!expenseAmountInput.value || isNaN(amount) || amount < 1)
-    { showFieldError('expenseAmount', 'Enter a valid amount (min ₹1).');     hasError = true; }
-  if (!year)
-    { showFieldError('expenseYear',   'Please select a year.');              hasError = true; }
+                 { showFieldError('expenseAmount',   'Enter a valid amount (min ₹1).'); hasError = true; }
+  if (!year)     { showFieldError('expenseYear',     'Please select a year.');         hasError = true; }
+  if (!festival) { showFieldError('expenseFestival', 'Please select a festival.');     hasError = true; }
+
   if (hasError) return;
 
   isSubmittingExp = true;
@@ -1639,15 +1642,16 @@ async function startEditRecord(id) {
   if (pwd !== DELETE_PASSWORD) {
     showNotification('❌ Wrong password. Edit not allowed.','error'); return;
   }
-
-  editRecordId.value        = record.id;
+ editRecordId.value        = record.id;
   nameInput.value           = record.name;
   amountInput.value         = record.amount;
   areaInput.value           = record.area;
   remarkInput.value         = record.remark || '';
   yearInput.value           = record.year;
   statusInput.value         = record.status;
-  setSelectedFestivalsInElement('festivalInput', record.festival);
+  if (document.getElementById('festivalInput')) {
+    document.getElementById('festivalInput').value = record.festival || 'Janmashtami';
+  }
 
   formTitle.textContent     = '✏️ Edit Donation Entry';
   submitBtnText.textContent = 'Update Entry';
@@ -1676,7 +1680,9 @@ async function startEditExpense(id) {
   expenseNameInput.value           = expense.name;
   expenseAmountInput.value         = expense.amount;
   expenseYearInput.value           = expense.year;
-  setSelectedFestivalsInElement('expenseFestival', expense.festival);
+  if (document.getElementById('expenseFestival')) {
+    document.getElementById('expenseFestival').value = expense.festival || 'Janmashtami';
+  }
 
   expenseFormTitle.textContent     = '✏️ Edit Expense / खर्चा संशोधित करें';
   submitExpenseBtnText.textContent = 'Update Expense';
