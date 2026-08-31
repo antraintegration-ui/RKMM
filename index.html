@@ -1885,28 +1885,27 @@ function renderFiltered() {
     return (!q || str.includes(q)) && (sFilter === 'all' || r.status === sFilter);
   });
 
-  // 3. Totals Calculation
-  let fReceived = 0, fPending = 0;
+  // 3. Pending Amount Calculation
+  let fPending = 0;
   filtered.forEach(r => {
     const amt = Number(r.amount) || 0;
-    if (r.status === 'Received') fReceived += amt;
-    else fPending += amt;
+    if (r.status !== 'Received') {
+      fPending += amt;
+    }
   });
-  const fTotal = fReceived + fPending;
 
-  // 4. Update Badge
+  // 4. Update Badge (केवल Records Count और Pending Amount दिखाएँ)
   const countBadge = document.getElementById('recordCountBadge');
   if (countBadge) {
     countBadge.innerHTML =
       filtered.length + ' Records' +
-      ' &nbsp;|&nbsp; <span style="color:#047857;font-weight:800;">Rec: ₹' + fReceived.toLocaleString('en-IN') + '</span>' +
-      ' &nbsp;|&nbsp; <span style="color:#b45309;font-weight:800;">Pend: ₹' + fPending.toLocaleString('en-IN') + '</span>' +
-      ' &nbsp;|&nbsp; <span style="color:#0e2a47;font-weight:800;">Total: ₹' + fTotal.toLocaleString('en-IN') + '</span>';
+      ' &nbsp;|&nbsp; <span style="color:#b45309;font-weight:800;">Pend: ₹' + fPending.toLocaleString('en-IN') + '</span>';
   }
 
   updateSummaryCards();
   renderTable(filtered, q);
 }
+
 
 function renderTable(filtered, q) {
   if (!filtered.length) {
