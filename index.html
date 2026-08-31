@@ -1383,10 +1383,10 @@ function getFilteredDonations() {
   const fYear  = yearEl ? yearEl.value : 'all';
 
   return allRecords.filter(r => {
-    const rFestStr = r.festival || 'Janmashtami';
-    const rFestArray = rFestStr.split(',').map(s => s.trim());
+    const rFest = r.festival || 'Janmashtami';
     
-    const festMatch = (fFest === 'all' || rFestArray.includes(fFest));
+    // केवल Exact Single Festival Match (या All)
+    const festMatch = (fFest === 'all' || rFest === fFest);
     const yearMatch = (fYear === 'all' || String(r.year) === fYear);
     return festMatch && yearMatch;
   });
@@ -1400,10 +1400,10 @@ function getFilteredExpenses() {
   const fYear  = yearEl ? yearEl.value : 'all';
 
   return allExpenses.filter(e => {
-    const eFestStr = e.festival || 'Janmashtami';
-    const eFestArray = eFestStr.split(',').map(s => s.trim());
+    const eFest = e.festival || 'Janmashtami';
     
-    const festMatch = (fFest === 'all' || eFestArray.includes(fFest));
+    // केवल Exact Single Festival Match (या All)
+    const festMatch = (fFest === 'all' || eFest === fFest);
     const yearMatch = (fYear === 'all' || String(e.year) === fYear);
     return festMatch && yearMatch;
   });
