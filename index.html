@@ -1055,29 +1055,80 @@ function switchMainTab(tab) {
 //  GLOBAL YEAR FILTER
 // ════════════════════════════════════════════════════════════
 function populateGlobalYearFilter() {
-  const sel = document.getElementById('globalYearSelect');
-  if (!sel) return;
+  // ── Year Dropdown ──
+  const yearSel = document.getElementById('globalYearSelect');
+  if (yearSel) {
+    const donYears = allRecords.map(r => String(r.year)).filter(Boolean);
+    const expYears = allExpenses.map(e => String(e.year)).filter(Boolean);
+    const allYears = [...new Set([...donYears, ...expYears])].sort();
 
-  // सभी years collect करो — donations + expenses दोनों से
-  const donYears = allRecords.map(r => String(r.year)).filter(Boolean);
-  const expYears = allExpenses.map(e => String(e.year)).filter(Boolean);
-  const allYears = [...new Set([...donYears, ...expYears])].sort();
+    const currentYear = yearSel.value;
+    yearSel.innerHTML = '<option value="all">📋 All Years / सभी वर्ष</option>';
+    allYears.forEach(y => {
+      const opt = document.createElement('option');
+      opt.value = y;
+      opt.textContent = y;
+      yearSel.appendChild(opt);
+    });
+    if (allYears.includes(currentYear)) yearSel.value = currentYear;
+  }
 
-  // Current value save करो
-  const current = sel.value;
+  // ── Festival Dropdown (Global Filter) ──
+  const festSel = document.getElementById('globalFestivalSelect');
+  if (festSel) {
+    // सभी festivals collect करो — donations + expenses दोनों से
+    const donFests = allRecords.map(r => (r.festival || '').trim()).filter(f => f && f !== 'undefined');
+    const expFests = allExpenses.map(e => (e.festival || '').trim()).filter(f => f && f !== 'undefined');
+    const allFests = [...new Set([...donFests, ...expFests])].sort();
 
-  // Options rebuild करो
-  sel.innerHTML = '<option value="all">📋 All Years / सभी वर्ष</option>';
-  allYears.forEach(y => {
-    const opt = document.createElement('option');
-    opt.value = y;
-    opt.textContent = '📅 ' + y;
-    sel.appendChild(opt);
-  });
+    const currentFest = festSel.value;
+    festSel.innerHTML = '<option value="all">🎉 All Festivals / सभी त्योहार</option>';
+    allFests.forEach(f => {
+      const opt = document.createElement('option');
+      opt.value = f;
+      opt.textContent = f;
+      festSel.appendChild(opt);
+    });
+    if (allFests.includes(currentFest)) festSel.value = currentFest;
+  }
 
-  // Previous selection restore करो
-  if (allYears.includes(current)) sel.value = current;
+  // ── Form Festival Dropdowns (Donation + Expense) ──
+  const donFests2 = allRecords.map(r => (r.festival || '').trim()).filter(f => f && f !== 'undefined');
+  const expFests2 = allExpenses.map(e => (e.festival || '').trim()).filter(f => f && f !== 'undefined');
+  const defaults  = ['Janmashtami', 'Navratri', 'Ganesh Chaturthi', 'Diwali', 'Holi', 'Other'];
+  const formFests = [...new Set([...defaults, ...donFests2, ...expFests2])].sort();
+
+  // Donation Form Festival Dropdown
+  const donFestEl = document.getElementById('festivalInput');
+  if (donFestEl) {
+    const cv = donFestEl.value;
+    donFestEl.innerHTML = '<option value="">-- Select Festival --</option>';
+    formFests.forEach(f => {
+      const opt = document.createElement('option');
+      opt.value = f;
+      opt.textContent = f;
+      if (f === cv) opt.selected = true;
+      donFestEl.appendChild(opt);
+    });
+    if (!cv) donFestEl.value = '';
+  }
+
+  // Expense Form Festival Dropdown
+  const expFestEl = document.getElementById('expenseFestival');
+  if (expFestEl) {
+    const cv = expFestEl.value;
+    expFestEl.innerHTML = '<option value="">-- Select Festival --</option>';
+    formFests.forEach(f => {
+      const opt = document.createElement('option');
+      opt.value = f;
+      opt.textContent = f;
+      if (f === cv) opt.selected = true;
+      expFestEl.appendChild(opt);
+    });
+    if (!cv) expFestEl.value = '';
+  }
 }
+
 
 function applyGlobalYear() {
   const sel = document.getElementById('globalYearSelect');
