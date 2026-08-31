@@ -1808,7 +1808,7 @@ function renderFiltered() {
         && (sFilter === 'all' || r.status === sFilter);
   });
 
-  // 2. Filtered Dataset में से Received और Pending का Total Sum निकालें
+  // 2. Filtered Dataset में से Received, Pending और Total Sum निकालें
   let fReceived = 0, fPending = 0;
   filtered.forEach(r => {
     const amt = Number(r.amount) || 0;
@@ -1818,19 +1818,22 @@ function renderFiltered() {
       fPending += amt;
     }
   });
+  const fTotal = fReceived + fPending; // Total = Received + Pending
 
-  // 3. Donation Records के ठीक बगल वाले Badge (id="recordCountBadge") में Display करें
+  // 3. Donation Records के पास बने Badge (id="recordCountBadge") पर Display करें
   const countBadge = document.getElementById('recordCountBadge');
   if (countBadge) {
     countBadge.innerHTML =
       filtered.length + ' Records' +
       ' &nbsp;|&nbsp; <span style="color:#047857;font-weight:800;">Rec: ₹' + fReceived.toLocaleString('en-IN') + '</span>' +
-      ' &nbsp;|&nbsp; <span style="color:#b45309;font-weight:800;">Pend: ₹' + fPending.toLocaleString('en-IN') + '</span>';
+      ' &nbsp;|&nbsp; <span style="color:#b45309;font-weight:800;">Pend: ₹' + fPending.toLocaleString('en-IN') + '</span>' +
+      ' &nbsp;|&nbsp; <span style="color:#0e2a47;font-weight:800;">Total: ₹' + fTotal.toLocaleString('en-IN') + '</span>';
   }
 
   updateSummaryCards();
   renderTable(filtered, q);
 }
+
 
 
 
