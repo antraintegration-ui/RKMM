@@ -387,9 +387,270 @@ justify-content:space-between;
       transition:all .2s; -webkit-tap-highlight-color:transparent; }
     .toggle-records-btn:hover { transform:translateY(-1px);
       box-shadow:0 4px 12px rgba(14,42,71,0.3); }
+        /* ═══════════════════════════════════════════
+       🔐 LOGIN SYSTEM CSS
+       ═══════════════════════════════════════════ */
+    #loginOverlay {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 99999;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #0e2a47 0%, #1e4a7a 50%, #0e2a47 100%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-y: auto; padding: 20px; box-sizing: border-box;
+    }
+    #loginOverlay.hidden { display: none !important; }
+    .login-bg-anim { position:fixed; top:0; left:0; width:100%; height:100%;
+      overflow:hidden; z-index:0; pointer-events:none; }
+    .login-bg-anim span { position:absolute; display:block;
+      background:rgba(255,255,255,0.04); animation:lbAnimate 25s linear infinite;
+      bottom:-150px; border-radius:50%; }
+    .login-bg-anim span:nth-child(1){left:25%;width:80px;height:80px;animation-delay:0s;animation-duration:25s}
+    .login-bg-anim span:nth-child(2){left:10%;width:20px;height:20px;animation-delay:2s;animation-duration:12s}
+    .login-bg-anim span:nth-child(3){left:70%;width:20px;height:20px;animation-delay:4s;animation-duration:18s}
+    .login-bg-anim span:nth-child(4){left:40%;width:60px;height:60px;animation-delay:0s;animation-duration:18s}
+    .login-bg-anim span:nth-child(5){left:65%;width:20px;height:20px;animation-delay:0s;animation-duration:14s}
+    .login-bg-anim span:nth-child(6){left:75%;width:110px;height:110px;animation-delay:3s;animation-duration:28s}
+    @keyframes lbAnimate {
+      0% { transform:translateY(0) rotate(0deg); opacity:1; border-radius:0; }
+      100% { transform:translateY(-1000px) rotate(720deg); opacity:0; border-radius:50%; }
+    }
+    .login-card {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px; padding: 40px 36px;
+      width: 100%; max-width: 420px;
+      box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+      animation: lcIn 0.6s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes lcIn {
+      from { opacity:0; transform:translateY(40px) scale(0.95); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+    .login-logo-wrap { text-align:center; margin-bottom:24px; }
+    .login-logo-icon {
+      width:80px; height:80px;
+      background:linear-gradient(135deg,#d97706,#fbbf24);
+      border-radius:50%; display:inline-flex; align-items:center;
+      justify-content:center; font-size:36px; margin-bottom:12px;
+      box-shadow:0 8px 32px rgba(217,119,6,0.4);
+      overflow:hidden;
+    }
+    .login-logo-icon img { width:120%; height:120%; object-fit:cover;
+      object-position:center top; margin-left:-10%; margin-top:-10%; }
+    .login-app-name { font-size:18px; font-weight:800; color:#fff;
+      line-height:1.3; }
+    .login-app-sub { font-size:11px; color:rgba(255,255,255,0.5);
+      margin-top:4px; letter-spacing:1.5px; text-transform:uppercase; }
+    .login-divider { height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+      margin:20px 0; }
+    .login-heading { font-size:13px; font-weight:600; color:rgba(255,255,255,0.6);
+      text-align:center; margin-bottom:20px; }
+    .login-field { margin-bottom:16px; }
+    .login-field label { display:block; font-size:11px; font-weight:700;
+      color:rgba(255,255,255,0.6); margin-bottom:6px;
+      letter-spacing:0.8px; text-transform:uppercase; }
+    .login-input-wrap { position:relative; display:flex; align-items:center; }
+    .login-input-icon { position:absolute; left:13px; font-size:15px;
+      color:rgba(255,255,255,0.4); pointer-events:none; z-index:1; }
+    .login-field input {
+      width:100%; padding:12px 42px 12px 40px;
+      background:rgba(255,255,255,0.08);
+      border:1.5px solid rgba(255,255,255,0.12);
+      border-radius:12px; color:#fff; font-size:14px;
+      outline:none; transition:all 0.3s ease; box-sizing:border-box;
+    }
+    .login-field input::placeholder { color:rgba(255,255,255,0.25); }
+    .login-field input:focus {
+      background:rgba(255,255,255,0.12);
+      border-color:rgba(217,119,6,0.7);
+      box-shadow:0 0 0 3px rgba(217,119,6,0.15);
+    }
+    .login-field input.inp-error { border-color:rgba(239,68,68,0.7); }
+    .login-toggle-pw {
+      position:absolute; right:12px; background:none; border:none;
+      color:rgba(255,255,255,0.4); cursor:pointer; font-size:15px;
+      padding:4px; transition:color 0.2s; z-index:2;
+    }
+    .login-toggle-pw:hover { color:rgba(255,255,255,0.8); }
+    .login-error-box {
+      background:rgba(239,68,68,0.12);
+      border:1px solid rgba(239,68,68,0.3);
+      border-radius:10px; padding:10px 13px;
+      font-size:13px; color:#fca5a5;
+      margin-bottom:14px; display:none;
+      align-items:center; gap:8px;
+      animation:shakeErr 0.4s ease;
+    }
+    .login-error-box.show { display:flex; }
+    @keyframes shakeErr {
+      0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)}
+      40%{transform:translateX(6px)} 60%{transform:translateX(-4px)}
+      80%{transform:translateX(4px)}
+    }
+    .login-btn {
+      width:100%; padding:13px;
+      background:linear-gradient(135deg,#d97706,#fbbf24,#d97706);
+      background-size:200% auto;
+      border:none; border-radius:12px; color:#1a1a1a;
+      font-size:15px; font-weight:800; cursor:pointer;
+      transition:all 0.3s ease; margin-top:4px;
+      box-shadow:0 6px 20px rgba(217,119,6,0.35);
+      display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .login-btn:hover:not(:disabled) {
+      background-position:right center;
+      transform:translateY(-2px);
+      box-shadow:0 10px 28px rgba(217,119,6,0.5);
+    }
+    .login-btn:disabled { opacity:0.7; cursor:not-allowed; transform:none; }
+    .login-spinner {
+      width:16px; height:16px;
+      border:2.5px solid rgba(26,26,26,0.3);
+      border-top-color:#1a1a1a; border-radius:50%;
+      animation:lspinAnim 0.7s linear infinite;
+    }
+    @keyframes lspinAnim { to { transform:rotate(360deg); } }
+    .login-sess-check { text-align:center; padding:20px 0; }
+    .login-sess-check .big-spin {
+      width:48px; height:48px;
+      border:4px solid rgba(255,255,255,0.1);
+      border-top-color:#d97706; border-radius:50%;
+      animation:lspinAnim 0.8s linear infinite;
+      margin:0 auto 14px;
+    }
+    .login-sess-check p { color:rgba(255,255,255,0.55); font-size:13px; }
+
+    /* ── Auth Top Bar ── */
+    #authTopBar {
+      position:fixed; top:0; right:0; z-index:9999;
+      display:flex; align-items:center; gap:8px; padding:7px 14px;
+      background:rgba(14,42,71,0.92); backdrop-filter:blur(10px);
+      border-bottom-left-radius:12px;
+      border-left:1px solid rgba(255,255,255,0.1);
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+    #userInfoBadge {
+      display:inline-flex; align-items:center; gap:7px;
+      padding:5px 10px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:20px; color:rgba(255,255,255,0.8); font-size:12px;
+      font-weight:600;
+    }
+    .user-av {
+      width:24px; height:24px;
+      background:linear-gradient(135deg,#d97706,#fbbf24);
+      border-radius:50%; display:flex; align-items:center;
+      justify-content:center; font-size:11px; font-weight:800; color:#1a1a1a;
+    }
+    #logoutBtn {
+      display:inline-flex; align-items:center; gap:5px;
+      padding:7px 13px;
+      background:linear-gradient(135deg,#ff416c,#ff4b2b);
+      border:none; border-radius:8px; color:#fff;
+      font-size:12px; font-weight:700; cursor:pointer;
+      transition:all 0.2s; box-shadow:0 3px 10px rgba(255,65,108,0.3);
+    }
+    #logoutBtn:hover { transform:translateY(-1px);
+      box-shadow:0 5px 15px rgba(255,65,108,0.45); }
+
+    /* ── Logout Confirm Modal ── */
+    #logoutModal {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      z-index:999999; display:none;
+      align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.6); backdrop-filter:blur(4px);
+    }
+    #logoutModal.show { display:flex; }
+    .logout-mc {
+      background:linear-gradient(135deg,#0e2a47,#1e4a7a);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:20px; padding:30px 26px;
+      text-align:center; max-width:320px; width:90%;
+      box-shadow:0 20px 60px rgba(0,0,0,0.5);
+      animation:lcIn 0.3s ease;
+    }
+    .logout-mc .lo-icon { font-size:44px; margin-bottom:12px; display:block; }
+    .logout-mc h3 { color:#fff; font-size:17px; margin-bottom:6px; }
+    .logout-mc p { color:rgba(255,255,255,0.5); font-size:13px; margin-bottom:22px; }
+    .logout-btns { display:flex; gap:10px; }
+    .lo-cancel {
+      flex:1; padding:10px; background:rgba(255,255,255,0.07);
+      border:1px solid rgba(255,255,255,0.12); border-radius:10px;
+      color:rgba(255,255,255,0.75); font-size:13px; font-weight:700;
+      cursor:pointer; transition:all 0.2s;
+    }
+    .lo-cancel:hover { background:rgba(255,255,255,0.12); }
+    .lo-confirm {
+      flex:1; padding:10px;
+      background:linear-gradient(135deg,#ff416c,#ff4b2b);
+      border:none; border-radius:10px; color:#fff;
+      font-size:13px; font-weight:700; cursor:pointer;
+      transition:all 0.2s;
+    }
+    .lo-confirm:hover { transform:translateY(-1px);
+      box-shadow:0 5px 15px rgba(255,65,108,0.4); }
+
+    @media (max-width:480px) {
+      .login-card { padding:28px 20px; }
+      #authTopBar { padding:5px 9px; gap:5px; }
+      #userInfoBadge { font-size:11px; }
+      #logoutBtn { font-size:11px; padding:6px 10px; }
+    }
+
   </style>
 </head>
 <body>
+  <div id="loginOverlay">
+<div class="login-bg-anim"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="login-card" id="sessCheckCard"><div class="login-sess-check"><div class="big-spin"></div><p>Session verify हो रहा है...</p></div></div>
+<div class="login-card" id="loginFormCard" style="display:none;">
+<div class="login-logo-wrap">
+<div class="login-logo-icon">🕉️</div>
+<div class="login-app-name">Radha Krishna Mitra Mandal</div>
+<div class="login-app-sub">Member Portal</div>
+</div>
+<div class="login-divider"></div>
+<div class="login-heading">अपने account में login करें</div>
+<div class="login-error-box" id="loginErrBox"><span>⚠️</span><span id="loginErrText">Invalid credentials</span></div>
+<div class="login-field">
+<label>Username / User ID</label>
+<div class="login-input-wrap">
+<span class="login-input-icon">👤</span>
+<input type="text" id="loginUsername" placeholder="अपना username दर्ज करें" autocomplete="username" autocapitalize="none" spellcheck="false">
+</div>
+</div>
+<div class="login-field">
+<label>Password</label>
+<div class="login-input-wrap">
+<span class="login-input-icon">🔒</span>
+<input type="password" id="loginPassword" placeholder="अपना password दर्ज करें" autocomplete="current-password">
+<button type="button" class="login-toggle-pw" id="toggleLoginPw" title="Show/Hide">👁️</button>
+</div>
+</div>
+<button class="login-btn" id="loginSubmitBtn" onclick="handleLogin()"><span id="loginBtnContent">🔐 Login करें</span></button>
+</div>
+</div>
+<div id="authTopBar" style="display:none;">
+<div id="userInfoBadge"><div class="user-av" id="userAvatar">A</div><span id="userDisplayName">User</span></div>
+<button id="logoutBtn" onclick="confirmLogout()">🚪 Logout</button>
+</div>
+<div id="logoutModal">
+<div class="logout-mc">
+<span class="lo-icon">🚪</span>
+<h3>Logout करें?</h3>
+<p>क्या आप logout करना चाहते हैं?</p>
+<div class="logout-btns">
+<button class="lo-cancel" onclick="closeLogoutModal()">रद्द करें</button>
+<button class="lo-confirm" onclick="doLogout()">हाँ, Logout</button>
+</div>
+</div>
+</div>
+
 <div class="container">
 
   <!-- ===== HEADER ===== -->
@@ -904,7 +1165,7 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
 // ════════════════════════════════════════════════════════════
 //  CONFIGURATION
 // ════════════════════════════════════════════════════════════
-const API_URL              = 'https://script.google.com/macros/s/AKfycbz7B_iwQdgOEJBvFDJ9P3dzf15HiT4ZBV02tu2xFx7D3eHTerPZoLFhnDimiwXFjQmw-Q/exec';
+const API_URL              = 'https://script.google.com/macros/s/AKfycbyUuFooK4wnZ7LMWv-OA_xiaMUuv85odioKcIs6_7BHLgIadYTKIDMS3S4L4O-NXnO8fA/exec';
 const DELETE_PASSWORD      = 'vodafone@123';
 const FINANCIAL_VIEW_PASSWORD = 'vodafone@123'; // ← financial view password (change here)
 const LOCAL_EXPENSES_KEY   = 'rkmm_expenses_v1';
@@ -2385,6 +2646,302 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 30000);
 
 });
+  // ═══════════════════════════════════════════
+// 🔐 LOGIN SYSTEM - CONFIGURATION
+// ═══════════════════════════════════════════
+const AUTH_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7B_iwQdgOEJBvFDJ9P3dzf15HiT4ZBV02tu2xFx7D3eHTerPZoLFhnDimiwXFjQmw-Q/exec';
+const SESSION_KEY = 'rkmm_auth_session';
+const SESSION_EXPIRY_KEY = 'rkmm_auth_expiry';
+const USER_INFO_KEY = 'rkmm_user_info';
+
+// ═══════════════════════════════════════════
+// 🔐 SESSION MANAGEMENT
+// ═══════════════════════════════════════════
+function saveSession(token, userInfo, expiresAt) {
+  try {
+    localStorage.setItem(SESSION_KEY, token);
+    localStorage.setItem(SESSION_EXPIRY_KEY, expiresAt);
+    localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo));
+  } catch(e) { console.error('Session save error:', e); }
+}
+
+function clearSession() {
+  try {
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(SESSION_EXPIRY_KEY);
+    localStorage.removeItem(USER_INFO_KEY);
+  } catch(e) {}
+}
+
+function getStoredSession() {
+  try {
+    const token = localStorage.getItem(SESSION_KEY);
+    const expiry = localStorage.getItem(SESSION_EXPIRY_KEY);
+    const userInfo = localStorage.getItem(USER_INFO_KEY);
+    if (!token || !expiry) return null;
+    if (new Date() > new Date(expiry)) {
+      clearSession();
+      return null;
+    }
+    return {
+      token: token,
+      expiresAt: expiry,
+      user: userInfo ? JSON.parse(userInfo) : {}
+    };
+  } catch(e) { return null; }
+}
+
+// ═══════════════════════════════════════════
+// 🔐 AUTH API CALL
+// ═══════════════════════════════════════════
+async function authApiCall(body) {
+  const response = await fetch(AUTH_SCRIPT_URL, {
+    method: 'POST',
+    redirect: 'follow',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(body)
+  });
+  if (!response.ok) throw new Error('Network error: ' + response.status);
+  const text = await response.text();
+  try { return JSON.parse(text); }
+  catch(e) { throw new Error('Invalid response from server'); }
+}
+
+// ═══════════════════════════════════════════
+// 🔐 SHOW LOGIN / SHOW DASHBOARD
+// ═══════════════════════════════════════════
+function showLoginPage() {
+  const overlay = document.getElementById('loginOverlay');
+  const sessCard = document.getElementById('sessCheckCard');
+  const loginCard = document.getElementById('loginFormCard');
+  const topBar = document.getElementById('authTopBar');
+  const container = document.querySelector('.container');
+
+  if (overlay) overlay.classList.remove('hidden');
+  if (sessCard) sessCard.style.display = 'none';
+  if (loginCard) loginCard.style.display = 'block';
+  if (topBar) topBar.style.display = 'none';
+  if (container) container.style.display = 'none';
+
+  setTimeout(function() {
+    const uEl = document.getElementById('loginUsername');
+    if (uEl) uEl.focus();
+  }, 300);
+}
+
+function showDashboard(userInfo) {
+  const overlay = document.getElementById('loginOverlay');
+  const topBar = document.getElementById('authTopBar');
+  const container = document.querySelector('.container');
+
+  if (overlay) overlay.classList.add('hidden');
+  if (topBar) topBar.style.display = 'flex';
+  if (container) container.style.display = 'flex';
+
+  const name = userInfo ? (userInfo.name || userInfo.username || 'User') : 'User';
+  const initial = name.charAt(0).toUpperCase();
+
+  const avatarEl = document.getElementById('userAvatar');
+  const nameEl = document.getElementById('userDisplayName');
+  if (avatarEl) avatarEl.textContent = initial;
+  if (nameEl) nameEl.textContent = name;
+}
+
+// ═══════════════════════════════════════════
+// 🔐 SESSION CHECK ON PAGE LOAD
+// ═══════════════════════════════════════════
+async function checkSessionOnLoad() {
+  const overlay = document.getElementById('loginOverlay');
+  const sessCard = document.getElementById('sessCheckCard');
+  const loginCard = document.getElementById('loginFormCard');
+  const container = document.querySelector('.container');
+
+  if (overlay) overlay.classList.remove('hidden');
+  if (sessCard) sessCard.style.display = 'block';
+  if (loginCard) loginCard.style.display = 'none';
+  if (container) container.style.display = 'none';
+
+  const stored = getStoredSession();
+  if (!stored) {
+    showLoginPage();
+    return;
+  }
+
+  try {
+    const result = await authApiCall({
+      action: 'verifySession',
+      token: stored.token
+    });
+
+    if (result && result.valid === true) {
+      showDashboard(result.user || stored.user);
+    } else {
+      clearSession();
+      showLoginPage();
+    }
+  } catch(err) {
+    console.warn('Session verify error (using cached):', err);
+    if (stored && stored.user) {
+      showDashboard(stored.user);
+    } else {
+      showLoginPage();
+    }
+  }
+}
+
+// ═══════════════════════════════════════════
+// 🔐 HANDLE LOGIN
+// ═══════════════════════════════════════════
+async function handleLogin() {
+  const usernameEl = document.getElementById('loginUsername');
+  const passwordEl = document.getElementById('loginPassword');
+  const errBox = document.getElementById('loginErrBox');
+  const errText = document.getElementById('loginErrText');
+  const btnContent = document.getElementById('loginBtnContent');
+  const submitBtn = document.getElementById('loginSubmitBtn');
+
+  if (!usernameEl || !passwordEl) return;
+
+  const username = usernameEl.value.trim();
+  const password = passwordEl.value;
+
+  if (errBox) errBox.classList.remove('show');
+  usernameEl.classList.remove('inp-error');
+  passwordEl.classList.remove('inp-error');
+
+  if (!username) {
+    usernameEl.classList.add('inp-error');
+    showLoginError('Username दर्ज करें।');
+    usernameEl.focus();
+    return;
+  }
+  if (!password) {
+    passwordEl.classList.add('inp-error');
+    showLoginError('Password दर्ज करें।');
+    passwordEl.focus();
+    return;
+  }
+
+  if (submitBtn) submitBtn.disabled = true;
+  if (btnContent) btnContent.innerHTML = '<div class="login-spinner"></div> Verifying...';
+
+  try {
+    const result = await authApiCall({
+      action: 'login',
+      username: username,
+      password: password
+    });
+
+    if (result && result.success === true) {
+      saveSession(result.token, result.user, result.expiresAt);
+      showDashboard(result.user);
+      setTimeout(function() { fetchRecords(); }, 500);
+    } else {
+      const msg = result ? (result.message || 'Invalid credentials') : 'Login failed';
+      showLoginError(msg);
+      usernameEl.classList.add('inp-error');
+      passwordEl.classList.add('inp-error');
+      passwordEl.value = '';
+      passwordEl.focus();
+    }
+  } catch(err) {
+    showLoginError('Server error। पुनः प्रयास करें। (' + err.message + ')');
+  } finally {
+    if (submitBtn) submitBtn.disabled = false;
+    if (btnContent) btnContent.innerHTML = '🔐 Login करें';
+  }
+}
+
+function showLoginError(msg) {
+  const errBox = document.getElementById('loginErrBox');
+  const errText = document.getElementById('loginErrText');
+  if (errText) errText.textContent = msg;
+  if (errBox) errBox.classList.add('show');
+}
+
+// ═══════════════════════════════════════════
+// 🔐 LOGOUT
+// ═══════════════════════════════════════════
+function confirmLogout() {
+  const modal = document.getElementById('logoutModal');
+  if (modal) modal.classList.add('show');
+}
+
+function closeLogoutModal() {
+  const modal = document.getElementById('logoutModal');
+  if (modal) modal.classList.remove('show');
+}
+
+async function doLogout() {
+  const stored = getStoredSession();
+  closeLogoutModal();
+
+  if (stored && stored.token) {
+    try {
+      await authApiCall({ action: 'logout', token: stored.token });
+    } catch(e) { console.warn('Logout API error:', e); }
+  }
+
+  clearSession();
+  financialUnlocked = false;
+  allRecords = [];
+  allExpenses = [];
+
+  const usernameEl = document.getElementById('loginUsername');
+  const passwordEl = document.getElementById('loginPassword');
+  const errBox = document.getElementById('loginErrBox');
+  if (usernameEl) usernameEl.value = '';
+  if (passwordEl) passwordEl.value = '';
+  if (errBox) errBox.classList.remove('show');
+
+  showLoginPage();
+}
+
+// ═══════════════════════════════════════════
+// 🔐 PASSWORD SHOW/HIDE
+// ═══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+  var toggleBtn = document.getElementById('toggleLoginPw');
+  var pwdInput = document.getElementById('loginPassword');
+  if (toggleBtn && pwdInput) {
+    toggleBtn.addEventListener('click', function() {
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        toggleBtn.textContent = '🙈';
+      } else {
+        pwdInput.type = 'password';
+        toggleBtn.textContent = '👁️';
+      }
+    });
+  }
+
+  var loginPwd = document.getElementById('loginPassword');
+  if (loginPwd) {
+    loginPwd.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleLogin();
+    });
+  }
+
+  var loginUser = document.getElementById('loginUsername');
+  if (loginUser) {
+    loginUser.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        var pwd = document.getElementById('loginPassword');
+        if (pwd) pwd.focus();
+      }
+    });
+  }
+
+  var logoutModal = document.getElementById('logoutModal');
+  if (logoutModal) {
+    logoutModal.addEventListener('click', function(e) {
+      if (e.target === logoutModal) closeLogoutModal();
+    });
+  }
+
+  checkSessionOnLoad();
+});
+
 </script>
 </body>
 </html>
