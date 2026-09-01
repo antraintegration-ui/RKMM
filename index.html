@@ -561,7 +561,7 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
             <input type="text" id="remark" placeholder="e.g. Cash / Online / UPI"
                    autocomplete="off" inputmode="text">
           </div>
-                                                  <div class="form-group">
+                                                           <div class="form-group">
             <label for="festivalInput">Festival / त्योहार *</label>
             <select id="festivalInput">
               <option value="">-- Select Festival --</option>
@@ -574,6 +574,7 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
             </select>
             <span class="field-error" id="festivalInputError">Please select a festival.</span>
           </div>
+
 
 
 
@@ -727,7 +728,7 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
           </div>
           <div class="form-group">
             <label for="expenseYear">Year *</label>
-                                                  <div class="form-group">
+                                                           <div class="form-group">
             <label for="expenseFestival">Festival / त्योहार *</label>
             <select id="expenseFestival">
               <option value="">-- Select Festival --</option>
@@ -740,6 +741,7 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
             </select>
             <span class="field-error" id="expenseFestivalError">Please select a festival.</span>
           </div>
+
 
 
 
@@ -1075,12 +1077,11 @@ function populateGlobalYearFilter() {
     if (allYears.includes(currentYear)) yearSel.value = currentYear;
   }
 
-  // ── 2. Standard Festivals List (यह हमेशा बने रहेंगे) ──
+  // ── 2. Standard Festivals List (सभी त्यौहार स्थायी रहेंगे) ──
   const standardFestivals = ['Janmashtami', 'Navratri', 'Ganesh Chaturthi', 'Diwali', 'Holi', 'Other'];
   const donFests = allRecords.map(r => (r.festival || '').trim()).filter(f => f && f !== 'undefined');
   const expFests = allExpenses.map(e => (e.festival || '').trim()).filter(f => f && f !== 'undefined');
   
-  // Standard Festivals + Database Festivals का यूनिक कॉम्बिनेशन
   const allFests = [...new Set([...standardFestivals, ...donFests, ...expFests])];
 
   // ── 3. Global Festival Dropdown Update ──
@@ -1478,7 +1479,6 @@ function syncFormFestivalWithGlobal() {
   const donFestEl = document.getElementById('festivalInput');
   const expFestEl = document.getElementById('expenseFestival');
 
-  // अगर Edit Mode चालू नहीं है, तभी Form का Festival Sync करें
   const isDonEdit = editRecordId && editRecordId.value.trim() !== '';
   const isExpEdit = editExpenseId && editExpenseId.value.trim() !== '';
 
