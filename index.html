@@ -1724,6 +1724,20 @@ function resetExpenseFormState() {
 }
 
 
+function resetExpenseFormState() {
+  expenseForm.reset();
+  editExpenseId.value              = '';
+  expenseFormTitle.textContent     = '➕ Add New Expense / खर्चा जोड़ें';
+  submitExpenseBtnText.textContent = '➕ Add Expense / खर्चा जोड़ें';
+  cancelExpenseBtn.style.display   = 'none';
+  expenseFormCard.classList.remove('edit-mode');
+  ['expenseName','expenseAmount','expenseYear','expenseFestival'].forEach(clearFieldError);
+
+  // Form Reset के बाद Global Festival से Dynamic Sync करें
+  syncFormFestivalWithGlobal();
+}
+
+
 // ════════════════════════════════════════════════════════════
 //  EDIT DONATION
 // ════════════════════════════════════════════════════════════
@@ -2360,11 +2374,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // ── Load Local Expenses First ──
   loadLocalExpenses();
 
-   // ── Initial Tab & Data Load ──
+    // ── Initial Tab & Data Load ──
   syncFormFestivalWithGlobal();
   switchMainTab('donation');
   fetchRecords();
-
 
   // ── Auto Refresh Every 30 Seconds ──
   setInterval(function() {
