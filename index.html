@@ -561,11 +561,11 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
             <input type="text" id="remark" placeholder="e.g. Cash / Online / UPI"
                    autocomplete="off" inputmode="text">
           </div>
-                                        <div class="form-group">
+                                                  <div class="form-group">
             <label for="festivalInput">Festival / त्योहार *</label>
             <select id="festivalInput">
               <option value="">-- Select Festival --</option>
-              <option value="Janmashtami" selected>Janmashtami</option>
+              <option value="Janmashtami">Janmashtami</option>
               <option value="Navratri">Navratri</option>
               <option value="Ganesh Chaturthi">Ganesh Chaturthi</option>
               <option value="Diwali">Diwali</option>
@@ -574,6 +574,7 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAFUCAYAAAAKxmpuAAAQAElEQ
             </select>
             <span class="field-error" id="festivalInputError">Please select a festival.</span>
           </div>
+
 
 
 
@@ -726,11 +727,11 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
           </div>
           <div class="form-group">
             <label for="expenseYear">Year *</label>
-                                         <div class="form-group">
+                                                  <div class="form-group">
             <label for="expenseFestival">Festival / त्योहार *</label>
             <select id="expenseFestival">
               <option value="">-- Select Festival --</option>
-              <option value="Janmashtami" selected>Janmashtami</option>
+              <option value="Janmashtami">Janmashtami</option>
               <option value="Navratri">Navratri</option>
               <option value="Ganesh Chaturthi">Ganesh Chaturthi</option>
               <option value="Diwali">Diwali</option>
@@ -739,6 +740,7 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
             </select>
             <span class="field-error" id="expenseFestivalError">Please select a festival.</span>
           </div>
+
 
 
 
@@ -1461,6 +1463,27 @@ function getFilteredExpenses() {
 }
 
 
+// Global Festival selection को Donation और Expense Forms से dynamically sync करने का Function
+function syncFormFestivalWithGlobal() {
+  const globalFestEl = document.getElementById('globalFestivalSelect');
+  const globalFest   = globalFestEl ? globalFestEl.value : 'all';
+
+  const donFestEl = document.getElementById('festivalInput');
+  const expFestEl = document.getElementById('expenseFestival');
+
+  // अगर Edit Mode चालू नहीं है, तभी Form का Festival Sync करें
+  const isDonEdit = editRecordId && editRecordId.value.trim() !== '';
+  const isExpEdit = editExpenseId && editExpenseId.value.trim() !== '';
+
+  if (donFestEl && !isDonEdit) {
+    donFestEl.value = (globalFest !== 'all') ? globalFest : '';
+  }
+
+  if (expFestEl && !isExpEdit) {
+    expFestEl.value = (globalFest !== 'all') ? globalFest : '';
+  }
+}
+
 function applyGlobalFilters() {
   const festEl = document.getElementById('globalFestivalSelect');
   const yearEl = document.getElementById('globalYearSelect');
@@ -1476,11 +1499,15 @@ function applyGlobalFilters() {
     }
   }
 
+  // Forms का Festival dropdown dynamic sync करें
+  syncFormFestivalWithGlobal();
+
   updateSummaryCards();
   if (recordsVisible) renderFiltered();
   renderExpensesFiltered();
   if (graphVisible) renderAreaChart();
 }
+
 
 // ════════════════════════════════════════════════════════════
 //  UPDATE SUMMARY CARDS — Year-wise calculation
@@ -1661,6 +1688,8 @@ async function handleExpenseFormSubmit(e) {
 // ════════════════════════════════════════════════════════════
 //  RESET FORM STATES
 // ════════════════════════════════════════════════════════════
+
+
 function resetFormState() {
   chandaForm.reset();
   editRecordId.value           = '';
@@ -1668,7 +1697,10 @@ function resetFormState() {
   submitBtnText.textContent    = 'Add Donation';
   cancelBtn.style.display      = 'none';
   formCard.classList.remove('edit-mode');
-  ['name','amount','area','year','status'].forEach(clearFieldError);
+  ['name','amount','area','year','status','festivalInput'].forEach(clearFieldError);
+
+  // Form Reset के बाद Global Festival से Dynamic Sync करें
+  syncFormFestivalWithGlobal();
 }
 
 function resetExpenseFormState() {
@@ -1678,8 +1710,12 @@ function resetExpenseFormState() {
   submitExpenseBtnText.textContent = '➕ Add Expense / खर्चा जोड़ें';
   cancelExpenseBtn.style.display   = 'none';
   expenseFormCard.classList.remove('edit-mode');
-  ['expenseName','expenseAmount','expenseYear'].forEach(clearFieldError);
+  ['expenseName','expenseAmount','expenseYear','expenseFestival'].forEach(clearFieldError);
+
+  // Form Reset के बाद Global Festival से Dynamic Sync करें
+  syncFormFestivalWithGlobal();
 }
+
 
 // ════════════════════════════════════════════════════════════
 //  EDIT DONATION
@@ -2317,9 +2353,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // ── Load Local Expenses First ──
   loadLocalExpenses();
 
-  // ── Initial Tab & Data Load ──
+   // ── Initial Tab & Data Load ──
+  syncFormFestivalWithGlobal();
   switchMainTab('donation');
   fetchRecords();
+
 
   // ── Auto Refresh Every 30 Seconds ──
   setInterval(function() {
