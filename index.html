@@ -601,6 +601,70 @@ justify-content:space-between;
       #userInfoBadge { font-size:11px; }
       #logoutBtn { font-size:11px; padding:6px 10px; }
     }
+    /* ═══════════════════════════════════════════
+       👥 USER MANAGEMENT CSS
+       ═══════════════════════════════════════════ */
+    #userMgmtBtn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 13px;
+      background: linear-gradient(135deg, #d97706, #fbbf24);
+      border: none; border-radius: 8px; color: #1a1a1a;
+      font-size: 12px; font-weight: 800; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 3px 10px rgba(217,119,6,0.3);
+    }
+    #userMgmtBtn:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(217,119,6,0.45); }
+
+    .um-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px); z-index: 999999;
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px; opacity: 0; pointer-events: none; transition: opacity .25s ease;
+    }
+    .um-modal-overlay.show { opacity: 1; pointer-events: all; }
+    
+    .um-modal-box {
+      background: #ffffff; border-radius: 20px;
+      max-width: 650px; width: 100%; max-height: 85vh;
+      display: flex; flex-direction: column; overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+      transform: translateY(20px) scale(0.97); transition: transform .25s ease;
+    }
+    .um-modal-overlay.show .um-modal-box { transform: translateY(0) scale(1); }
+
+    .um-modal-header {
+      background: linear-gradient(135deg,#0e2a47,#1e4a7a);
+      color: #fff; padding: 18px 22px; display: flex; align-items: center;
+      justify-content: space-between; flex-shrink: 0;
+    }
+    .um-modal-header h3 { font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 8px; margin: 0; }
+    .um-close-btn {
+      background: rgba(255,255,255,0.15); border: none; color: #fff;
+      width: 32px; height: 32px; border-radius: 50%; font-size: 1.1rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .um-close-btn:hover { background: rgba(255,255,255,0.3); }
+
+    .um-modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+
+    .badge-user-status {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-weight: 700; font-size: .72rem; letter-spacing: .3px; text-transform: uppercase;
+    }
+    .badge-user-status.active { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+    .badge-user-status.inactive { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+    .btn-um-action {
+      padding: 6px 10px; font-size: .75rem; border-radius: 6px;
+      font-weight: 700; border: none; cursor: pointer; transition: all .15s;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .btn-um-pwd { background: #eff6ff; color: #2563eb; }
+    .btn-um-pwd:hover { background: #2563eb; color: #fff; }
+    .btn-um-toggle-off { background: #fef2f2; color: #dc2626; }
+    .btn-um-toggle-off:hover { background: #dc2626; color: #fff; }
+    .btn-um-toggle-on { background: #ecfdf5; color: #059669; }
+    .btn-um-toggle-on:hover { background: #059669; color: #fff; }
 
   </style>
 </head>
@@ -637,8 +701,10 @@ justify-content:space-between;
 </div>
 <div id="authTopBar" style="display:none;">
 <div id="userInfoBadge"><div class="user-av" id="userAvatar">A</div><span id="userDisplayName">User</span></div>
+<button id="userMgmtBtn" onclick="openUserMgmtModal()" style="display:none;">👥 Users</button>
 <button id="logoutBtn" onclick="confirmLogout()">🚪 Logout</button>
 </div>
+
 <div id="logoutModal">
 <div class="logout-mc">
 <span class="lo-icon">🚪</span>
@@ -1165,7 +1231,7 @@ background:linear-gradient(135deg,#ff6600,#ff8c00);
 // ════════════════════════════════════════════════════════════
 //  CONFIGURATION
 // ════════════════════════════════════════════════════════════
-const API_URL              = 'https://script.google.com/macros/s/AKfycbyb-PT-RU9ImYn1_CJJ_3GGmJZkRftXsuJ6FA6nknS780n6X37J8sHHIuhVbKTvNT8mIw/exec';
+const API_URL              = 'https://script.google.com/macros/s/AKfycbwUlUvnmgV0Kxde8-ryUy_GrOaoK_-hkAxevCTr5iTW2wjVvgZ1ak2U1Q7TdzSuBaKBhA/exec';
 const DELETE_PASSWORD      = 'vodafone@123';
 const FINANCIAL_VIEW_PASSWORD = 'vodafone@123'; // ← financial view password (change here)
 const LOCAL_EXPENSES_KEY   = 'rkmm_expenses_v1';
@@ -2649,7 +2715,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ═══════════════════════════════════════════
 // 🔐 LOGIN SYSTEM - CONFIGURATION
 // ═══════════════════════════════════════════
-const AUTH_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb-PT-RU9ImYn1_CJJ_3GGmJZkRftXsuJ6FA6nknS780n6X37J8sHHIuhVbKTvNT8mIw/exec';
+const AUTH_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUlUvnmgV0Kxde8-ryUy_GrOaoK_-hkAxevCTr5iTW2wjVvgZ1ak2U1Q7TdzSuBaKBhA/exec';
 const SESSION_KEY = 'rkmm_auth_session';
 const SESSION_EXPIRY_KEY = 'rkmm_auth_expiry';
 const USER_INFO_KEY = 'rkmm_user_info';
@@ -2745,7 +2811,18 @@ function showDashboard(userInfo) {
   const nameEl = document.getElementById('userDisplayName');
   if (avatarEl) avatarEl.textContent = initial;
   if (nameEl) nameEl.textContent = name;
+
+  // 👥 केवल Admin यूज़र के लिए "Users" बटन दिखाएं
+  const userMgmtBtn = document.getElementById('userMgmtBtn');
+  if (userMgmtBtn) {
+    if (userInfo && userInfo.role === 'admin') {
+      userMgmtBtn.style.display = 'inline-flex';
+    } else {
+      userMgmtBtn.style.display = 'none';
+    }
+  }
 }
+
 
 // ═══════════════════════════════════════════
 // 🔐 SESSION CHECK ON PAGE LOAD
@@ -2941,7 +3018,246 @@ document.addEventListener('DOMContentLoaded', function() {
 
   checkSessionOnLoad();
 });
+// ═══════════════════════════════════════════
+// 👥 USER MANAGEMENT JAVASCRIPT LOGIC
+// ═══════════════════════════════════════════
 
+function openUserMgmtModal() {
+  const modal = document.getElementById('userMgmtModal');
+  if (modal) modal.classList.add('show');
+  loadUserMgmtList();
+}
+
+function closeUserMgmtModal() {
+  const modal = document.getElementById('userMgmtModal');
+  if (modal) modal.classList.remove('show');
+}
+
+async function loadUserMgmtList() {
+  const tbody = document.getElementById('userMgmtTableBody');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="5" class="text-center"><div class="empty-msg">Users लोड हो रहे हैं...</div></td></tr>';
+
+  const session = getStoredSession();
+  if (!session || !session.token) {
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center"><div class="empty-msg" style="color:var(--danger);">Session अमान्य है।</div></td></tr>';
+    return;
+  }
+
+  try {
+    const res = await authApiCall({
+      action: 'getAllUsers',
+      token: session.token
+    });
+
+    if (res && res.success && Array.isArray(res.users)) {
+      if (res.users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center"><div class="empty-msg">कोई यूजर नहीं मिला।</div></td></tr>';
+        return;
+      }
+      tbody.innerHTML = '';
+      res.users.forEach((u, i) => {
+        const tr = document.createElement('tr');
+        const isInactive = String(u.status).toLowerCase() === 'inactive';
+        const statusBadge = isInactive
+          ? '<span class="badge-user-status inactive">Inactive</span>'
+          : '<span class="badge-user-status active">Active</span>';
+        
+        const safeName = escapeHtml(u.name || u.username);
+        const toggleBtn = isInactive
+          ? `<button class="btn-um-action btn-um-toggle-on" onclick="toggleUserStatus('${u.id}', 'active', '${safeName}')">✅ Activate</button>`
+          : `<button class="btn-um-action btn-um-toggle-off" onclick="toggleUserStatus('${u.id}', 'inactive', '${safeName}')">🚫 Inactive</button>`;
+
+        tr.innerHTML = `
+          <td><div class="sr-num">${i + 1}</div></td>
+          <td><strong>${safeName}</strong><br><small style="color:var(--text-muted);">@${escapeHtml(u.username)}</small></td>
+          <td><span class="badge-year" style="text-transform:capitalize;">${escapeHtml(u.role || 'member')}</span></td>
+          <td>${statusBadge}</td>
+          <td style="text-align:right;white-space:nowrap;">
+            <button class="btn-um-action btn-um-pwd" onclick="openChangeUserPwdModal('${u.id}', '${safeName}')">🔑 Password</button>
+            ${toggleBtn}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    } else {
+      tbody.innerHTML = `<tr><td colspan="5" class="text-center"><div class="empty-msg" style="color:var(--danger);">${escapeHtml(res ? res.message : 'यूजर फेच करने में विफल')}</div></td></tr>`;
+    }
+  } catch(err) {
+    tbody.innerHTML = `<tr><td colspan="5" class="text-center"><div class="empty-msg" style="color:var(--danger);">Network Error: ${escapeHtml(err.message)}</div></td></tr>`;
+  }
+}
+
+// 🔑 Change User Password Handlers
+function openChangeUserPwdModal(userId, displayName) {
+  document.getElementById('targetUserId').value = userId;
+  document.getElementById('targetUserDisplayName').textContent = displayName;
+  document.getElementById('newAdminSetPwd').value = '';
+  document.getElementById('confirmAdminSetPwd').value = '';
+  
+  const err1 = document.getElementById('newAdminSetPwdErr');
+  const err2 = document.getElementById('confirmAdminSetPwdErr');
+  if (err1) err1.classList.remove('show');
+  if (err2) err2.classList.remove('show');
+
+  const modal = document.getElementById('changeUserPwdModal');
+  if (modal) modal.classList.add('show');
+  setTimeout(() => document.getElementById('newAdminSetPwd').focus(), 150);
+}
+
+function closeChangeUserPwdModal() {
+  const modal = document.getElementById('changeUserPwdModal');
+  if (modal) modal.classList.remove('show');
+}
+
+async function submitAdminChangePassword() {
+  const userId = document.getElementById('targetUserId').value;
+  const newPwd = document.getElementById('newAdminSetPwd').value;
+  const confPwd = document.getElementById('confirmAdminSetPwd').value;
+  const saveBtn = document.getElementById('saveUserPwdBtn');
+  const saveBtnText = document.getElementById('saveUserPwdBtnText');
+
+  const err1 = document.getElementById('newAdminSetPwdErr');
+  const err2 = document.getElementById('confirmAdminSetPwdErr');
+  if (err1) err1.classList.remove('show');
+  if (err2) err2.classList.remove('show');
+
+  if (!newPwd || newPwd.length < 4) {
+    if (err1) { err1.textContent = 'पासवर्ड कम से कम 4 अक्षरों का होना चाहिए'; err1.classList.add('show'); }
+    return;
+  }
+  if (newPwd !== confPwd) {
+    if (err2) { err2.textContent = 'पासवर्ड मैच नहीं हो रहे हैं'; err2.classList.add('show'); }
+    return;
+  }
+
+  const session = getStoredSession();
+  if (!session || !session.token) {
+    showNotification('❌ Session समाप्त हो गया है।', 'error');
+    return;
+  }
+
+  if (saveBtn) saveBtn.disabled = true;
+  if (saveBtnText) saveBtnText.innerHTML = '<div class="spinner" style="width:14px;height:14px;"></div> Saving...';
+
+  try {
+    const res = await authApiCall({
+      action: 'adminChangePassword',
+      token: session.token,
+      targetUserId: userId,
+      newPassword: newPwd
+    });
+
+    if (res && res.success) {
+      closeChangeUserPwdModal();
+      showNotification('✅ ' + (res.message || 'Password सफलतापूर्वक बदल गया!'), 'success');
+    } else {
+      showNotification('❌ ' + (res ? res.message : 'Password बदलने में विफलता'), 'error');
+    }
+  } catch(err) {
+    showNotification('❌ Network Error: ' + err.message, 'error');
+  } finally {
+    if (saveBtn) saveBtn.disabled = false;
+    if (saveBtnText) saveBtnText.textContent = '💾 Save Password';
+  }
+}
+
+// 🚫 Active / Inactive Toggle Handler
+async function toggleUserStatus(userId, newStatus, displayName) {
+  const actionText = newStatus === 'inactive' ? 'Inactive' : 'Activate';
+  if (!confirm(`क्या आप निश्चित रूप से "${displayName}" को ${actionText} करना चाहते हैं?`)) {
+    return;
+  }
+
+  const session = getStoredSession();
+  if (!session || !session.token) {
+    showNotification('❌ Session समाप्त हो गया है।', 'error');
+    return;
+  }
+
+  try {
+    const res = await authApiCall({
+      action: 'adminToggleStatus',
+      token: session.token,
+      targetUserId: userId,
+      newStatus: newStatus
+    });
+
+    if (res && res.success) {
+      showNotification('✅ ' + res.message, 'success');
+      loadUserMgmtList();
+    } else {
+      showNotification('❌ ' + (res ? res.message : 'Status बदलने में विफलता'), 'error');
+    }
+  } catch(err) {
+    showNotification('❌ Network Error: ' + err.message, 'error');
+  }
+}
+
+  
 </script>
+  <!-- ===== 👥 USER MANAGEMENT MODAL ===== -->
+<div class="um-modal-overlay" id="userMgmtModal">
+  <div class="um-modal-box">
+    <div class="um-modal-header">
+      <h3>👥 User Management (यूजर प्रबंधन)</h3>
+      <button class="um-close-btn" onclick="closeUserMgmtModal()">✕</button>
+    </div>
+    <div class="um-modal-body">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name / Username</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th style="text-align:right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="userMgmtTableBody">
+            <tr><td colspan="5" class="text-center"><div class="empty-msg">Users लोड हो रहे हैं...</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 🔑 CHANGE USER PASSWORD MODAL ===== -->
+<div class="um-modal-overlay" id="changeUserPwdModal">
+  <div class="um-modal-box" style="max-width: 380px;">
+    <div class="um-modal-header">
+      <h3>🔑 Change User Password</h3>
+      <button class="um-close-btn" onclick="closeChangeUserPwdModal()">✕</button>
+    </div>
+    <div class="um-modal-body">
+      <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:14px;">
+        यूजर: <strong id="targetUserDisplayName" style="color:var(--text-dark);">User</strong>
+      </p>
+      <input type="hidden" id="targetUserId" value="">
+      
+      <div class="form-group" style="margin-bottom:12px;">
+        <label for="newAdminSetPwd">New Password *</label>
+        <input type="password" id="newAdminSetPwd" placeholder="नया पासवर्ड दर्ज करें" autocomplete="off">
+        <span class="field-error" id="newAdminSetPwdErr">पासवर्ड दर्ज करें (कम से कम 4 अक्षर)</span>
+      </div>
+      
+      <div class="form-group" style="margin-bottom:16px;">
+        <label for="confirmAdminSetPwd">Confirm New Password *</label>
+        <input type="password" id="confirmAdminSetPwd" placeholder="पासवर्ड दोबारा दर्ज करें" autocomplete="off">
+        <span class="field-error" id="confirmAdminSetPwdErr">पासवर्ड मैच नहीं हो रहे हैं</span>
+      </div>
+
+      <div style="display:flex;gap:10px;">
+        <button class="btn-fin-cancel" onclick="closeChangeUserPwdModal()">रद्द करें</button>
+        <button class="btn-fin-submit" id="saveUserPwdBtn" onclick="submitAdminChangePassword()">
+          <span id="saveUserPwdBtnText">💾 Save Password</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
